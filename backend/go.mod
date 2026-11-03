@@ -6,6 +6,7 @@ require (
 	github.com/SherClockHolmes/webpush-go v1.4.0
 	github.com/pocketbase/dbx v1.12.0
 	github.com/pocketbase/pocketbase v0.40.5
+	github.com/selfhostit/food v0.0.0-20261103223925-3e97e21ac43f
 )
 
 require (
