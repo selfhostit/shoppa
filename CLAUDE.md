@@ -22,10 +22,6 @@ serving a Svelte 5 + Tailwind web app (`web/`).
 - Heavy work (ML, scraping, LLM calls) goes in a Python worker under `workers/` that uses
   `plasto_worker.Client`; workers write records, Go hooks react. Allow workers in API rules
   with `@request.auth.collectionName = "workers"`.
-<!-- DEMO start -->
-- Demo code is marked `DEMO`: files that start with a `DEMO:` comment, lines that end in
-  a `DEMO` comment, and `DEMO start`/`DEMO end` blocks. `scripts/strip-demo.sh` removes it.
-<!-- DEMO end -->
 - `docs/first-feature.md` walks through adding a feature across every layer.
 - Deploy files are in `deploy/` (see `docs/deploy.md`); `make smoke` runs the images with
   `deploy/docker-compose.yml` end to end, and CI runs it on every PR.

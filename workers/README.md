@@ -59,11 +59,6 @@ SHOPPA_URL=http://localhost:8090 SHOPPA_WORKER=... SHOPPA_WORKER_PASSWORD=... uv
 
 Add `--once` for a single round.
 
-<!-- DEMO start -->
-`demo.py` adds an item to the demo list every five minutes; the app shows it
-live and sends everyone else a push notification.
-<!-- DEMO end -->
-
 ## Tests
 
 `uv run pytest` builds the app from `../backend`, starts it on a free port and

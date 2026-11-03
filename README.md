@@ -35,11 +35,6 @@ email and password. Add more people there, in the `users` collection.
 - **Python workers** for the heavy lifting (ML, scraping, LLMs), on this machine or
   another. They sign in with a worker account and read and write records through
   the API; see [workers/README.md](workers/README.md).
-<!-- DEMO start -->
-- **A demo** that uses every piece: a live items list on the home screen, a worker
-  that adds to it, and a push notification for each new item.
-  `scripts/strip-demo.sh` removes it.
-<!-- DEMO end -->
 - **An installable app.** It installs to a phone's home screen or a desktop, opens
   offline from its cached shell, and follows the system's light or dark mode.
 
