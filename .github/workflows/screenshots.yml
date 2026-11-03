@@ -1,0 +1,65 @@
+name: Screenshots
+
+# Phone screenshots of the main screens, in light and dark, from a fresh app
+# filled with a household's list (web/scripts/screenshots.mjs). Each pull
+# request gets them on the branch screenshots/<its branch>, which reviews and
+# the README link to; nothing is committed to the pull request itself.
+
+on:
+  pull_request:
+    paths: ['web/**', 'backend/**', '.github/workflows/screenshots.yml']
+
+concurrency:
+  group: screenshots-${{ github.head_ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  screenshots:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: backend/go.mod
+          cache-dependency-path: backend/go.sum
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Build the app
+        run: |
+          (cd web && npm ci)
+          make build
+      - name: Start it with an empty database
+        run: |
+          cd dist
+          ./shoppa serve --http=127.0.0.1:8090 --dir="$RUNNER_TEMP/pb_data" > "$RUNNER_TEMP/shoppa.log" 2>&1 &
+          for _ in $(seq 30); do curl -fs http://127.0.0.1:8090/api/health && break; sleep 1; done
+      - name: Take the screenshots
+        working-directory: web
+        env:
+          TZ: Europe/Brussels
+        run: |
+          npm i --no-save playwright
+          npx playwright install --with-deps chromium
+          node scripts/screenshots.mjs "$RUNNER_TEMP/shots"
+      - name: Server log
+        if: failure()
+        run: cat "$RUNNER_TEMP/shoppa.log"
+      - name: Publish them on screenshots/${{ github.head_ref }}
+        env:
+          BRANCH: screenshots/${{ github.head_ref }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+          TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/shots"
+          git init -q -b "$BRANCH"
+          git add .
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -qm "Screenshots of $SHA"
+          git push -qf "https://x-access-token:$TOKEN@github.com/$GITHUB_REPOSITORY.git" "HEAD:refs/heads/$BRANCH"
