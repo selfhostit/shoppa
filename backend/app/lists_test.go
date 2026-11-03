@@ -28,7 +28,7 @@ func newList(t testing.TB, a core.App, name string) string {
 
 // send makes a JSON request as a person, checks its status and returns the
 // body.
-func send(t testing.TB, a *tests.TestApp, want int, method, url, token, body string) map[string]any {
+func send(t *testing.T, a *tests.TestApp, want int, method, url, token, body string) map[string]any {
 	t.Helper()
 	var got map[string]any
 	s := tests.ApiScenario{
