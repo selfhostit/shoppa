@@ -1,8 +1,7 @@
 # CLAUDE.md
 
-plasto is a template for self-hosted apps: a Go backend on PocketBase (`backend/`)
-serving a Svelte 5 + Tailwind web app (`web/`). Decisions and the build plan are in
-`docs/decisions.md`.
+shoppa is a self-hosted app built on the plasto template: a Go backend on PocketBase (`backend/`)
+serving a Svelte 5 + Tailwind web app (`web/`).
 
 ## Commands
 
@@ -27,12 +26,6 @@ serving a Svelte 5 + Tailwind web app (`web/`). Decisions and the build plan are
 - Demo code is marked `DEMO`: files that start with a `DEMO:` comment, lines that end in
   a `DEMO` comment, and `DEMO start`/`DEMO end` blocks. `scripts/strip-demo.sh` removes it.
 <!-- DEMO end -->
-<!-- TEMPLATE start -->
-- Parts that only make sense in the template itself are marked `TEMPLATE start`/`TEMPLATE end`;
-  `scripts/rename.sh` removes them. The `template` CI job makes an app with `rename.sh` and
-  `strip-demo.sh` and runs its checks and tests, so keep both scripts working.
-- `docs/first-feature.md` is tested by hand: when its code drifts from the template, update it.
-<!-- TEMPLATE end -->
 - `docs/first-feature.md` walks through adding a feature across every layer.
 - Deploy files are in `deploy/` (see `docs/deploy.md`); `make smoke` runs the images with
   `deploy/docker-compose.yml` end to end, and CI runs it on every PR.

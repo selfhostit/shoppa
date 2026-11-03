@@ -6,9 +6,9 @@ from plasto_worker import Client
 
 def test_demo_adds_an_item(server, worker, monkeypatch):
     name, password = worker
-    monkeypatch.setenv("PLASTO_URL", server)
-    monkeypatch.setenv("PLASTO_WORKER", name)
-    monkeypatch.setenv("PLASTO_WORKER_PASSWORD", password)
+    monkeypatch.setenv("SHOPPA_URL", server)
+    monkeypatch.setenv("SHOPPA_WORKER", name)
+    monkeypatch.setenv("SHOPPA_WORKER_PASSWORD", password)
 
     demo.main(once=True)
 

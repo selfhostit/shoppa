@@ -1,6 +1,6 @@
 package app
 
-// DEMO: the items list that shows every part of plasto working together.
+// DEMO: the items list that shows every part of shoppa working together.
 // scripts/strip-demo.sh removes it.
 
 import (
@@ -8,7 +8,7 @@ import (
 
 	"github.com/pocketbase/pocketbase/core"
 
-	"github.com/selfhostit/plasto/push"
+	"github.com/selfhostit/shoppa/push"
 )
 
 // registerDemo records who added each item and tells everyone else about it.

@@ -86,16 +86,16 @@ func loadKeys(app core.App) (*keyPair, error) {
 }
 
 // contact goes in every message so push services know whom to reach about
-// problems: PLASTO_PUSH_CONTACT if set, otherwise the owner's email.
+// problems: SHOPPA_PUSH_CONTACT if set, otherwise the owner's email.
 func contact(app core.App) string {
-	if c := os.Getenv("PLASTO_PUSH_CONTACT"); c != "" {
+	if c := os.Getenv("SHOPPA_PUSH_CONTACT"); c != "" {
 		return c
 	}
 	owner, err := app.FindFirstRecordByFilter("users", "role = 'owner'")
 	if err == nil && owner.Email() != "" {
 		return "mailto:" + owner.Email()
 	}
-	return "https://github.com/selfhostit/plasto"
+	return "https://github.com/selfhostit/shoppa"
 }
 
 var client = &http.Client{Timeout: 15 * time.Second}
