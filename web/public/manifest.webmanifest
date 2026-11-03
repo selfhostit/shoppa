@@ -1,6 +1,6 @@
 {
-  "name": "plasto",
-  "short_name": "plasto",
+  "name": "shoppa",
+  "short_name": "shoppa",
   "description": "A self-hosted app built on plasto",
   "start_url": "/",
   "scope": "/",

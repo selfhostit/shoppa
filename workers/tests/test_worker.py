@@ -3,9 +3,9 @@ import worker as skeleton
 
 def test_worker_reports_in(server, admin, worker, monkeypatch):
     name, password = worker
-    monkeypatch.setenv("PLASTO_URL", server)
-    monkeypatch.setenv("PLASTO_WORKER", name)
-    monkeypatch.setenv("PLASTO_WORKER_PASSWORD", password)
+    monkeypatch.setenv("SHOPPA_URL", server)
+    monkeypatch.setenv("SHOPPA_WORKER", name)
+    monkeypatch.setenv("SHOPPA_WORKER_PASSWORD", password)
 
     skeleton.main(once=True)
 
