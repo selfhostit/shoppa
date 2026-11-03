@@ -158,7 +158,16 @@
     <ul class="flex flex-wrap gap-2">
       {#each recent as item (item.id)}
         <li>
-          <button class="chip" onclick={() => shop.putBack(item)}>{item.name}</button>
+          <button class="chip" onclick={() => shop.putBack(item)}>
+            <svg
+              viewBox="0 0 24 24"
+              class="size-3.5 text-brand-600 dark:text-brand-400"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              aria-hidden="true"><path d="M12 5v14M5 12h14" stroke-linecap="round" /></svg
+            >{item.name}</button
+          >
         </li>
       {/each}
     </ul>
