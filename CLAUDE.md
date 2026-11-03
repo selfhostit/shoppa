@@ -1,7 +1,8 @@
 # CLAUDE.md
 
-shoppa is a self-hosted app built on the plasto template: a Go backend on PocketBase (`backend/`)
-serving a Svelte 5 + Tailwind web app (`web/`).
+Shoppa is a self-hosted shared shopping list for a household, built on the plasto
+template: a Go backend on PocketBase (`backend/`) serving a Svelte 5 + Tailwind web app
+(`web/`). The architecture and build plan are in `docs/plan.md`.
 
 ## Commands
 
