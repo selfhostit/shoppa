@@ -6,13 +6,17 @@ const PHOTOS = 'photos-v1';
 const photo = /^\/api\/app\/products\/[a-z0-9]+\/photo$/;
 const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png'];
 
+// the page's own scripts and styles too, so the very next visit opens offline
+async function cacheShell() {
+  const c = await caches.open(CACHE);
+  await c.addAll(SHELL);
+  const page = await (await c.match('/')).text();
+  const assets = [...page.matchAll(/(?:src|href)="(\/assets\/[^"]+)"/g)].map((m) => m[1]);
+  await c.addAll(assets);
+}
+
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches
-      .open(CACHE)
-      .then((c) => c.addAll(SHELL))
-      .then(() => self.skipWaiting()),
-  );
+  event.waitUntil(cacheShell().then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (event) => {
@@ -57,7 +61,7 @@ self.addEventListener('fetch', (event) => {
 
   // assets have hashed names, so a cached copy is always current
   event.respondWith(
-    caches.match(req).then(
+    caches.match(req, { ignoreVary: true }).then(
       (hit) =>
         hit ||
         fetch(req).then((res) => {
