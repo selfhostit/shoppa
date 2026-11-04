@@ -49,12 +49,22 @@ func registerLists(app core.App) {
 		if err := e.Next(); err != nil {
 			return err
 		}
+		if was && !is {
+			// put back on the list from recently bought
+			notices.added(e.App, e.Record, personID(e.Auth))
+		}
 		if !was && is {
 			if err := addPurchase(e.App, e.Record, personID(e.Auth)); err != nil {
 				e.App.Logger().Error("saving a purchase", "item", e.Record.Id, "error", err)
 			}
 		}
 		return nil
+	})
+
+	// a notification still waiting when the server stops is let go
+	app.OnTerminate().BindFunc(func(e *core.TerminateEvent) error {
+		notices.forget(e.App)
+		return e.Next()
 	})
 
 	// the first person to sign up gets a list to start with
@@ -158,9 +168,11 @@ func addItem(e *core.RequestEvent) error {
 	item, err := e.App.FindFirstRecordByFilter("items", "list = {:list} && key = {:key}",
 		dbx.Params{"list": in.List, "key": key})
 	status := http.StatusOK
+	news := false
 	switch {
 	case err == nil:
 		if item.GetBool("checked") {
+			news = true
 			item.Set("checked", false)
 			item.Set("checked_by", "")
 			item.Set("added_by", personID(e.Auth))
@@ -183,6 +195,7 @@ func addItem(e *core.RequestEvent) error {
 		}
 		item.Set("added_by", personID(e.Auth))
 		status = http.StatusCreated
+		news = true
 	default:
 		return err
 	}
@@ -194,6 +207,9 @@ func addItem(e *core.RequestEvent) error {
 	}
 	if err := e.App.Save(item); err != nil {
 		return e.BadRequestError("That item can't be saved.", err)
+	}
+	if news {
+		notices.added(e.App, item, personID(e.Auth))
 	}
 	if product != nil {
 		// a pinned product picked again comes first next time

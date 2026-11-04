@@ -148,6 +148,12 @@ class Shop {
 
   /** Opens the copy on this phone, then loads from the server and listens for changes. */
   async start() {
+    // a tapped notification opens its list
+    const asked = new URLSearchParams(location.search).get('list');
+    if (asked) {
+      this.choose(asked);
+      history.replaceState(null, '', location.pathname + location.hash);
+    }
     const me = session.user?.id ?? '';
     this.copy = new DeviceCopy(me);
     this.snap = this.copy.snapshot();
@@ -302,13 +308,18 @@ class Shop {
   }
 
   async open(listId: string) {
+    this.choose(listId);
+    await this.run(() => this.loadItems());
+  }
+
+  /** Makes a list the open one, here and next time the app opens. */
+  private choose(listId: string) {
     this.listId = listId;
     try {
       localStorage.setItem(currentKey, listId);
     } catch {
       // private browsing: it's only a convenience
     }
-    await this.run(() => this.loadItems());
   }
 
   /** Queues a change to an item, shows it at once, and sends it if it can. */

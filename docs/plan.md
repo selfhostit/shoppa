@@ -45,7 +45,9 @@ photos, so the list looks the same offline. Signing out forgets the copy on the 
 "Anna added 3 items to Groceries." The server collects the items a person adds to a
 list and sends one notification after two quiet minutes, or five minutes at most.
 Each list has its own notification tag, so a newer one replaces the older one on the
-phone instead of piling up.
+phone instead of piling up. Items ticked off or removed before it goes out are left
+out, a ticked off item put back counts as added, and each person reads the item names
+in their own language. Tapping it opens that list.
 
 ## Food data
 
@@ -149,8 +151,8 @@ Each step is one PR that leaves the app working.
 
 ## Progress
 
-**Now:** 1.9 push, grouped
-**Next:** 1.10 README, screenshots, org profile, website
+**Now:** 1.10 README, screenshots, org profile, website
+**Next:** 1.11 running on the Synology, used for a week
 **Blocked:** nothing
 
 ### 0. Agree before code
@@ -169,7 +171,7 @@ Each step is one PR that leaves the app working.
 - [x] 1.6 Barcode scan, pin a generic item to a product (#14, #15)
 - [x] 1.7 Check off, recently bought (#10)
 - [x] 1.8 Offline (#17)
-- [ ] 1.9 Push, grouped (#PR)
+- [x] 1.9 Push, grouped (#18)
 - [ ] 1.10 README, screenshots, org profile, website (#PR)
 - [ ] 1.11 Running on the Synology, used for a week
 
