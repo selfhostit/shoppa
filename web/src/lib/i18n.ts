@@ -43,6 +43,14 @@ export const en = {
   'scan.unknown.placeholder': 'What is it?',
   'scan.unknown.add': 'Add',
 
+  'pin.usual': 'Your usual',
+  'pin.which': 'Which one?',
+  'pin.hint': 'Pick the one you buy. Next time, “{name}” suggests it first.',
+  'pin.search': 'Search products',
+  'pin.forget': 'Forget {name} as your usual',
+  'pin.none': 'No products found for that.',
+  'pin.noother': 'No other products found.',
+
   'item.title': 'Item',
   'item.name': 'Name',
   'item.quantity': 'How many',

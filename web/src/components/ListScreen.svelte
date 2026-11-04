@@ -5,6 +5,7 @@
   import { itemKey, parseEntry, recentlyBought, toBuy, type Item } from '../lib/list';
   import type { Product } from '../lib/products';
   import { productLine, productName } from '../lib/products';
+  import { usualFor } from '../lib/pins';
   import { shop } from '../lib/shop.svelte';
   import ItemSheet from './ItemSheet.svelte';
   import Thumb from './Thumb.svelte';
@@ -42,6 +43,9 @@
     return () => clearTimeout(timer);
   });
   const onListProducts = $derived(new Set(open.map((i) => i.product).filter(Boolean)));
+  // the household's own choices for what is suggested come first
+  const usual = $derived(usualFor(shop.pins, suggestions));
+  const others = $derived(found.filter((p) => !usual.some((u) => u.id === p.id)));
 
   onMount(() => {
     shop.start();
@@ -137,6 +141,9 @@
       class="card absolute inset-x-0 top-full z-10 mt-2 max-h-[70dvh] divide-y divide-zinc-100 overflow-y-auto p-0 shadow-lg dark:divide-zinc-800"
       aria-label={t('list.suggestions')}
     >
+      {#each usual as p (p.id)}
+        {@render productRow(p, true)}
+      {/each}
       {#each suggestions as g (g.id)}
         <li>
           <button
@@ -163,32 +170,14 @@
           </button>
         </li>
       {/each}
-      {#if found.length}
+      {#if others.length}
         <li
           class="bg-zinc-50 px-4 pt-3 pb-1.5 text-xs font-semibold tracking-wide text-zinc-500 uppercase dark:bg-zinc-950/40 dark:text-zinc-400"
         >
           {t('list.products')}
         </li>
-        {#each found as p (p.id)}
-          <li>
-            <button
-              class="flex w-full items-center gap-3 px-4 py-2.5 text-left"
-              onclick={() => addThis(undefined, p)}
-            >
-              <Thumb product={p} />
-              <span class="flex min-w-0 flex-1 flex-col">
-                <span class="truncate font-medium">{productName(p, shop.lang)}</span>
-                <span class="truncate text-sm text-zinc-500 dark:text-zinc-400"
-                  >{productLine(p)}</span
-                >
-              </span>
-              {#if onListProducts.has(p.id)}
-                <span class="shrink-0 text-xs text-brand-700 dark:text-brand-400"
-                  >{t('list.onlist')}</span
-                >
-              {/if}
-            </button>
-          </li>
+        {#each others as p (p.id)}
+          {@render productRow(p, false)}
         {/each}
       {/if}
       {#if !typedIsGeneric}
@@ -339,3 +328,24 @@
 {#if scanning}
   <ScanSheet onclose={() => (scanning = false)} />
 {/if}
+
+{#snippet productRow(p: Product, mine: boolean)}
+  <li>
+    <button
+      class="flex w-full items-center gap-3 px-4 py-2.5 text-left"
+      onclick={() => addThis(undefined, p)}
+    >
+      <Thumb product={p} />
+      <span class="flex min-w-0 flex-1 flex-col">
+        <span class="truncate font-medium">{productName(p, shop.lang)}</span>
+        <span class="truncate text-sm text-zinc-500 dark:text-zinc-400">{productLine(p)}</span>
+      </span>
+      {#if mine || onListProducts.has(p.id)}
+        <span class="flex shrink-0 flex-col items-end text-xs text-brand-700 dark:text-brand-400">
+          {#if mine}<span class="font-medium">★ {t('pin.usual')}</span>{/if}
+          {#if onListProducts.has(p.id)}<span>{t('list.onlist')}</span>{/if}
+        </span>
+      {/if}
+    </button>
+  </li>
+{/snippet}

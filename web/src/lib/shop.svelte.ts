@@ -10,6 +10,7 @@ import {
 } from './catalogue';
 import { errorMessage, pb, type User } from './pb';
 import { listsInOrder, parseEntry, upsert, type Item, type List } from './list';
+import { pinnedFor, type Pin } from './pins';
 import { kindOf, productLine, productName, type Product } from './products';
 import { session } from './session.svelte';
 
@@ -31,6 +32,8 @@ class Shop {
   people = $state<User[]>([]);
   generics = $state<Generic[]>([]);
   sections = $state<Section[]>([]);
+  /** the household's choice of product for a generic item */
+  pins = $state<Pin[]>([]);
   /** the products on the list, by id, from the items' expand */
   products = $state<Record<string, Product>>({});
   listId = $state(remembered());
@@ -113,12 +116,14 @@ class Shop {
   async start() {
     this.error = '';
     try {
-      const [lists, people, generics, sections] = await Promise.all([
+      const [lists, people, generics, sections, pins] = await Promise.all([
         pb.collection<List>('lists').getFullList(),
         pb.collection<User>('users').getFullList({ sort: 'name' }),
         pb.collection<Generic>('generics').getFullList({ batch: 1000 }),
         pb.send<Section[]>('/api/app/sections', {}),
+        pb.collection<Pin>('pins').getFullList({ expand: 'product' }),
       ]);
+      this.pins = pins;
       this.lists = lists;
       this.people = people;
       this.generics = generics;
@@ -129,6 +134,13 @@ class Shop {
           this.lists = upsert(this.lists, record, action === 'delete');
           if (action === 'delete' && record.id === this.list?.id) this.loadItems();
         }),
+        await pb
+          .collection<Pin>('pins')
+          .subscribe(
+            '*',
+            ({ action, record }) => (this.pins = upsert(this.pins, record, action === 'delete')),
+            { expand: 'product' },
+          ),
         await pb.collection<Generic>('generics').subscribe('*', ({ action, record }) => {
           this.generics = upsert(this.generics, record, action === 'delete');
         }),
@@ -197,6 +209,37 @@ class Shop {
       });
       this.items = upsert(this.items, item);
     });
+  }
+
+  /** The products pinned for a generic item, the one bought most first. */
+  pinnedFor(generic: string): Product[] {
+    return pinnedFor(this.pins, generic);
+  }
+
+  /**
+   * Makes a generic item the exact product picked for it, and remembers the
+   * choice. When that product is already on the list, the two become one.
+   */
+  async pin(item: Item, product: Product) {
+    this.products = { ...this.products, [product.id]: product };
+    await this.run(async () => {
+      const kept = await pb.send<Item>(`/api/app/items/${item.id}/pin`, {
+        method: 'POST',
+        body: { product: product.id },
+      });
+      this.items = upsert(kept.id === item.id ? this.items : upsert(this.items, item, true), kept);
+    });
+  }
+
+  async unpin(generic: string, product: Product) {
+    const pin = this.pins.find((p) => p.generic === generic && p.product === product.id);
+    if (!pin) return;
+    const before = this.pins;
+    this.pins = upsert(this.pins, pin, true);
+    await this.run(
+      () => pb.collection('pins').delete(pin.id),
+      () => (this.pins = before),
+    );
   }
 
   /** The product with this barcode, or null when nobody knows it. */
