@@ -14,7 +14,7 @@ export const en = {
   'list.empty.title': 'Nothing on the list',
   'list.empty.body': 'Add what you need above. It shows up on every phone at once.',
   'list.done.title': 'All done!',
-  'list.done.body': 'Everything is in the cart. Karel will keep the bananas warm.',
+  'list.done.body': 'Everything is in the cart. Carty will keep the bananas warm.',
   'list.recent': 'Recently bought',
   'list.recent.hint': 'Tap to put it back on the list.',
   'list.tick': 'Tick off {name}',

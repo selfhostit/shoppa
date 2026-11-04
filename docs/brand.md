@@ -17,9 +17,9 @@ All files are SVG in `web/public/brand/` unless noted, so the web app serves the
 | `web/public/icons/*.png` | PWA and home-screen icons, rendered from the SVGs |
 | `icon-maskable.svg` | Full-bleed icon source for `icon-maskable-512.png` and `apple-touch-icon.png` |
 | `mark.svg` | The cart alone, on transparent, for next to text |
-| `karel.svg` | Mascot, default (happy) |
-| `karel-thinking.svg` | Mascot while searching or looking a barcode up |
-| `karel-cheer.svg` | Mascot for a list that's all done, with groceries sticking out |
+| `carty.svg` | Mascot, default (happy) |
+| `carty-thinking.svg` | Mascot while searching or looking a barcode up |
+| `carty-cheer.svg` | Mascot for a list that's all done, with groceries sticking out |
 | `avatar-default.svg` | User avatar before they add a photo (light theme) |
 | `avatar-default-dark.svg` | Same, for dark theme |
 
@@ -45,18 +45,18 @@ rsvg-convert -w 180 brand/icon-maskable.svg -o icons/apple-touch-icon.png
 - Don't recolor the cart per screen, add outlines or shadows, or stretch it.
 - The name is written **Shoppa** in text.
 
-## Mascot: Karel
+## Mascot: Carty
 
-Karel is a small Flemish shopping cart with a face on the front of his basket. He rolls
+Carty (short for Mr. Shopping Carty) is a small Flemish shopping cart with a face on the front of his basket. He rolls
 along in empty states, while searching, and when a list is done.
 
 - Voice: friendly, short, a little cheeky, never fussy. He talks about the shopping,
   not about the people doing it. Example: "All done! See you next week, I'll keep the
   bananas warm."
-- Pick the state that matches the moment: `karel` to talk, `karel-thinking` while
-  searching or scanning, `karel-cheer` for a finished list. A full basket is part of
+- Pick the state that matches the moment: `carty` to talk, `carty-thinking` while
+  searching or scanning, `carty-cheer` for a finished list. A full basket is part of
   the cheer: it is kept for wins.
-- Karel is the app's own voice. People get `avatar-default` until they add a photo.
+- Carty is the app's own voice. People get `avatar-default` until they add a photo.
 
 ## Color
 
@@ -69,7 +69,7 @@ Tailwind class.
 | Buttons and links | `#047857` | `emerald-700` (`brand-600` in `app.css`) |
 | Soft fills, the basket | `#d1fae5` | `emerald-100` |
 | Cream background | `#ecfdf5` | `emerald-50` |
-| Ink (Karel's face, wheels) | `#022c22` | `emerald-950` |
+| Ink (Carty's face, wheels) | `#022c22` | `emerald-950` |
 | Accent (sparkles, highlights) | `#fbbf24` | `amber-400` |
 
 `--color-brand-*` in `web/src/app.css` maps the brand to emerald. Buttons use `brand-600`
