@@ -184,7 +184,7 @@ await page.goto(base);
 await page.getByLabel('Email').fill('ben@example.com');
 await page.getByLabel('Password').fill(password);
 await page.getByRole('button', { name: 'Sign in' }).click();
-await page.getByRole('button', { name: 'Tick off Lait' }).waitFor();
+await page.getByRole('button', { name: 'Tick off Lait' }).first().waitFor();
 await page.screenshot({ path: `${out}/list-fr.png` });
 await page.close();
 await browser.close();
