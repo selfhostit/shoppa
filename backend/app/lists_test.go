@@ -74,8 +74,8 @@ func TestAddingAnItemTwiceKeepsOne(t *testing.T) {
 		return send(t, a, want, http.MethodPost, "/api/app/items", token, body)
 	}
 
-	melk := add(http.StatusCreated, adaToken, `{"list":"`+list+`","name":"  Halfvolle   melk ","quantity":"2×"}`)
-	if melk["name"] != "Halfvolle melk" || melk["quantity"] != "2×" || melk["added_by"] != ada.Id || melk["checked"] != false {
+	melk := add(http.StatusCreated, adaToken, `{"list":"`+list+`","name":"  Verse   boerenmelk ","quantity":"2×"}`)
+	if melk["name"] != "Verse boerenmelk" || melk["quantity"] != "2×" || melk["added_by"] != ada.Id || melk["checked"] != false {
 		t.Fatalf("melk %v", melk)
 	}
 	if _, sent := melk["key"]; sent {
@@ -83,7 +83,7 @@ func TestAddingAnItemTwiceKeepsOne(t *testing.T) {
 	}
 
 	// the same thing, written differently, is the same item; a note sent along is kept
-	again := add(http.StatusOK, bobToken, `{"list":"`+list+`","name":"halfvolle MÉLK","note":"the big one"}`)
+	again := add(http.StatusOK, bobToken, `{"list":"`+list+`","name":"verse BOERENMÉLK","note":"the big one"}`)
 	if again["id"] != melk["id"] || again["note"] != "the big one" || again["quantity"] != "2×" || again["added_by"] != ada.Id {
 		t.Fatalf("again %v", again)
 	}
@@ -100,13 +100,13 @@ func TestAddingAnItemTwiceKeepsOne(t *testing.T) {
 	if err := a.Save(item); err != nil {
 		t.Fatal(err)
 	}
-	back := add(http.StatusOK, bobToken, `{"list":"`+list+`","name":"Halfvolle melk"}`)
+	back := add(http.StatusOK, bobToken, `{"list":"`+list+`","name":"Verse boerenmelk"}`)
 	if back["id"] != melk["id"] || back["checked"] != false || back["added_by"] != bob.Id || back["note"] != "the big one" {
 		t.Fatalf("back %v", back)
 	}
 
 	// the same name on another list is another item
-	party := add(http.StatusCreated, bobToken, `{"list":"`+newList(t, a, "Party")+`","name":"Halfvolle melk"}`)
+	party := add(http.StatusCreated, bobToken, `{"list":"`+newList(t, a, "Party")+`","name":"Verse boerenmelk"}`)
 	if party["id"] == melk["id"] {
 		t.Fatalf("party %v", party)
 	}
@@ -150,7 +150,7 @@ func TestTickingOffKeepsAPurchase(t *testing.T) {
 		t.Fatalf("ticked %v", ticked)
 	}
 	purchases, err := a.FindAllRecords("purchases", dbx.HashExp{"item": item["id"]})
-	if err != nil || len(purchases) != 1 || purchases[0].GetString("by") != ada.Id || purchases[0].GetString("key") != "bananen" {
+	if err != nil || len(purchases) != 1 || purchases[0].GetString("by") != ada.Id || purchases[0].GetString("key") != "g:bananas" {
 		t.Fatalf("purchases %v, %v", purchases, err)
 	}
 
@@ -178,8 +178,9 @@ func TestRenamingToAnItemOnTheList(t *testing.T) {
 	brood := send(t, a, http.StatusCreated, http.MethodPost, "/api/app/items", token, `{"list":"`+list+`","name":"Brood"}`)
 	url := "/api/collections/items/records/" + brood["id"].(string)
 
-	send(t, a, http.StatusBadRequest, http.MethodPatch, url, token, `{"name":"kaas"}`)
-	if renamed := send(t, a, http.StatusOK, http.MethodPatch, url, token, `{"name":"Volkoren brood"}`); renamed["name"] != "Volkoren brood" {
+	// "kaas" is the generic cheese, which is already on the list
+	send(t, a, http.StatusBadRequest, http.MethodPatch, url, token, `{"name":"kaas","generic":""}`)
+	if renamed := send(t, a, http.StatusOK, http.MethodPatch, url, token, `{"name":"Volkoren brood","generic":""}`); renamed["name"] != "Volkoren brood" {
 		t.Errorf("renamed %v", renamed)
 	}
 }

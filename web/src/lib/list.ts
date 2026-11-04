@@ -10,6 +10,8 @@ export interface List extends RecordModel {
 export interface Item extends RecordModel {
   list: string;
   name: string;
+  /** the generic item it is, if any: then it shows in each person's language */
+  generic: string;
   quantity: string;
   note: string;
   checked: boolean;

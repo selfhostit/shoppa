@@ -7,6 +7,8 @@ export interface User extends RecordModel {
   email: string;
   name: string;
   role: 'owner' | 'member' | '';
+  /** the language item names show in; empty until picked */
+  lang: 'en' | 'nl' | 'fr' | '';
 }
 
 /** Turns an API error into a sentence to show the user. */

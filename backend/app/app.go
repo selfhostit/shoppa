@@ -28,12 +28,14 @@ func Register(app core.App, cfg Config) {
 	app.Cron().SetTimezone(time.Local)
 
 	registerLists(app)
+	registerGenerics(app)
 
 	app.OnServe().BindFunc(func(se *core.ServeEvent) error {
 		se.Router.GET("/api/app/info", info)
 		registerSetupRoutes(se)
 		registerWorkerRoutes(se)
 		registerListRoutes(se)
+		registerGenericRoutes(se)
 		push.RegisterRoutes(se)
 
 		// Serve the web app, falling back to index.html for client-side routes.
