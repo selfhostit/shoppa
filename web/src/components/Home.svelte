@@ -1,57 +1,68 @@
 <script lang="ts">
-  import { pb } from '../lib/pb';
-  import { install } from '../lib/install.svelte';
-  import { session } from '../lib/session.svelte';
-  import Notifications from './Notifications.svelte';
+  import { onMount } from 'svelte';
+  import { t } from '../lib/i18n';
+  import ListScreen from './ListScreen.svelte';
+  import Me from './Me.svelte';
 
-  const user = $derived(session.user!);
-  const version = pb
-    .send<{ version: string }>('/api/app/info', {})
-    .then((i) => i.version)
-    .catch(() => '');
+  // The signed-in app: tabs, each with its own #address so Back works.
+  const tabs = [
+    {
+      id: 'list',
+      label: t('tab.list'),
+      icon: 'M4 5h2l2.2 10h10l2-7H7M10 19.5a1 1 0 1 0 0-.01M17 19.5a1 1 0 1 0 0-.01',
+    },
+    {
+      id: 'me',
+      label: t('tab.me'),
+      icon: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0',
+    },
+  ] as const;
+  type Tab = (typeof tabs)[number]['id'];
+
+  const fromHash = (): Tab => tabs.find((t) => `#${t.id}` === location.hash)?.id ?? 'list';
+  let tab = $state<Tab>(fromHash());
+
+  onMount(() => {
+    const onHash = () => (tab = fromHash());
+    addEventListener('hashchange', onHash);
+    return () => removeEventListener('hashchange', onHash);
+  });
 </script>
 
-<main
-  class="mx-auto flex min-h-dvh max-w-md flex-col gap-4 px-4 pt-[max(1.5rem,env(safe-area-inset-top))] pb-8"
->
-  <header class="flex items-center justify-between">
-    <h1 class="text-2xl font-bold tracking-tight">Hi {user.name || user.email}</h1>
-    <button class="btn-secondary px-3 py-2 text-sm" onclick={() => session.logout()}
-      >Sign out</button
-    >
-  </header>
-
-  <section class="card">
-    <h2 class="font-semibold">Your app starts here</h2>
-    <p class="mt-1 text-zinc-600 dark:text-zinc-400">
-      Edit <code class="font-mono text-sm">web/src/components/Home.svelte</code> and save.
-    </p>
-  </section>
-
-  {#if install.canPrompt}
-    <section class="card flex items-center justify-between gap-4">
-      <p>Install this app for quick access from your home screen.</p>
-      <button class="btn-primary shrink-0" onclick={() => install.install()}>Install</button>
-    </section>
-  {:else if install.needsIosSteps}
-    <section class="card">
-      <p>To install this app, tap <b>Share</b> in Safari, then <b>Add to Home Screen</b>.</p>
-    </section>
-  {/if}
-
-  <Notifications />
-
-  <section class="card text-sm text-zinc-600 dark:text-zinc-400">
-    Signed in as {user.email}{session.isOwner ? ' (owner)' : ''}.
-    {#if session.isOwner}
-      Manage users and data in the <a
-        class="text-brand-600 underline dark:text-brand-400"
-        href="/_/">admin page</a
-      >.
+<div class="mx-auto min-h-dvh max-w-md">
+  <main class="flex flex-col gap-4 px-4 pt-[max(1.25rem,env(safe-area-inset-top))] pb-28">
+    {#if tab === 'list'}
+      <ListScreen />
+    {:else}
+      <Me />
     {/if}
-  </section>
+  </main>
 
-  {#await version then v}
-    {#if v}<p class="mt-auto text-center text-xs text-zinc-400">Version {v}</p>{/if}
-  {/await}
-</main>
+  <nav
+    class="fixed inset-x-0 bottom-0 z-10 border-t border-zinc-200 bg-white/90 pb-[env(safe-area-inset-bottom)] backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/90"
+  >
+    <div class="mx-auto grid max-w-md grid-cols-2">
+      {#each tabs as tb (tb.id)}
+        <a
+          href="#{tb.id}"
+          class="flex flex-col items-center gap-0.5 py-2.5 text-xs font-medium {tab === tb.id
+            ? 'text-brand-600 dark:text-brand-400'
+            : 'text-zinc-500'}"
+          aria-current={tab === tb.id ? 'page' : undefined}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            class="size-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"><path d={tb.icon} /></svg
+          >
+          {tb.label}
+        </a>
+      {/each}
+    </div>
+  </nav>
+</div>
