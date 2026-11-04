@@ -278,7 +278,7 @@
 {#if !open.length && !shop.loading && shop.list}
   <section class="flex flex-col items-center gap-1 px-6 py-6 text-center">
     <img
-      src={recent.length ? '/brand/karel-cheer.svg' : '/brand/karel.svg'}
+      src={recent.length ? '/brand/carty-cheer.svg' : '/brand/carty.svg'}
       alt=""
       class="mb-2 size-32"
     />

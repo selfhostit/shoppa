@@ -57,7 +57,7 @@
     {/key}
   {:else if step.kind === 'looking'}
     <div class="flex flex-col items-center gap-3 py-10 text-center">
-      <img src="/brand/karel-thinking.svg" alt="" class="size-28" />
+      <img src="/brand/carty-thinking.svg" alt="" class="size-28" />
       <p class="text-zinc-500 dark:text-zinc-400">{t('scan.looking', { code: step.code })}</p>
     </div>
   {:else if step.kind === 'added'}

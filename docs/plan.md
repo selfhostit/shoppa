@@ -123,7 +123,7 @@ The app runs on the Synology DS220+, set up like Flowy and Troye:
 Each step is one PR that leaves the app working.
 
 1. Turn the template into Shoppa: rename, remove the demo, and this plan.
-2. Brand: Karel the cart, the icon and colors.
+2. Brand: Carty the cart, the icon and colors.
 3. Lists and items: lists, adding by free text, quantity and note, ticking off,
    recently bought, live sync, purchases, and the interface texts in one place.
 4. Generic catalogue: the bundled items, search, sections and emoji, and adding your
@@ -145,3 +145,42 @@ Each step is one PR that leaves the app working.
 - Mealie: add a recipe's ingredients to a list, with a Mealie API token.
 - Troye: kcal, Nutri-Score and nutrition on a product card when Troye is installed.
 - Usual items and suggestions from purchase history.
+
+## Progress
+
+**Now:** 1.8 offline
+**Next:** 1.9 push, grouped
+**Blocked:** nothing
+
+### 0. Agree before code
+- [x] 0.1 Read plasto, Troye, Splitwiz, Flowy
+- [x] 0.2 Name and mascot chosen: Shoppa, with Carty the cart (#8)
+- [x] 0.3 Data model agreed (#7)
+- [x] 0.4 Plan for sharing the foods package agreed: `selfhostit/food` (#7)
+- [x] 0.5 This plan written (#7)
+
+### 1. Version 1
+- [x] 1.1 Rename plasto, strip the demo, deploy skeleton (#7)
+- [x] 1.2 Shared food module; Troye still passes its tests (food#1, troye#32)
+- [x] 1.3 Lists and items, realtime sync (#10)
+- [x] 1.4 Search: generic catalogue + OFF products (#11, #12)
+- [x] 1.5 Thumbnails kept on the NAS, with credits (#12)
+- [x] 1.6 Barcode scan, pin a generic item to a product (#14, #15)
+- [x] 1.7 Check off, recently bought (#10)
+- [ ] 1.8 Offline (#PR)
+- [ ] 1.9 Push, grouped (#PR)
+- [ ] 1.10 README, screenshots, org profile, website (#PR)
+- [ ] 1.11 Running on the Synology, used for a week
+
+### 2. Version 2
+- [ ] 2.1 Stores and aisle order
+- [ ] 2.2 Mealie: add a recipe's ingredients
+- [ ] 2.3 Troye: nutrition on product cards
+- [ ] 2.4 Usual items and suggestions
+
+### Decisions
+- 2026-11-04: images are downloaded on first use and kept in pb_data
+- 2026-11-04: the app is called Shoppa; the mascot is Carty (short for Mr. Shopping Carty), renamed from Karel
+
+### Later
+- (ideas found along the way)
