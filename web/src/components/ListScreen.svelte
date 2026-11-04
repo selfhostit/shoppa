@@ -192,7 +192,10 @@
       class="mb-1.5 flex items-center gap-1.5 px-1 text-xs font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400"
     >
       <span aria-hidden="true">{group.section?.emoji ?? '🛒'}</span>
-      {sectionLabel(group.section, shop.lang) || t('list.other')}
+      <!-- in its own language, so Greek capitals lose their accents -->
+      <span lang={group.section ? shop.lang : 'en'}
+        >{sectionLabel(group.section, shop.lang) || t('list.other')}</span
+      >
     </h2>
     <ul class="card divide-y divide-zinc-100 p-0 dark:divide-zinc-800">
       {#each group.items as item (item.id)}
