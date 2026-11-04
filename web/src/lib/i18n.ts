@@ -24,6 +24,7 @@ export const en = {
   'list.onlist': 'On the list',
   'list.addtyped': 'Add “{name}”',
   'list.other': 'Other',
+  'list.products': 'Products',
 
   'item.title': 'Item',
   'item.name': 'Name',
@@ -59,6 +60,15 @@ export const en = {
   'me.lang': 'Item names in',
   'me.lang.hint': 'Everyone sees the items in their own language.',
   'me.signedin': 'Signed in as {email}',
+
+  'products.title': 'Products',
+  'products.count': '{n} products from Belgium, the Netherlands and Greece, updated {date}.',
+  'products.none':
+    'The products from Belgium, the Netherlands and Greece are being downloaded for the first time. This takes a while.',
+  'products.running': 'Updating the products from Open Food Facts…',
+  'products.update': 'Update now',
+  'products.credit': 'Product names and photos come from',
+  'products.licence': '(data: Open Database Licence; photos by its contributors: CC BY-SA 3.0).',
   'me.owner': '(owner)',
   'me.admin': 'Manage people and data on the admin page.',
   'me.version': 'Version {version}',

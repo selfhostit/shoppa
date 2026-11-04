@@ -48,13 +48,18 @@ phone instead of piling up.
 
 ## Food data
 
-- **Open Food Facts:** products sold in Belgium and the Netherlands, from the monthly
-  export, so search and barcodes work without the internet. Shoppa keeps names
+- **Open Food Facts:** products sold in Belgium, the Netherlands and Greece, from the
+  monthly export, so search and barcodes work without the internet. Shoppa keeps names
   (NL/FR/EN), brand, package size, categories and the small image URL, and no
   nutrients. Unlike Troye it also keeps products without nutrition data, since you
   shop for them all the same. A barcode that isn't in the export is looked up live in
   Open Food Facts, then Open Products Facts and Open Beauty Facts for things that
   aren't food, and kept.
+- **Search in your own words.** Belgian products are named in Dutch or French, so a
+  product is also found by Open Food Facts' English category tags
+  (`en:semi-skimmed-milks`: "milk" finds "Boni halfvolle melk"), and a word that
+  names a catalogue item searches its names in the other languages too ("cheese"
+  finds "kaas" and "fromage"). Greek works as typed, with or without accents.
 - **Product photos stay home.** The server downloads a product's small photo the
   first time a phone shows it and stores it with the product in `pb_data`. Phones
   only ever talk to Shoppa.
@@ -110,7 +115,8 @@ The app runs on the Synology DS220+, set up like Flowy and Troye:
   with no VPN app, and push and app install work (they need HTTPS).
 - Tailscale stays an option for keeping it off the internet.
 - The Open Food Facts export (about a gigabyte, streamed) is read on the 10th of
-  each month at 04:30, a week after Troye's, so the NAS never does both at once.
+  each month at 04:30, a week after Troye's, so the NAS never does both at once. A new
+  install reads it a minute after it first starts (`SHOPPA_AUTO_IMPORT=off` skips that).
 
 ## Build plan
 

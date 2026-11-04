@@ -10,6 +10,7 @@ import {
 } from './catalogue';
 import { errorMessage, pb, type User } from './pb';
 import { listsInOrder, parseEntry, upsert, type Item, type List } from './list';
+import { kindOf, productLine, productName, type Product } from './products';
 import { session } from './session.svelte';
 
 const currentKey = 'shoppa:list';
@@ -30,6 +31,8 @@ class Shop {
   people = $state<User[]>([]);
   generics = $state<Generic[]>([]);
   sections = $state<Section[]>([]);
+  /** the products on the list, by id, from the items' expand */
+  products = $state<Record<string, Product>>({});
   listId = $state(remembered());
   loading = $state(true);
   error = $state('');
@@ -53,10 +56,31 @@ class Shop {
     return item.generic ? this.generics.find((g) => g.id === item.generic) : undefined;
   }
 
-  /** An item's name: its generic's in your language, or what was typed. */
+  productOf(item: Item): Product | undefined {
+    return item.product ? this.products[item.product] : undefined;
+  }
+
+  /** The catalogue item an item is, or its product is a kind of. */
+  private kind(item: Item): Generic | undefined {
+    const p = this.productOf(item);
+    return p ? kindOf(p, this.generics) : this.genericOf(item);
+  }
+
+  /**
+   * An item's name: its product's or generic's in your language, or what was
+   * typed.
+   */
   nameOf(item: Item): string {
+    const p = this.productOf(item);
+    if (p) return productName(p, this.lang);
     const g = this.genericOf(item);
     return g ? genericName(g, this.lang) : item.name;
+  }
+
+  /** "Boni · 1 L" for an exact product, nothing otherwise. */
+  lineOf(item: Item): string {
+    const p = this.productOf(item);
+    return p ? productLine(p) : '';
   }
 
   nameOfGeneric(g: Generic): string {
@@ -64,11 +88,19 @@ class Shop {
   }
 
   emojiOf(item: Item): string {
-    return this.genericOf(item)?.emoji ?? '';
+    return this.kind(item)?.emoji ?? '';
   }
 
   sectionOf(item: Item): string {
-    return this.genericOf(item)?.section || OTHER;
+    return this.kind(item)?.section || OTHER;
+  }
+
+  /** Keeps the products that come along with items. */
+  private keep(items: Item[]) {
+    const found = items.map((i) => i.expand?.product as Product | undefined).filter((p) => p);
+    if (found.length)
+      this.products = { ...this.products, ...Object.fromEntries(found.map((p) => [p!.id, p!])) };
+    return items;
   }
 
   /** A person's first name, for "by Anna". */
@@ -100,10 +132,15 @@ class Shop {
         await pb.collection<Generic>('generics').subscribe('*', ({ action, record }) => {
           this.generics = upsert(this.generics, record, action === 'delete');
         }),
-        await pb.collection<Item>('items').subscribe('*', ({ action, record }) => {
-          if (record.list !== this.list?.id) return;
-          this.items = upsert(this.items, record, action === 'delete');
-        }),
+        await pb.collection<Item>('items').subscribe(
+          '*',
+          ({ action, record }) => {
+            if (record.list !== this.list?.id) return;
+            this.keep([record]);
+            this.items = upsert(this.items, record, action === 'delete');
+          },
+          { expand: 'product' },
+        ),
       );
     } catch (err) {
       this.error = errorMessage(err);
@@ -122,9 +159,11 @@ class Shop {
       this.items = [];
       return;
     }
-    this.items = await pb
-      .collection<Item>('items')
-      .getFullList({ filter: pb.filter('list = {:id}', { id }) });
+    this.items = this.keep(
+      await pb
+        .collection<Item>('items')
+        .getFullList({ filter: pb.filter('list = {:id}', { id }), expand: 'product' }),
+    );
   }
 
   async open(listId: string) {
@@ -141,22 +180,36 @@ class Shop {
    * Puts what was typed on the open list, as the generic it names if there is
    * one, or brings back the one already there.
    */
-  async add(text: string, generic?: Generic) {
+  async add(text: string, generic?: Generic, product?: Product) {
     const { name, quantity } = parseEntry(text);
     const list = this.list;
-    generic ??= exactly(this.generics, name, this.lang);
-    if (!(name || generic) || !list) return;
+    if (!product) generic ??= exactly(this.generics, name, this.lang);
+    if (!(name || generic || product) || !list) return;
+    if (product) this.products = { ...this.products, [product.id]: product };
     await this.run(async () => {
       const item = await pb.send<Item>('/api/app/items', {
         method: 'POST',
         body: {
           list: list.id,
-          ...(generic ? { generic: generic.id } : { name }),
+          ...(product ? { product: product.id } : generic ? { generic: generic.id } : { name }),
           ...(quantity ? { quantity } : {}),
         },
       });
       this.items = upsert(this.items, item);
     });
+  }
+
+  /** Products for what is being typed, best first. */
+  async searchProducts(q: string): Promise<Product[]> {
+    try {
+      return await pb.send<Product[]>('/api/app/search', {
+        query: { q, limit: 8 },
+        requestKey: 'search',
+      });
+    } catch {
+      // a newer search took its place, or the server can't be reached
+      return [];
+    }
   }
 
   /** Keeps a typed item as one of the household's own, with an emoji and a section. */
@@ -203,7 +256,9 @@ class Shop {
       async () =>
         (this.items = upsert(
           this.items,
-          await pb.collection<Item>('items').update(item.id, change),
+          this.keep([
+            await pb.collection<Item>('items').update(item.id, change, { expand: 'product' }),
+          ])[0],
         )),
       () => (this.items = before),
     );

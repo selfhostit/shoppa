@@ -2,6 +2,7 @@ package app_test
 
 import (
 	"net/http"
+	"os"
 	"strings"
 	"testing"
 
@@ -11,6 +12,12 @@ import (
 	"github.com/selfhostit/shoppa/app"
 	_ "github.com/selfhostit/shoppa/migrations"
 )
+
+// TestMain keeps the tests from starting the first product download.
+func TestMain(m *testing.M) {
+	app.AutoImport = false
+	os.Exit(m.Run())
+}
 
 // newApp starts an empty app with the shoppa migrations and routes.
 func newApp(t testing.TB) *tests.TestApp {

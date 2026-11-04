@@ -83,6 +83,18 @@ await add(ben, groceries.id, 'Café en grains');
 await add(anna, groceries.id, 'Afwasmiddel');
 await add(anna, groceries.id, 'Kattengras');
 
+// a few well-known products, looked up in Open Food Facts the way a scan is;
+// the ones it knows go on the list with their photo
+const found = [];
+for (const code of ['5449000000996', '3017620422003', '5410126116953', '5411188112709']) {
+  try {
+    found.push(await api(`/api/app/barcode/${code}`, { token: anna }));
+  } catch (err) {
+    console.warn(`${code}: ${err.message}`);
+  }
+}
+for (const p of found.slice(0, 3)) await add(anna, groceries.id, '', { product: p.id });
+
 const bbq = await api('/api/collections/lists/records', {
   token: anna,
   body: { name: 'Weekend BBQ', emoji: '🔥', sort: 1 },
@@ -96,9 +108,22 @@ for (const scheme of ['light', 'dark']) {
     deviceScaleFactor: 2,
     colorScheme: scheme,
   });
-  const shot = (name) =>
-    page.screenshot({ path: `${out}/${name}${scheme === 'dark' ? '-dark' : ''}.png` });
+  // product photos are downloaded by the server the first time they're shown
+  const photos = () =>
+    page
+      .waitForFunction(() => [...document.images].every((i) => i.complete), null, {
+        timeout: 15000,
+      })
+      .catch(() => console.warn('some photos did not load'));
+  const shot = async (name) => {
+    await photos();
+    await page.screenshot({ path: `${out}/${name}${scheme === 'dark' ? '-dark' : ''}.png` });
+  };
 
+  page.on('response', (res) => {
+    if (res.url().includes('/photo') && res.status() >= 400)
+      console.warn(`photo ${res.status()}: ${res.url()}`);
+  });
   await page.goto(base);
   await page.getByLabel('Email').fill('anna@example.com');
   await page.getByLabel('Password').fill(password);
@@ -110,6 +135,16 @@ for (const scheme of ['light', 'dark']) {
   await page.getByLabel('Add an item').fill('mel');
   await page.getByRole('list', { name: 'Suggestions' }).waitFor();
   await shot('suggest');
+  if (found.length) {
+    // English finds the Belgian products through their categories
+    await page.getByLabel('Add an item').fill('spread');
+    await page
+      .getByText('Products')
+      .waitFor({ timeout: 5000 })
+      .catch(() => {});
+    await page.waitForTimeout(800);
+    await shot('products');
+  }
   await page.getByLabel('Add an item').fill('');
 
   await page.getByRole('button', { name: 'Change Kaas' }).click();

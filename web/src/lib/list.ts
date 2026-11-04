@@ -12,6 +12,8 @@ export interface Item extends RecordModel {
   name: string;
   /** the generic item it is, if any: then it shows in each person's language */
   generic: string;
+  /** the exact product, if any */
+  product: string;
   quantity: string;
   note: string;
   checked: boolean;
