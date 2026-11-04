@@ -19,13 +19,14 @@ const g = (slug: string, en: string, nl: string, fr: string, over: Partial<Gener
     name_en: en,
     name_nl: nl,
     name_fr: fr,
+    name_el: '',
     aliases: '',
     custom: false,
     ...over,
   }) as Generic;
 
 const generics = [
-  g('milk', 'Milk', 'Melk', 'Lait', { aliases: 'halfvolle melk' }),
+  g('milk', 'Milk', 'Melk', 'Lait', { aliases: 'halfvolle melk', name_el: 'Γάλα' }),
   g('chocolate-milk', 'Chocolate milk', 'Chocomelk', 'Lait chocolaté'),
   g('buttermilk', 'Buttermilk', 'Karnemelk', 'Babeurre'),
   g('melon', 'Melon', 'Meloen', 'Melon', { section: 'produce' }),
@@ -68,6 +69,9 @@ describe('suggest', () => {
   it('finds names in every language, and other names', () => {
     expect(suggest(generics, 'lait', 'nl')[0].slug).toBe('milk');
     expect(suggest(generics, 'halfvolle', 'en')[0].slug).toBe('milk');
+    // Greek, with or without the accent
+    expect(suggest(generics, 'γαλ', 'el')[0].slug).toBe('milk');
+    expect(exactly(generics, 'γάλα', 'el')?.slug).toBe('milk');
     expect(suggest(generics, 'xyz', 'en')).toEqual([]);
     expect(suggest(generics, '  ', 'en')).toEqual([]);
   });
@@ -90,6 +94,8 @@ describe('suggest', () => {
 describe('names and sections', () => {
   it('shows a name in your language, else another', () => {
     expect(genericName(generics[0], 'fr')).toBe('Lait');
+    expect(genericName(generics[0], 'el')).toBe('Γάλα');
+    expect(genericName(generics[1], 'el')).toBe('Chocolate milk');
     expect(genericName(g('x', '', 'Witloof', ''), 'fr')).toBe('Witloof');
   });
 
@@ -97,6 +103,7 @@ describe('names and sections', () => {
     expect(guessLang(['fr-BE', 'nl'])).toBe('fr');
     expect(guessLang(['de-DE', 'en-GB'])).toBe('en');
     expect(guessLang(['de-DE'])).toBe('nl');
+    expect(guessLang(['el-GR', 'en'])).toBe('el');
   });
 
   it('groups the list by section in store order', () => {

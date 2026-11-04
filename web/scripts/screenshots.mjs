@@ -176,6 +176,17 @@ await page.getByLabel('Password').fill(password);
 await page.getByRole('button', { name: 'Sign in' }).click();
 await page.getByRole('button', { name: 'Tick off Lait' }).waitFor();
 await page.screenshot({ path: `${out}/list-fr.png` });
+
+// and in Greek
+await api(`/api/collections/users/records/${member.record.id}`, {
+  token: ben,
+  method: 'PATCH',
+  body: { lang: 'el' },
+});
+await page.reload();
+await page.getByRole('button', { name: 'Tick off Γάλα' }).waitFor();
+await page.waitForFunction(() => [...document.images].every((i) => i.complete)).catch(() => {});
+await page.screenshot({ path: `${out}/list-el.png` });
 await page.close();
 await browser.close();
 console.log(`Screenshots in ${out}`);

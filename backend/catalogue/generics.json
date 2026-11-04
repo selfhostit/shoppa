@@ -5,112 +5,128 @@
    "emoji": "🥦",
    "en": "Fruit & vegetables",
    "nl": "Groenten & fruit",
-   "fr": "Fruits & légumes"
+   "fr": "Fruits & légumes",
+   "el": "Φρούτα & λαχανικά"
   },
   {
    "key": "bakery",
    "emoji": "🥖",
    "en": "Bread & bakery",
    "nl": "Brood & bakkerij",
-   "fr": "Pain & boulangerie"
+   "fr": "Pain & boulangerie",
+   "el": "Ψωμί & αρτοποιείο"
   },
   {
    "key": "dairy",
    "emoji": "🥛",
    "en": "Dairy & eggs",
    "nl": "Zuivel & eieren",
-   "fr": "Produits laitiers & œufs"
+   "fr": "Produits laitiers & œufs",
+   "el": "Γαλακτοκομικά & αυγά"
   },
   {
    "key": "deli",
    "emoji": "🧀",
    "en": "Cheese & cold cuts",
    "nl": "Kaas & vleeswaren",
-   "fr": "Fromage & charcuterie"
+   "fr": "Fromage & charcuterie",
+   "el": "Τυριά & αλλαντικά"
   },
   {
    "key": "meat",
    "emoji": "🥩",
    "en": "Meat & fish",
    "nl": "Vlees & vis",
-   "fr": "Viande & poisson"
+   "fr": "Viande & poisson",
+   "el": "Κρέας & ψάρι"
   },
   {
    "key": "frozen",
    "emoji": "🧊",
    "en": "Frozen",
    "nl": "Diepvries",
-   "fr": "Surgelés"
+   "fr": "Surgelés",
+   "el": "Κατεψυγμένα"
   },
   {
    "key": "pantry",
    "emoji": "🍝",
    "en": "Pasta, rice & tins",
    "nl": "Pasta, rijst & conserven",
-   "fr": "Pâtes, riz & conserves"
+   "fr": "Pâtes, riz & conserves",
+   "el": "Ζυμαρικά, ρύζι & κονσέρβες"
   },
   {
    "key": "cooking",
    "emoji": "🧂",
    "en": "Cooking & baking",
    "nl": "Koken & bakken",
-   "fr": "Cuisine & pâtisserie"
+   "fr": "Cuisine & pâtisserie",
+   "el": "Μαγειρική & ζαχαροπλαστική"
   },
   {
    "key": "breakfast",
    "emoji": "🥣",
    "en": "Breakfast & spreads",
    "nl": "Ontbijt & smeersels",
-   "fr": "Petit-déjeuner & tartinades"
+   "fr": "Petit-déjeuner & tartinades",
+   "el": "Πρωινό & αλείμματα"
   },
   {
    "key": "snacks",
    "emoji": "🍫",
    "en": "Sweets & snacks",
    "nl": "Snoep & snacks",
-   "fr": "Sucreries & snacks"
+   "fr": "Sucreries & snacks",
+   "el": "Γλυκά & σνακ"
   },
   {
    "key": "drinks",
    "emoji": "🥤",
    "en": "Drinks",
    "nl": "Dranken",
-   "fr": "Boissons"
+   "fr": "Boissons",
+   "el": "Ποτά"
   },
   {
    "key": "baby",
    "emoji": "🍼",
    "en": "Baby",
    "nl": "Baby",
-   "fr": "Bébé"
+   "fr": "Bébé",
+   "el": "Μωρό"
   },
   {
    "key": "care",
    "emoji": "🧴",
    "en": "Personal care",
    "nl": "Verzorging",
-   "fr": "Soins"
+   "fr": "Soins",
+   "el": "Προσωπική φροντίδα"
   },
   {
    "key": "household",
    "emoji": "🧽",
    "en": "Household",
    "nl": "Huishouden",
-   "fr": "Maison"
+   "fr": "Maison",
+   "el": "Νοικοκυριό"
   },
   {
    "key": "pets",
    "emoji": "🐾",
    "en": "Pets",
    "nl": "Huisdieren",
-   "fr": "Animaux"
+   "fr": "Animaux",
+   "el": "Κατοικίδια"
   },
   {
    "key": "other",
    "emoji": "🛒",
    "en": "Other",
    "nl": "Overige",
-   "fr": "Autres"
+   "fr": "Autres",
+   "el": "Άλλα"
   }
  ],
  "items": [
@@ -121,6 +137,7 @@
    "en": "Bananas",
    "nl": "Bananen",
    "fr": "Bananes",
+   "el": "Μπανάνες",
    "off": "en:bananas"
   },
   {
@@ -130,6 +147,7 @@
    "en": "Apples",
    "nl": "Appels",
    "fr": "Pommes",
+   "el": "Μήλα",
    "off": "en:apples"
   },
   {
@@ -139,6 +157,7 @@
    "en": "Pears",
    "nl": "Peren",
    "fr": "Poires",
+   "el": "Αχλάδια",
    "off": "en:pears"
   },
   {
@@ -148,6 +167,7 @@
    "en": "Oranges",
    "nl": "Sinaasappels",
    "fr": "Oranges",
+   "el": "Πορτοκάλια",
    "aliases": "appelsienen",
    "off": "en:oranges"
   },
@@ -158,6 +178,7 @@
    "en": "Mandarins",
    "nl": "Mandarijnen",
    "fr": "Mandarines",
+   "el": "Μανταρίνια",
    "aliases": "clementines; clementinen",
    "off": "en:mandarin-oranges"
   },
@@ -168,6 +189,7 @@
    "en": "Lemons",
    "nl": "Citroenen",
    "fr": "Citrons",
+   "el": "Λεμόνια",
    "off": "en:lemons"
   },
   {
@@ -177,6 +199,7 @@
    "en": "Limes",
    "nl": "Limoenen",
    "fr": "Citrons verts",
+   "el": "Λάιμ",
    "off": "en:limes"
   },
   {
@@ -186,6 +209,7 @@
    "en": "Grapes",
    "nl": "Druiven",
    "fr": "Raisins",
+   "el": "Σταφύλια",
    "off": "en:grapes"
   },
   {
@@ -195,6 +219,7 @@
    "en": "Strawberries",
    "nl": "Aardbeien",
    "fr": "Fraises",
+   "el": "Φράουλες",
    "off": "en:strawberries"
   },
   {
@@ -204,6 +229,7 @@
    "en": "Blueberries",
    "nl": "Blauwe bessen",
    "fr": "Myrtilles",
+   "el": "Μύρτιλα",
    "aliases": "bosbessen",
    "off": "en:blueberries"
   },
@@ -214,6 +240,7 @@
    "en": "Raspberries",
    "nl": "Frambozen",
    "fr": "Framboises",
+   "el": "Βατόμουρα",
    "off": "en:raspberries"
   },
   {
@@ -223,6 +250,7 @@
    "en": "Watermelon",
    "nl": "Watermeloen",
    "fr": "Pastèque",
+   "el": "Καρπούζι",
    "off": "en:watermelons"
   },
   {
@@ -232,6 +260,7 @@
    "en": "Melon",
    "nl": "Meloen",
    "fr": "Melon",
+   "el": "Πεπόνι",
    "off": "en:melons"
   },
   {
@@ -241,6 +270,7 @@
    "en": "Pineapple",
    "nl": "Ananas",
    "fr": "Ananas",
+   "el": "Ανανάς",
    "off": "en:pineapples"
   },
   {
@@ -250,6 +280,7 @@
    "en": "Mango",
    "nl": "Mango",
    "fr": "Mangue",
+   "el": "Μάνγκο",
    "off": "en:mangoes"
   },
   {
@@ -259,6 +290,7 @@
    "en": "Kiwis",
    "nl": "Kiwi's",
    "fr": "Kiwis",
+   "el": "Ακτινίδια",
    "aliases": "kiwi",
    "off": "en:kiwis"
   },
@@ -269,6 +301,7 @@
    "en": "Peaches",
    "nl": "Perziken",
    "fr": "Pêches",
+   "el": "Ροδάκινα",
    "aliases": "nectarines",
    "off": "en:peaches"
   },
@@ -279,6 +312,7 @@
    "en": "Cherries",
    "nl": "Kersen",
    "fr": "Cerises",
+   "el": "Κεράσια",
    "off": "en:cherries"
   },
   {
@@ -288,6 +322,7 @@
    "en": "Avocados",
    "nl": "Avocado's",
    "fr": "Avocats",
+   "el": "Αβοκάντο",
    "aliases": "avocado",
    "off": "en:avocados"
   },
@@ -298,6 +333,7 @@
    "en": "Tomatoes",
    "nl": "Tomaten",
    "fr": "Tomates",
+   "el": "Ντομάτες",
    "off": "en:tomatoes"
   },
   {
@@ -307,6 +343,7 @@
    "en": "Cherry tomatoes",
    "nl": "Kerstomaten",
    "fr": "Tomates cerises",
+   "el": "Ντοματίνια",
    "aliases": "cherrytomaten",
    "off": "en:cherry-tomatoes"
   },
@@ -317,6 +354,7 @@
    "en": "Cucumber",
    "nl": "Komkommer",
    "fr": "Concombre",
+   "el": "Αγγούρι",
    "off": "en:cucumbers"
   },
   {
@@ -326,6 +364,7 @@
    "en": "Peppers",
    "nl": "Paprika's",
    "fr": "Poivrons",
+   "el": "Πιπεριές",
    "aliases": "paprika",
    "off": "en:sweet-peppers"
   },
@@ -336,6 +375,7 @@
    "en": "Carrots",
    "nl": "Wortelen",
    "fr": "Carottes",
+   "el": "Καρότα",
    "aliases": "worteltjes",
    "off": "en:carrots"
   },
@@ -346,6 +386,7 @@
    "en": "Potatoes",
    "nl": "Aardappelen",
    "fr": "Pommes de terre",
+   "el": "Πατάτες",
    "aliases": "patatten; patates",
    "off": "en:potatoes"
   },
@@ -356,6 +397,7 @@
    "en": "Onions",
    "nl": "Uien",
    "fr": "Oignons",
+   "el": "Κρεμμύδια",
    "aliases": "ajuin",
    "off": "en:onions"
   },
@@ -366,6 +408,7 @@
    "en": "Red onions",
    "nl": "Rode uien",
    "fr": "Oignons rouges",
+   "el": "Κόκκινα κρεμμύδια",
    "aliases": "rode ajuin",
    "off": "en:red-onions"
   },
@@ -376,6 +419,7 @@
    "en": "Garlic",
    "nl": "Look",
    "fr": "Ail",
+   "el": "Σκόρδο",
    "aliases": "knoflook",
    "off": "en:garlic"
   },
@@ -386,6 +430,7 @@
    "en": "Ginger",
    "nl": "Gember",
    "fr": "Gingembre",
+   "el": "Τζίντζερ",
    "off": "en:ginger"
   },
   {
@@ -395,6 +440,7 @@
    "en": "Lettuce",
    "nl": "Sla",
    "fr": "Salade",
+   "el": "Μαρούλι",
    "aliases": "kropsla; laitue",
    "off": "en:lettuces"
   },
@@ -405,6 +451,7 @@
    "en": "Lamb's lettuce",
    "nl": "Veldsla",
    "fr": "Mâche",
+   "el": "Μάχη",
    "off": "en:lamb-s-lettuce"
   },
   {
@@ -414,6 +461,7 @@
    "en": "Rocket",
    "nl": "Rucola",
    "fr": "Roquette",
+   "el": "Ρόκα",
    "off": "en:rocket"
   },
   {
@@ -423,6 +471,7 @@
    "en": "Spinach",
    "nl": "Spinazie",
    "fr": "Épinards",
+   "el": "Σπανάκι",
    "off": "en:spinach"
   },
   {
@@ -432,6 +481,7 @@
    "en": "Chicory",
    "nl": "Witloof",
    "fr": "Chicons",
+   "el": "Αντίδια",
    "aliases": "witlof; endives",
    "off": "en:chicory"
   },
@@ -442,6 +492,7 @@
    "en": "Broccoli",
    "nl": "Broccoli",
    "fr": "Brocoli",
+   "el": "Μπρόκολο",
    "off": "en:broccoli"
   },
   {
@@ -451,6 +502,7 @@
    "en": "Cauliflower",
    "nl": "Bloemkool",
    "fr": "Chou-fleur",
+   "el": "Κουνουπίδι",
    "off": "en:cauliflowers"
   },
   {
@@ -460,6 +512,7 @@
    "en": "Brussels sprouts",
    "nl": "Spruitjes",
    "fr": "Choux de Bruxelles",
+   "el": "Λαχανάκια Βρυξελλών",
    "aliases": "spruiten",
    "off": "en:brussels-sprouts"
   },
@@ -470,6 +523,7 @@
    "en": "Leeks",
    "nl": "Prei",
    "fr": "Poireaux",
+   "el": "Πράσα",
    "off": "en:leeks"
   },
   {
@@ -479,6 +533,7 @@
    "en": "Celery",
    "nl": "Selder",
    "fr": "Céleri",
+   "el": "Σέλινο",
    "aliases": "selderij",
    "off": "en:celery"
   },
@@ -489,6 +544,7 @@
    "en": "Courgette",
    "nl": "Courgette",
    "fr": "Courgette",
+   "el": "Κολοκυθάκια",
    "aliases": "zucchini",
    "off": "en:zucchini"
   },
@@ -499,6 +555,7 @@
    "en": "Aubergine",
    "nl": "Aubergine",
    "fr": "Aubergine",
+   "el": "Μελιτζάνες",
    "aliases": "eggplant",
    "off": "en:eggplants"
   },
@@ -509,6 +566,7 @@
    "en": "Mushrooms",
    "nl": "Champignons",
    "fr": "Champignons",
+   "el": "Μανιτάρια",
    "off": "en:mushrooms"
   },
   {
@@ -518,6 +576,7 @@
    "en": "Green beans",
    "nl": "Boontjes",
    "fr": "Haricots verts",
+   "el": "Φασολάκια",
    "aliases": "sperziebonen",
    "off": "en:green-beans"
   },
@@ -528,6 +587,7 @@
    "en": "Peas",
    "nl": "Erwten",
    "fr": "Petits pois",
+   "el": "Αρακάς",
    "aliases": "erwtjes",
    "off": "en:peas"
   },
@@ -538,6 +598,7 @@
    "en": "Sweetcorn",
    "nl": "Maïs",
    "fr": "Maïs",
+   "el": "Καλαμπόκι",
    "aliases": "mais",
    "off": "en:sweet-corns"
   },
@@ -548,6 +609,7 @@
    "en": "Pumpkin",
    "nl": "Pompoen",
    "fr": "Potiron",
+   "el": "Κολοκύθα",
    "aliases": "butternut",
    "off": "en:pumpkins"
   },
@@ -558,6 +620,7 @@
    "en": "Beetroot",
    "nl": "Rode biet",
    "fr": "Betterave",
+   "el": "Παντζάρια",
    "aliases": "rode bieten",
    "off": "en:beetroots"
   },
@@ -568,6 +631,7 @@
    "en": "Sweet potatoes",
    "nl": "Zoete aardappelen",
    "fr": "Patates douces",
+   "el": "Γλυκοπατάτες",
    "off": "en:sweet-potatoes"
   },
   {
@@ -577,6 +641,7 @@
    "en": "Fresh herbs",
    "nl": "Verse kruiden",
    "fr": "Herbes fraîches",
+   "el": "Φρέσκα μυρωδικά",
    "off": "en:herbs"
   },
   {
@@ -586,6 +651,7 @@
    "en": "Parsley",
    "nl": "Peterselie",
    "fr": "Persil",
+   "el": "Μαϊντανός",
    "off": "en:parsley"
   },
   {
@@ -595,6 +661,7 @@
    "en": "Basil",
    "nl": "Basilicum",
    "fr": "Basilic",
+   "el": "Βασιλικός",
    "off": "en:basil"
   },
   {
@@ -604,6 +671,7 @@
    "en": "Coriander",
    "nl": "Koriander",
    "fr": "Coriandre",
+   "el": "Κόλιανδρος",
    "off": "en:coriander"
   },
   {
@@ -613,6 +681,7 @@
    "en": "Chives",
    "nl": "Bieslook",
    "fr": "Ciboulette",
+   "el": "Σχοινόπρασο",
    "off": "en:chives"
   },
   {
@@ -622,6 +691,7 @@
    "en": "Salad mix",
    "nl": "Slamix",
    "fr": "Mélange de salades",
+   "el": "Μείγμα σαλάτας",
    "off": "en:salad-mixes"
   },
   {
@@ -631,6 +701,7 @@
    "en": "Soup vegetables",
    "nl": "Soepgroenten",
    "fr": "Légumes pour soupe",
+   "el": "Λαχανικά για σούπα",
    "off": "en:soup-vegetables"
   },
   {
@@ -640,6 +711,7 @@
    "en": "Nuts",
    "nl": "Noten",
    "fr": "Noix",
+   "el": "Ξηροί καρποί",
    "off": "en:nuts"
   },
   {
@@ -649,6 +721,7 @@
    "en": "Raisins",
    "nl": "Rozijnen",
    "fr": "Raisins secs",
+   "el": "Σταφίδες",
    "off": "en:raisins"
   },
   {
@@ -658,6 +731,7 @@
    "en": "Bread",
    "nl": "Brood",
    "fr": "Pain",
+   "el": "Ψωμί",
    "aliases": "boterhammen",
    "off": "en:breads"
   },
@@ -668,6 +742,7 @@
    "en": "Wholemeal bread",
    "nl": "Volkorenbrood",
    "fr": "Pain complet",
+   "el": "Ψωμί ολικής άλεσης",
    "aliases": "bruin brood",
    "off": "en:wholemeal-breads"
   },
@@ -678,6 +753,7 @@
    "en": "Baguette",
    "nl": "Stokbrood",
    "fr": "Baguette",
+   "el": "Μπαγκέτα",
    "off": "en:baguettes"
   },
   {
@@ -687,6 +763,7 @@
    "en": "Bread rolls",
    "nl": "Pistolets",
    "fr": "Pistolets",
+   "el": "Ψωμάκια",
    "aliases": "broodjes; sandwiches",
    "off": "en:bread-rolls"
   },
@@ -697,6 +774,7 @@
    "en": "Croissants",
    "nl": "Croissants",
    "fr": "Croissants",
+   "el": "Κρουασάν",
    "off": "en:croissants"
   },
   {
@@ -706,6 +784,7 @@
    "en": "Pastries",
    "nl": "Koffiekoeken",
    "fr": "Viennoiseries",
+   "el": "Αρτοσκευάσματα",
    "off": "en:viennoiseries"
   },
   {
@@ -715,6 +794,7 @@
    "en": "Waffles",
    "nl": "Wafels",
    "fr": "Gaufres",
+   "el": "Βάφλες",
    "off": "en:waffles"
   },
   {
@@ -724,6 +804,7 @@
    "en": "Wraps",
    "nl": "Wraps",
    "fr": "Wraps",
+   "el": "Τορτίγιες",
    "aliases": "tortilla",
    "off": "en:tortillas"
   },
@@ -734,6 +815,7 @@
    "en": "Rusks",
    "nl": "Beschuit",
    "fr": "Biscottes",
+   "el": "Φρυγανιές",
    "off": "en:rusks"
   },
   {
@@ -743,6 +825,7 @@
    "en": "Toast bread",
    "nl": "Toastbrood",
    "fr": "Pain de mie",
+   "el": "Ψωμί του τοστ",
    "off": "en:sandwich-breads"
   },
   {
@@ -752,6 +835,7 @@
    "en": "Cake",
    "nl": "Cake",
    "fr": "Cake",
+   "el": "Κέικ",
    "aliases": "taart",
    "off": "en:cakes"
   },
@@ -762,6 +846,7 @@
    "en": "Pancakes",
    "nl": "Pannenkoeken",
    "fr": "Crêpes",
+   "el": "Κρέπες",
    "off": "en:pancakes"
   },
   {
@@ -771,6 +856,7 @@
    "en": "Pita bread",
    "nl": "Pitabroodjes",
    "fr": "Pains pita",
+   "el": "Πίτες",
    "off": "en:pita"
   },
   {
@@ -780,6 +866,7 @@
    "en": "Milk",
    "nl": "Melk",
    "fr": "Lait",
+   "el": "Γάλα",
    "aliases": "halfvolle melk",
    "off": "en:milks"
   },
@@ -790,6 +877,7 @@
    "en": "Whole milk",
    "nl": "Volle melk",
    "fr": "Lait entier",
+   "el": "Γάλα πλήρες",
    "off": "en:whole-milks"
   },
   {
@@ -799,6 +887,7 @@
    "en": "Skimmed milk",
    "nl": "Magere melk",
    "fr": "Lait écrémé",
+   "el": "Γάλα άπαχο",
    "off": "en:skimmed-milks"
   },
   {
@@ -808,6 +897,7 @@
    "en": "Buttermilk",
    "nl": "Karnemelk",
    "fr": "Babeurre",
+   "el": "Ξινόγαλο",
    "off": "en:buttermilks"
   },
   {
@@ -817,6 +907,7 @@
    "en": "Chocolate milk",
    "nl": "Chocomelk",
    "fr": "Lait chocolaté",
+   "el": "Κακάο ρόφημα",
    "aliases": "cécémel",
    "off": "en:chocolate-milks"
   },
@@ -827,6 +918,7 @@
    "en": "Oat milk",
    "nl": "Havermelk",
    "fr": "Lait d'avoine",
+   "el": "Ρόφημα βρώμης",
    "off": "en:oat-based-drinks"
   },
   {
@@ -836,6 +928,7 @@
    "en": "Soy milk",
    "nl": "Sojamelk",
    "fr": "Lait de soja",
+   "el": "Ρόφημα σόγιας",
    "off": "en:soy-milks"
   },
   {
@@ -845,6 +938,7 @@
    "en": "Eggs",
    "nl": "Eieren",
    "fr": "Œufs",
+   "el": "Αυγά",
    "aliases": "eitjes",
    "off": "en:eggs"
   },
@@ -855,6 +949,7 @@
    "en": "Butter",
    "nl": "Boter",
    "fr": "Beurre",
+   "el": "Βούτυρο",
    "off": "en:butters"
   },
   {
@@ -864,6 +959,7 @@
    "en": "Margarine",
    "nl": "Margarine",
    "fr": "Margarine",
+   "el": "Μαργαρίνη",
    "off": "en:margarines"
   },
   {
@@ -873,6 +969,7 @@
    "en": "Yoghurt",
    "nl": "Yoghurt",
    "fr": "Yaourt",
+   "el": "Γιαούρτι",
    "aliases": "yogurt",
    "off": "en:yogurts"
   },
@@ -883,7 +980,9 @@
    "en": "Greek yoghurt",
    "nl": "Griekse yoghurt",
    "fr": "Yaourt grec",
-   "off": "en:greek-style-yogurts"
+   "el": "Στραγγιστό γιαούρτι",
+   "off": "en:greek-style-yogurts",
+   "aliases": "γιαούρτι στραγγιστό"
   },
   {
    "slug": "fromage-frais",
@@ -892,6 +991,7 @@
    "en": "Fromage frais",
    "nl": "Plattekaas",
    "fr": "Fromage blanc",
+   "el": "Τυρί κρέμα λευκό",
    "aliases": "platte kaas; skyr",
    "off": "en:fromages-blancs"
   },
@@ -902,6 +1002,7 @@
    "en": "Pudding",
    "nl": "Pudding",
    "fr": "Pudding",
+   "el": "Πουτίγκα",
    "off": "en:puddings"
   },
   {
@@ -911,6 +1012,7 @@
    "en": "Dessert",
    "nl": "Dessert",
    "fr": "Dessert",
+   "el": "Επιδόρπιο",
    "aliases": "chocolademousse",
    "off": "en:dairy-desserts"
   },
@@ -921,6 +1023,7 @@
    "en": "Cream",
    "nl": "Room",
    "fr": "Crème",
+   "el": "Κρέμα γάλακτος",
    "aliases": "slagroom; kookroom",
    "off": "en:creams"
   },
@@ -931,6 +1034,7 @@
    "en": "Sour cream",
    "nl": "Zure room",
    "fr": "Crème aigre",
+   "el": "Ξινή κρέμα",
    "off": "en:sour-creams"
   },
   {
@@ -940,6 +1044,7 @@
    "en": "Cheese",
    "nl": "Kaas",
    "fr": "Fromage",
+   "el": "Τυρί",
    "off": "en:cheeses"
   },
   {
@@ -949,6 +1054,7 @@
    "en": "Sliced cheese",
    "nl": "Kaas in plakjes",
    "fr": "Fromage en tranches",
+   "el": "Τυρί σε φέτες",
    "aliases": "plakjes kaas",
    "off": "en:sliced-cheeses"
   },
@@ -959,6 +1065,7 @@
    "en": "Grated cheese",
    "nl": "Geraspte kaas",
    "fr": "Fromage râpé",
+   "el": "Τριμμένο τυρί",
    "off": "en:grated-cheese"
   },
   {
@@ -968,6 +1075,7 @@
    "en": "Mozzarella",
    "nl": "Mozzarella",
    "fr": "Mozzarella",
+   "el": "Μοτσαρέλα",
    "off": "en:mozzarella"
   },
   {
@@ -977,6 +1085,7 @@
    "en": "Parmesan",
    "nl": "Parmezaan",
    "fr": "Parmesan",
+   "el": "Παρμεζάνα",
    "off": "en:parmigiano-reggiano"
   },
   {
@@ -986,7 +1095,9 @@
    "en": "Feta",
    "nl": "Feta",
    "fr": "Feta",
-   "off": "en:feta"
+   "el": "Φέτα",
+   "off": "en:feta",
+   "aliases": "τυρί φέτα"
   },
   {
    "slug": "brie",
@@ -995,6 +1106,7 @@
    "en": "Brie",
    "nl": "Brie",
    "fr": "Brie",
+   "el": "Μπρι",
    "aliases": "camembert",
    "off": "en:bries"
   },
@@ -1005,6 +1117,7 @@
    "en": "Cream cheese",
    "nl": "Smeerkaas",
    "fr": "Fromage à tartiner",
+   "el": "Τυρί κρέμα",
    "aliases": "philadelphia",
    "off": "en:cream-cheeses"
   },
@@ -1015,6 +1128,7 @@
    "en": "Ham",
    "nl": "Hesp",
    "fr": "Jambon",
+   "el": "Ζαμπόν",
    "aliases": "ham",
    "off": "en:hams"
   },
@@ -1025,6 +1139,7 @@
    "en": "Bacon",
    "nl": "Spek",
    "fr": "Lard",
+   "el": "Μπέικον",
    "aliases": "spekblokjes; lardons",
    "off": "en:bacon"
   },
@@ -1035,6 +1150,7 @@
    "en": "Salami",
    "nl": "Salami",
    "fr": "Salami",
+   "el": "Σαλάμι",
    "off": "en:salami"
   },
   {
@@ -1044,7 +1160,8 @@
    "en": "Cold cuts",
    "nl": "Vleeswaren",
    "fr": "Charcuterie",
-   "aliases": "beleg",
+   "el": "Αλλαντικά",
+   "aliases": "beleg; γαλοπούλα φέτες",
    "off": "en:cold-cuts"
   },
   {
@@ -1054,6 +1171,7 @@
    "en": "Pâté",
    "nl": "Paté",
    "fr": "Pâté",
+   "el": "Πατέ",
    "off": "en:pates"
   },
   {
@@ -1063,6 +1181,7 @@
    "en": "Chicken slices",
    "nl": "Kipfilet",
    "fr": "Filet de poulet",
+   "el": "Φιλέτο κοτόπουλο σε φέτες",
    "off": "en:chicken-breast-slices"
   },
   {
@@ -1072,6 +1191,7 @@
    "en": "Salads",
    "nl": "Salades",
    "fr": "Salades",
+   "el": "Έτοιμες σαλάτες",
    "aliases": "préparé; kipcurry",
    "off": "en:prepared-salads"
   },
@@ -1082,6 +1202,7 @@
    "en": "Olives",
    "nl": "Olijven",
    "fr": "Olives",
+   "el": "Ελιές",
    "off": "en:olives"
   },
   {
@@ -1091,6 +1212,7 @@
    "en": "Hummus",
    "nl": "Hummus",
    "fr": "Houmous",
+   "el": "Χούμους",
    "off": "en:hummus"
   },
   {
@@ -1100,6 +1222,7 @@
    "en": "Tofu",
    "nl": "Tofu",
    "fr": "Tofu",
+   "el": "Τόφου",
    "off": "en:tofu"
   },
   {
@@ -1109,6 +1232,7 @@
    "en": "Minced meat",
    "nl": "Gehakt",
    "fr": "Haché",
+   "el": "Κιμάς",
    "aliases": "hachis",
    "off": "en:minced-meats"
   },
@@ -1119,6 +1243,7 @@
    "en": "Chicken",
    "nl": "Kip",
    "fr": "Poulet",
+   "el": "Κοτόπουλο",
    "off": "en:chickens"
   },
   {
@@ -1128,6 +1253,7 @@
    "en": "Chicken breast",
    "nl": "Kipfilet (vers)",
    "fr": "Blanc de poulet",
+   "el": "Στήθος κοτόπουλο",
    "off": "en:chicken-breasts"
   },
   {
@@ -1137,6 +1263,7 @@
    "en": "Chicken thighs",
    "nl": "Kippendijen",
    "fr": "Cuisses de poulet",
+   "el": "Μπούτια κοτόπουλο",
    "off": "en:chicken-thighs"
   },
   {
@@ -1146,6 +1273,7 @@
    "en": "Steak",
    "nl": "Steak",
    "fr": "Steak",
+   "el": "Μπριζόλα",
    "aliases": "biefstuk",
    "off": "en:beef-steaks"
   },
@@ -1156,6 +1284,7 @@
    "en": "Beef stew",
    "nl": "Stoofvlees",
    "fr": "Carbonnades",
+   "el": "Μοσχάρι κοκκινιστό",
    "off": "en:beef-stew"
   },
   {
@@ -1165,6 +1294,7 @@
    "en": "Pork chops",
    "nl": "Varkenskoteletten",
    "fr": "Côtes de porc",
+   "el": "Χοιρινές μπριζόλες",
    "aliases": "koteletten",
    "off": "en:pork-chops"
   },
@@ -1175,6 +1305,7 @@
    "en": "Sausages",
    "nl": "Worsten",
    "fr": "Saucisses",
+   "el": "Λουκάνικα",
    "aliases": "worstjes; chipolata",
    "off": "en:sausages"
   },
@@ -1185,6 +1316,7 @@
    "en": "Burgers",
    "nl": "Hamburgers",
    "fr": "Hamburgers",
+   "el": "Μπιφτέκια",
    "off": "en:burgers"
   },
   {
@@ -1194,6 +1326,7 @@
    "en": "Meatballs",
    "nl": "Balletjes",
    "fr": "Boulettes",
+   "el": "Κεφτεδάκια",
    "off": "en:meatballs"
   },
   {
@@ -1203,6 +1336,7 @@
    "en": "Turkey",
    "nl": "Kalkoen",
    "fr": "Dinde",
+   "el": "Γαλοπούλα",
    "off": "en:turkey"
   },
   {
@@ -1212,6 +1346,7 @@
    "en": "Salmon",
    "nl": "Zalm",
    "fr": "Saumon",
+   "el": "Σολομός",
    "off": "en:salmons"
   },
   {
@@ -1221,6 +1356,7 @@
    "en": "Smoked salmon",
    "nl": "Gerookte zalm",
    "fr": "Saumon fumé",
+   "el": "Καπνιστός σολομός",
    "off": "en:smoked-salmons"
   },
   {
@@ -1230,6 +1366,7 @@
    "en": "White fish",
    "nl": "Witte vis",
    "fr": "Poisson blanc",
+   "el": "Λευκό ψάρι",
    "aliases": "kabeljauw; cabillaud",
    "off": "en:white-fish"
   },
@@ -1240,6 +1377,7 @@
    "en": "Tuna steak",
    "nl": "Tonijn (vers)",
    "fr": "Thon frais",
+   "el": "Φρέσκος τόνος",
    "off": "en:tunas"
   },
   {
@@ -1249,6 +1387,7 @@
    "en": "Shrimps",
    "nl": "Garnalen",
    "fr": "Crevettes",
+   "el": "Γαρίδες",
    "aliases": "grijze garnalen",
    "off": "en:shrimps"
   },
@@ -1259,6 +1398,7 @@
    "en": "Mussels",
    "nl": "Mosselen",
    "fr": "Moules",
+   "el": "Μύδια",
    "off": "en:mussels"
   },
   {
@@ -1268,6 +1408,7 @@
    "en": "Meat substitute",
    "nl": "Vleesvervanger",
    "fr": "Substitut de viande",
+   "el": "Υποκατάστατο κρέατος",
    "aliases": "vegetarisch",
    "off": "en:meat-analogues"
   },
@@ -1278,7 +1419,8 @@
    "en": "Fries",
    "nl": "Frieten",
    "fr": "Frites",
-   "aliases": "diepvriesfrieten",
+   "el": "Πατάτες τηγανητές",
+   "aliases": "diepvriesfrieten; τηγανητές",
    "off": "en:frozen-fries"
   },
   {
@@ -1288,6 +1430,7 @@
    "en": "Pizza",
    "nl": "Pizza",
    "fr": "Pizza",
+   "el": "Πίτσα",
    "off": "en:pizzas"
   },
   {
@@ -1297,6 +1440,7 @@
    "en": "Frozen vegetables",
    "nl": "Diepvriesgroenten",
    "fr": "Légumes surgelés",
+   "el": "Κατεψυγμένα λαχανικά",
    "off": "en:frozen-vegetables"
   },
   {
@@ -1306,6 +1450,7 @@
    "en": "Frozen fruit",
    "nl": "Diepvriesfruit",
    "fr": "Fruits surgelés",
+   "el": "Κατεψυγμένα φρούτα",
    "off": "en:frozen-fruits"
   },
   {
@@ -1315,6 +1460,7 @@
    "en": "Fish fingers",
    "nl": "Vissticks",
    "fr": "Bâtonnets de poisson",
+   "el": "Ψαροκροκέτες",
    "off": "en:fish-fingers"
   },
   {
@@ -1324,6 +1470,7 @@
    "en": "Ice cream",
    "nl": "IJs",
    "fr": "Glace",
+   "el": "Παγωτό",
    "aliases": "roomijs",
    "off": "en:ice-creams"
   },
@@ -1334,6 +1481,7 @@
    "en": "Ready meals",
    "nl": "Kant-en-klare maaltijd",
    "fr": "Plats préparés",
+   "el": "Έτοιμα γεύματα",
    "off": "en:meals"
   },
   {
@@ -1343,6 +1491,7 @@
    "en": "Croquettes",
    "nl": "Kroketten",
    "fr": "Croquettes",
+   "el": "Κροκέτες",
    "off": "en:croquettes"
   },
   {
@@ -1352,6 +1501,7 @@
    "en": "Ice cubes",
    "nl": "IJsblokjes",
    "fr": "Glaçons",
+   "el": "Παγάκια",
    "off": "en:ice-cubes"
   },
   {
@@ -1361,6 +1511,7 @@
    "en": "Pasta",
    "nl": "Pasta",
    "fr": "Pâtes",
+   "el": "Ζυμαρικά",
    "aliases": "penne; macaroni; fusilli",
    "off": "en:pastas"
   },
@@ -1371,6 +1522,7 @@
    "en": "Spaghetti",
    "nl": "Spaghetti",
    "fr": "Spaghetti",
+   "el": "Μακαρόνια σπαγγέτι",
    "off": "en:spaghetti"
   },
   {
@@ -1380,6 +1532,7 @@
    "en": "Rice",
    "nl": "Rijst",
    "fr": "Riz",
+   "el": "Ρύζι",
    "off": "en:rices"
   },
   {
@@ -1389,6 +1542,7 @@
    "en": "Basmati rice",
    "nl": "Basmatirijst",
    "fr": "Riz basmati",
+   "el": "Ρύζι μπασμάτι",
    "off": "en:basmati-rices"
   },
   {
@@ -1398,6 +1552,7 @@
    "en": "Noodles",
    "nl": "Noedels",
    "fr": "Nouilles",
+   "el": "Νουντλς",
    "off": "en:noodles"
   },
   {
@@ -1407,6 +1562,7 @@
    "en": "Couscous",
    "nl": "Couscous",
    "fr": "Couscous",
+   "el": "Κουσκούς",
    "aliases": "bulgur",
    "off": "en:couscous"
   },
@@ -1417,6 +1573,7 @@
    "en": "Quinoa",
    "nl": "Quinoa",
    "fr": "Quinoa",
+   "el": "Κινόα",
    "off": "en:quinoa"
   },
   {
@@ -1426,7 +1583,8 @@
    "en": "Tinned tomatoes",
    "nl": "Tomatenblokjes",
    "fr": "Tomates en conserve",
-   "aliases": "gepelde tomaten",
+   "el": "Ντομάτα κονκασέ",
+   "aliases": "gepelde tomaten; τοματάκια κονσέρβα",
    "off": "en:canned-tomatoes"
   },
   {
@@ -1436,6 +1594,7 @@
    "en": "Passata",
    "nl": "Passata",
    "fr": "Passata",
+   "el": "Πασάτα",
    "aliases": "tomatenpuree; coulis",
    "off": "en:tomato-purees"
   },
@@ -1446,6 +1605,7 @@
    "en": "Tomato paste",
    "nl": "Tomatenconcentraat",
    "fr": "Concentré de tomates",
+   "el": "Πελτές ντομάτας",
    "off": "en:tomato-pastes"
   },
   {
@@ -1455,6 +1615,7 @@
    "en": "Beans",
    "nl": "Bonen",
    "fr": "Haricots",
+   "el": "Φασόλια",
    "aliases": "witte bonen; kidneybonen",
    "off": "en:canned-beans"
   },
@@ -1465,6 +1626,7 @@
    "en": "Chickpeas",
    "nl": "Kikkererwten",
    "fr": "Pois chiches",
+   "el": "Ρεβίθια",
    "off": "en:chickpeas"
   },
   {
@@ -1474,6 +1636,7 @@
    "en": "Lentils",
    "nl": "Linzen",
    "fr": "Lentilles",
+   "el": "Φακές",
    "off": "en:lentils"
   },
   {
@@ -1483,6 +1646,7 @@
    "en": "Tinned tuna",
    "nl": "Tonijn in blik",
    "fr": "Thon en boîte",
+   "el": "Τόνος σε κονσέρβα",
    "aliases": "tonijn",
    "off": "en:canned-tunas"
   },
@@ -1493,6 +1657,7 @@
    "en": "Soup",
    "nl": "Soep",
    "fr": "Soupe",
+   "el": "Σούπα",
    "off": "en:soups"
   },
   {
@@ -1502,6 +1667,7 @@
    "en": "Stock cubes",
    "nl": "Bouillonblokjes",
    "fr": "Bouillon cubes",
+   "el": "Κύβοι ζωμού",
    "aliases": "bouillon",
    "off": "en:stock-cubes"
   },
@@ -1512,6 +1678,7 @@
    "en": "Tinned sweetcorn",
    "nl": "Maïs in blik",
    "fr": "Maïs en boîte",
+   "el": "Καλαμπόκι σε κονσέρβα",
    "off": "en:canned-corn"
   },
   {
@@ -1521,6 +1688,7 @@
    "en": "Pickles",
    "nl": "Augurken",
    "fr": "Cornichons",
+   "el": "Αγγουράκια τουρσί",
    "off": "en:pickled-cucumbers"
   },
   {
@@ -1530,6 +1698,7 @@
    "en": "Pasta sauce",
    "nl": "Pastasaus",
    "fr": "Sauce pour pâtes",
+   "el": "Σάλτσα για ζυμαρικά",
    "aliases": "bolognaisesaus",
    "off": "en:pasta-sauces"
   },
@@ -1540,6 +1709,7 @@
    "en": "Pesto",
    "nl": "Pesto",
    "fr": "Pesto",
+   "el": "Πέστο",
    "off": "en:pestos"
   },
   {
@@ -1549,6 +1719,7 @@
    "en": "Coconut milk",
    "nl": "Kokosmelk",
    "fr": "Lait de coco",
+   "el": "Γάλα καρύδας",
    "off": "en:coconut-milks"
   },
   {
@@ -1558,6 +1729,7 @@
    "en": "Curry paste",
    "nl": "Currypasta",
    "fr": "Pâte de curry",
+   "el": "Πάστα κάρι",
    "off": "en:curry-pastes"
   },
   {
@@ -1567,6 +1739,7 @@
    "en": "Olive oil",
    "nl": "Olijfolie",
    "fr": "Huile d'olive",
+   "el": "Ελαιόλαδο",
    "off": "en:olive-oils"
   },
   {
@@ -1576,6 +1749,7 @@
    "en": "Sunflower oil",
    "nl": "Zonnebloemolie",
    "fr": "Huile de tournesol",
+   "el": "Ηλιέλαιο",
    "aliases": "olie",
    "off": "en:sunflower-oils"
   },
@@ -1586,6 +1760,7 @@
    "en": "Cooking butter",
    "nl": "Bak- en braadboter",
    "fr": "Beurre de cuisson",
+   "el": "Βούτυρο μαγειρικής",
    "off": "en:cooking-fats"
   },
   {
@@ -1595,6 +1770,7 @@
    "en": "Salt",
    "nl": "Zout",
    "fr": "Sel",
+   "el": "Αλάτι",
    "off": "en:salts"
   },
   {
@@ -1604,6 +1780,7 @@
    "en": "Pepper",
    "nl": "Peper",
    "fr": "Poivre",
+   "el": "Πιπέρι",
    "off": "en:black-peppers"
   },
   {
@@ -1613,6 +1790,7 @@
    "en": "Spices",
    "nl": "Kruiden",
    "fr": "Épices",
+   "el": "Μπαχαρικά",
    "off": "en:spices"
   },
   {
@@ -1622,6 +1800,7 @@
    "en": "Paprika powder",
    "nl": "Paprikapoeder",
    "fr": "Paprika en poudre",
+   "el": "Πάπρικα",
    "off": "en:paprika-powder"
   },
   {
@@ -1631,6 +1810,7 @@
    "en": "Curry powder",
    "nl": "Kerriepoeder",
    "fr": "Curry en poudre",
+   "el": "Κάρι",
    "off": "en:curry-powders"
   },
   {
@@ -1640,6 +1820,7 @@
    "en": "Mustard",
    "nl": "Mosterd",
    "fr": "Moutarde",
+   "el": "Μουστάρδα",
    "off": "en:mustards"
   },
   {
@@ -1649,6 +1830,7 @@
    "en": "Mayonnaise",
    "nl": "Mayonaise",
    "fr": "Mayonnaise",
+   "el": "Μαγιονέζα",
    "aliases": "mayo",
    "off": "en:mayonnaises"
   },
@@ -1659,6 +1841,7 @@
    "en": "Ketchup",
    "nl": "Ketchup",
    "fr": "Ketchup",
+   "el": "Κέτσαπ",
    "off": "en:ketchup"
   },
   {
@@ -1668,6 +1851,7 @@
    "en": "Andalouse sauce",
    "nl": "Andalousesaus",
    "fr": "Sauce andalouse",
+   "el": "Σάλτσα αντάλους",
    "aliases": "andalouse",
    "off": "en:sauces"
   },
@@ -1678,6 +1862,7 @@
    "en": "Soy sauce",
    "nl": "Sojasaus",
    "fr": "Sauce soja",
+   "el": "Σάλτσα σόγιας",
    "off": "en:soy-sauces"
   },
   {
@@ -1687,6 +1872,7 @@
    "en": "Vinegar",
    "nl": "Azijn",
    "fr": "Vinaigre",
+   "el": "Ξίδι",
    "off": "en:vinegars"
   },
   {
@@ -1696,6 +1882,7 @@
    "en": "Salad dressing",
    "nl": "Slasaus",
    "fr": "Vinaigrette",
+   "el": "Σάλτσα για σαλάτα",
    "aliases": "dressing",
    "off": "en:salad-dressings"
   },
@@ -1706,6 +1893,7 @@
    "en": "Flour",
    "nl": "Bloem",
    "fr": "Farine",
+   "el": "Αλεύρι",
    "off": "en:flours"
   },
   {
@@ -1715,6 +1903,7 @@
    "en": "Sugar",
    "nl": "Suiker",
    "fr": "Sucre",
+   "el": "Ζάχαρη",
    "off": "en:sugars"
   },
   {
@@ -1724,6 +1913,7 @@
    "en": "Brown sugar",
    "nl": "Bruine suiker",
    "fr": "Cassonade",
+   "el": "Καστανή ζάχαρη",
    "aliases": "kandijsuiker",
    "off": "en:brown-sugars"
   },
@@ -1734,6 +1924,7 @@
    "en": "Baking powder",
    "nl": "Bakpoeder",
    "fr": "Levure chimique",
+   "el": "Μπέικιν πάουντερ",
    "off": "en:baking-powders"
   },
   {
@@ -1743,6 +1934,7 @@
    "en": "Yeast",
    "nl": "Gist",
    "fr": "Levure",
+   "el": "Μαγιά",
    "off": "en:yeasts"
   },
   {
@@ -1752,6 +1944,7 @@
    "en": "Baking chocolate",
    "nl": "Kookchocolade",
    "fr": "Chocolat pâtissier",
+   "el": "Κουβερτούρα",
    "off": "en:cooking-chocolates"
   },
   {
@@ -1761,6 +1954,7 @@
    "en": "Vanilla sugar",
    "nl": "Vanillesuiker",
    "fr": "Sucre vanillé",
+   "el": "Ζάχαρη βανίλιας",
    "off": "en:vanilla-sugars"
   },
   {
@@ -1770,6 +1964,7 @@
    "en": "Breadcrumbs",
    "nl": "Paneermeel",
    "fr": "Chapelure",
+   "el": "Φρυγανιά τριμμένη",
    "off": "en:breadcrumbs"
   },
   {
@@ -1779,6 +1974,7 @@
    "en": "Cereal",
    "nl": "Ontbijtgranen",
    "fr": "Céréales",
+   "el": "Δημητριακά",
    "aliases": "cornflakes",
    "off": "en:breakfast-cereals"
   },
@@ -1789,6 +1985,7 @@
    "en": "Muesli",
    "nl": "Muesli",
    "fr": "Muesli",
+   "el": "Μούσλι",
    "aliases": "granola",
    "off": "en:mueslis"
   },
@@ -1799,6 +1996,7 @@
    "en": "Oats",
    "nl": "Havermout",
    "fr": "Flocons d'avoine",
+   "el": "Νιφάδες βρώμης",
    "off": "en:oat-flakes"
   },
   {
@@ -1808,7 +2006,8 @@
    "en": "Chocolate spread",
    "nl": "Choco",
    "fr": "Pâte à tartiner",
-   "aliases": "chocopasta; nutella",
+   "el": "Πραλίνα",
+   "aliases": "chocopasta; nutella; nutella",
    "off": "en:cocoa-and-hazelnuts-spreads"
   },
   {
@@ -1818,6 +2017,7 @@
    "en": "Speculoos spread",
    "nl": "Speculoospasta",
    "fr": "Pâte de spéculoos",
+   "el": "Άλειμμα speculoos",
    "off": "en:speculoos-spreads"
   },
   {
@@ -1827,6 +2027,7 @@
    "en": "Jam",
    "nl": "Confituur",
    "fr": "Confiture",
+   "el": "Μαρμελάδα",
    "aliases": "jam",
    "off": "en:jams"
   },
@@ -1837,6 +2038,7 @@
    "en": "Honey",
    "nl": "Honing",
    "fr": "Miel",
+   "el": "Μέλι",
    "off": "en:honeys"
   },
   {
@@ -1846,6 +2048,7 @@
    "en": "Peanut butter",
    "nl": "Pindakaas",
    "fr": "Beurre de cacahuète",
+   "el": "Φυστικοβούτυρο",
    "off": "en:peanut-butters"
   },
   {
@@ -1855,6 +2058,7 @@
    "en": "Chocolate sprinkles",
    "nl": "Hagelslag",
    "fr": "Vermicelles en chocolat",
+   "el": "Τρούφα σοκολάτας",
    "aliases": "muisjes",
    "off": "en:chocolate-sprinkles"
   },
@@ -1865,6 +2069,7 @@
    "en": "Chocolate flakes",
    "nl": "Chocoladevlokken",
    "fr": "Flocons de chocolat",
+   "el": "Νιφάδες σοκολάτας",
    "off": "en:chocolate-flakes"
   },
   {
@@ -1874,6 +2079,7 @@
    "en": "Syrup",
    "nl": "Siroop",
    "fr": "Sirop de Liège",
+   "el": "Σιρόπι",
    "aliases": "appelstroop",
    "off": "en:syrups"
   },
@@ -1884,6 +2090,7 @@
    "en": "Coffee",
    "nl": "Koffie",
    "fr": "Café",
+   "el": "Καφές",
    "aliases": "gemalen koffie",
    "off": "en:coffees"
   },
@@ -1894,6 +2101,7 @@
    "en": "Coffee beans",
    "nl": "Koffiebonen",
    "fr": "Café en grains",
+   "el": "Καφές σε κόκκους",
    "off": "en:coffee-beans"
   },
   {
@@ -1903,6 +2111,7 @@
    "en": "Coffee pods",
    "nl": "Koffiepads",
    "fr": "Dosettes de café",
+   "el": "Κάψουλες καφέ",
    "aliases": "capsules; cups",
    "off": "en:coffee-capsules"
   },
@@ -1913,6 +2122,7 @@
    "en": "Tea",
    "nl": "Thee",
    "fr": "Thé",
+   "el": "Τσάι",
    "off": "en:teas"
   },
   {
@@ -1922,6 +2132,7 @@
    "en": "Cocoa",
    "nl": "Cacao",
    "fr": "Cacao",
+   "el": "Κακάο",
    "off": "en:cocoa-powders"
   },
   {
@@ -1931,6 +2142,7 @@
    "en": "Chocolate",
    "nl": "Chocolade",
    "fr": "Chocolat",
+   "el": "Σοκολάτα",
    "off": "en:chocolates"
   },
   {
@@ -1940,6 +2152,7 @@
    "en": "Biscuits",
    "nl": "Koekjes",
    "fr": "Biscuits",
+   "el": "Μπισκότα",
    "off": "en:biscuits"
   },
   {
@@ -1949,6 +2162,7 @@
    "en": "Speculoos",
    "nl": "Speculoos",
    "fr": "Spéculoos",
+   "el": "Μπισκότα speculoos",
    "off": "en:speculoos"
   },
   {
@@ -1958,6 +2172,7 @@
    "en": "Crisps",
    "nl": "Chips",
    "fr": "Chips",
+   "el": "Πατατάκια",
    "off": "en:crisps"
   },
   {
@@ -1967,6 +2182,7 @@
    "en": "Popcorn",
    "nl": "Popcorn",
    "fr": "Pop-corn",
+   "el": "Ποπκόρν",
    "off": "en:popcorn"
   },
   {
@@ -1976,6 +2192,7 @@
    "en": "Peanuts",
    "nl": "Nootjes",
    "fr": "Cacahuètes",
+   "el": "Φιστίκια",
    "aliases": "borrelnootjes",
    "off": "en:peanuts"
   },
@@ -1986,6 +2203,7 @@
    "en": "Sweets",
    "nl": "Snoep",
    "fr": "Bonbons",
+   "el": "Καραμέλες",
    "off": "en:candies"
   },
   {
@@ -1995,6 +2213,7 @@
    "en": "Gummies",
    "nl": "Gummies",
    "fr": "Bonbons gélifiés",
+   "el": "Ζελεδάκια",
    "aliases": "winegums",
    "off": "en:gummies"
   },
@@ -2005,6 +2224,7 @@
    "en": "Lollipops",
    "nl": "Lolly's",
    "fr": "Sucettes",
+   "el": "Γλειφιτζούρια",
    "off": "en:lollipops"
   },
   {
@@ -2014,6 +2234,7 @@
    "en": "Crackers",
    "nl": "Crackers",
    "fr": "Crackers",
+   "el": "Κράκερ",
    "aliases": "toastjes",
    "off": "en:crackers"
   },
@@ -2024,6 +2245,7 @@
    "en": "Cereal bars",
    "nl": "Mueslirepen",
    "fr": "Barres de céréales",
+   "el": "Μπάρες δημητριακών",
    "off": "en:cereal-bars"
   },
   {
@@ -2033,6 +2255,7 @@
    "en": "Gingerbread",
    "nl": "Peperkoek",
    "fr": "Pain d'épices",
+   "el": "Μελόψωμο",
    "off": "en:gingerbreads"
   },
   {
@@ -2042,6 +2265,7 @@
    "en": "Dessert cups",
    "nl": "Desserts",
    "fr": "Desserts",
+   "el": "Γλυκά κυπελάκια",
    "off": "en:desserts"
   },
   {
@@ -2051,6 +2275,7 @@
    "en": "Water",
    "nl": "Water",
    "fr": "Eau",
+   "el": "Νερό",
    "aliases": "plat water",
    "off": "en:waters"
   },
@@ -2061,6 +2286,7 @@
    "en": "Sparkling water",
    "nl": "Bruiswater",
    "fr": "Eau pétillante",
+   "el": "Ανθρακούχο νερό",
    "aliases": "spuitwater",
    "off": "en:carbonated-waters"
   },
@@ -2071,6 +2297,7 @@
    "en": "Orange juice",
    "nl": "Sinaasappelsap",
    "fr": "Jus d'orange",
+   "el": "Χυμός πορτοκάλι",
    "aliases": "appelsiensap",
    "off": "en:orange-juices"
   },
@@ -2081,6 +2308,7 @@
    "en": "Apple juice",
    "nl": "Appelsap",
    "fr": "Jus de pomme",
+   "el": "Χυμός μήλο",
    "off": "en:apple-juices"
   },
   {
@@ -2090,6 +2318,7 @@
    "en": "Juice",
    "nl": "Fruitsap",
    "fr": "Jus de fruits",
+   "el": "Χυμός",
    "off": "en:fruit-juices"
   },
   {
@@ -2099,6 +2328,7 @@
    "en": "Cola",
    "nl": "Cola",
    "fr": "Cola",
+   "el": "Κόλα",
    "aliases": "coca-cola",
    "off": "en:colas"
   },
@@ -2109,7 +2339,8 @@
    "en": "Soft drinks",
    "nl": "Frisdrank",
    "fr": "Boissons gazeuses",
-   "aliases": "limonade",
+   "el": "Αναψυκτικά",
+   "aliases": "limonade; σόδα",
    "off": "en:sodas"
   },
   {
@@ -2119,6 +2350,7 @@
    "en": "Iced tea",
    "nl": "Ice tea",
    "fr": "Thé glacé",
+   "el": "Παγωμένο τσάι",
    "off": "en:iced-teas"
   },
   {
@@ -2128,6 +2360,7 @@
    "en": "Beer",
    "nl": "Bier",
    "fr": "Bière",
+   "el": "Μπίρα",
    "aliases": "pils",
    "off": "en:beers"
   },
@@ -2138,6 +2371,7 @@
    "en": "Trappist beer",
    "nl": "Trappist",
    "fr": "Trappiste",
+   "el": "Μπίρα Τραπιστών",
    "aliases": "abdijbier",
    "off": "en:trappist-beers"
   },
@@ -2148,6 +2382,7 @@
    "en": "Red wine",
    "nl": "Rode wijn",
    "fr": "Vin rouge",
+   "el": "Κόκκινο κρασί",
    "aliases": "wijn",
    "off": "en:red-wines"
   },
@@ -2158,6 +2393,7 @@
    "en": "White wine",
    "nl": "Witte wijn",
    "fr": "Vin blanc",
+   "el": "Λευκό κρασί",
    "off": "en:white-wines"
   },
   {
@@ -2167,6 +2403,7 @@
    "en": "Cava",
    "nl": "Cava",
    "fr": "Cava",
+   "el": "Αφρώδες κρασί",
    "aliases": "champagne; prosecco",
    "off": "en:sparkling-wines"
   },
@@ -2177,6 +2414,7 @@
    "en": "Syrup for drinks",
    "nl": "Siroop (drank)",
    "fr": "Sirop",
+   "el": "Σιρόπι για ποτά",
    "aliases": "grenadine",
    "off": "en:syrups-for-drinks"
   },
@@ -2187,6 +2425,7 @@
    "en": "Sports drinks",
    "nl": "Sportdrank",
    "fr": "Boisson isotonique",
+   "el": "Ισοτονικά ποτά",
    "off": "en:energy-drinks"
   },
   {
@@ -2196,6 +2435,7 @@
    "en": "Nappies",
    "nl": "Luiers",
    "fr": "Langes",
+   "el": "Πάνες",
    "aliases": "pampers",
    "off": "en:diapers"
   },
@@ -2206,6 +2446,7 @@
    "en": "Baby wipes",
    "nl": "Babydoekjes",
    "fr": "Lingettes bébé",
+   "el": "Μωρομάντηλα",
    "aliases": "vochtige doekjes",
    "off": "en:baby-wipes"
   },
@@ -2216,6 +2457,7 @@
    "en": "Baby milk",
    "nl": "Babymelk",
    "fr": "Lait bébé",
+   "el": "Βρεφικό γάλα",
    "aliases": "flesvoeding",
    "off": "en:infant-formulas"
   },
@@ -2226,6 +2468,7 @@
    "en": "Baby food",
    "nl": "Babyvoeding",
    "fr": "Petits pots",
+   "el": "Βρεφικές τροφές",
    "aliases": "potjes",
    "off": "en:baby-foods"
   },
@@ -2236,6 +2479,7 @@
    "en": "Toothpaste",
    "nl": "Tandpasta",
    "fr": "Dentifrice",
+   "el": "Οδοντόκρεμα",
    "off": "en:toothpastes"
   },
   {
@@ -2245,6 +2489,7 @@
    "en": "Toothbrushes",
    "nl": "Tandenborstels",
    "fr": "Brosses à dents",
+   "el": "Οδοντόβουρτσες",
    "off": "en:toothbrushes"
   },
   {
@@ -2254,6 +2499,7 @@
    "en": "Shampoo",
    "nl": "Shampoo",
    "fr": "Shampooing",
+   "el": "Σαμπουάν",
    "off": "en:shampoos"
   },
   {
@@ -2263,6 +2509,7 @@
    "en": "Conditioner",
    "nl": "Conditioner",
    "fr": "Après-shampooing",
+   "el": "Μαλακτική κρέμα μαλλιών",
    "off": "en:hair-conditioners"
   },
   {
@@ -2272,6 +2519,7 @@
    "en": "Shower gel",
    "nl": "Douchegel",
    "fr": "Gel douche",
+   "el": "Αφρόλουτρο",
    "off": "en:shower-gels"
   },
   {
@@ -2281,6 +2529,7 @@
    "en": "Soap",
    "nl": "Zeep",
    "fr": "Savon",
+   "el": "Σαπούνι",
    "aliases": "handzeep",
    "off": "en:soaps"
   },
@@ -2291,6 +2540,7 @@
    "en": "Deodorant",
    "nl": "Deodorant",
    "fr": "Déodorant",
+   "el": "Αποσμητικό",
    "aliases": "deo",
    "off": "en:deodorants"
   },
@@ -2301,6 +2551,7 @@
    "en": "Sun cream",
    "nl": "Zonnecrème",
    "fr": "Crème solaire",
+   "el": "Αντηλιακό",
    "off": "en:sunscreens"
   },
   {
@@ -2310,6 +2561,7 @@
    "en": "Body lotion",
    "nl": "Bodylotion",
    "fr": "Lait pour le corps",
+   "el": "Γαλάκτωμα σώματος",
    "off": "en:body-lotions"
   },
   {
@@ -2319,6 +2571,7 @@
    "en": "Razors",
    "nl": "Scheermesjes",
    "fr": "Rasoirs",
+   "el": "Ξυραφάκια",
    "off": "en:razors"
   },
   {
@@ -2328,6 +2581,7 @@
    "en": "Plasters",
    "nl": "Pleisters",
    "fr": "Pansements",
+   "el": "Τσιρότα",
    "off": "en:plasters"
   },
   {
@@ -2337,6 +2591,7 @@
    "en": "Paracetamol",
    "nl": "Paracetamol",
    "fr": "Paracétamol",
+   "el": "Παρακεταμόλη",
    "aliases": "dafalgan",
    "off": "en:painkillers"
   },
@@ -2347,6 +2602,7 @@
    "en": "Cotton pads",
    "nl": "Wattenschijfjes",
    "fr": "Disques de coton",
+   "el": "Δίσκοι ντεμακιγιάζ",
    "aliases": "wattenstaafjes",
    "off": "en:cotton-pads"
   },
@@ -2357,6 +2613,7 @@
    "en": "Sanitary pads",
    "nl": "Maandverband",
    "fr": "Serviettes hygiéniques",
+   "el": "Σερβιέτες",
    "aliases": "tampons",
    "off": "en:sanitary-pads"
   },
@@ -2367,6 +2624,7 @@
    "en": "Tissues",
    "nl": "Zakdoekjes",
    "fr": "Mouchoirs",
+   "el": "Χαρτομάντηλα",
    "off": "en:tissues"
   },
   {
@@ -2376,7 +2634,8 @@
    "en": "Toilet paper",
    "nl": "Wc-papier",
    "fr": "Papier toilette",
-   "aliases": "toiletpapier",
+   "el": "Χαρτί υγείας",
+   "aliases": "toiletpapier; χαρτί τουαλέτας",
    "off": "en:toilet-papers"
   },
   {
@@ -2386,6 +2645,7 @@
    "en": "Kitchen roll",
    "nl": "Keukenrol",
    "fr": "Essuie-tout",
+   "el": "Χαρτί κουζίνας",
    "aliases": "keukenpapier",
    "off": "en:kitchen-rolls"
   },
@@ -2396,6 +2656,7 @@
    "en": "Washing-up liquid",
    "nl": "Afwasmiddel",
    "fr": "Liquide vaisselle",
+   "el": "Υγρό πιάτων",
    "off": "en:dishwashing-liquids"
   },
   {
@@ -2405,6 +2666,7 @@
    "en": "Dishwasher tablets",
    "nl": "Vaatwastabletten",
    "fr": "Tablettes lave-vaisselle",
+   "el": "Ταμπλέτες πλυντηρίου πιάτων",
    "off": "en:dishwasher-tablets"
   },
   {
@@ -2414,6 +2676,7 @@
    "en": "Laundry detergent",
    "nl": "Wasmiddel",
    "fr": "Lessive",
+   "el": "Απορρυπαντικό ρούχων",
    "aliases": "waspoeder",
    "off": "en:laundry-detergents"
   },
@@ -2424,6 +2687,7 @@
    "en": "Fabric softener",
    "nl": "Wasverzachter",
    "fr": "Adoucissant",
+   "el": "Μαλακτικό ρούχων",
    "off": "en:fabric-softeners"
   },
   {
@@ -2433,6 +2697,7 @@
    "en": "All-purpose cleaner",
    "nl": "Allesreiniger",
    "fr": "Nettoyant multi-usage",
+   "el": "Καθαριστικό γενικής χρήσης",
    "off": "en:all-purpose-cleaners"
   },
   {
@@ -2442,6 +2707,7 @@
    "en": "Bleach",
    "nl": "Bleekwater",
    "fr": "Eau de Javel",
+   "el": "Χλωρίνη",
    "aliases": "javel",
    "off": "en:bleaches"
   },
@@ -2452,6 +2718,7 @@
    "en": "Sponges",
    "nl": "Sponzen",
    "fr": "Éponges",
+   "el": "Σφουγγάρια",
    "off": "en:sponges"
   },
   {
@@ -2461,6 +2728,7 @@
    "en": "Bin bags",
    "nl": "Vuilniszakken",
    "fr": "Sacs poubelle",
+   "el": "Σακούλες σκουπιδιών",
    "aliases": "pmd-zakken; restafvalzakken",
    "off": "en:garbage-bags"
   },
@@ -2471,6 +2739,7 @@
    "en": "Cling film",
    "nl": "Huishoudfolie",
    "fr": "Film alimentaire",
+   "el": "Μεμβράνη",
    "off": "en:cling-films"
   },
   {
@@ -2480,6 +2749,7 @@
    "en": "Aluminium foil",
    "nl": "Aluminiumfolie",
    "fr": "Papier aluminium",
+   "el": "Αλουμινόχαρτο",
    "aliases": "zilverpapier",
    "off": "en:aluminium-foils"
   },
@@ -2490,6 +2760,7 @@
    "en": "Baking paper",
    "nl": "Bakpapier",
    "fr": "Papier cuisson",
+   "el": "Λαδόχαρτο",
    "off": "en:baking-papers"
   },
   {
@@ -2499,6 +2770,7 @@
    "en": "Freezer bags",
    "nl": "Diepvrieszakjes",
    "fr": "Sacs congélation",
+   "el": "Σακουλάκια καταψύκτη",
    "off": "en:freezer-bags"
   },
   {
@@ -2508,6 +2780,7 @@
    "en": "Candles",
    "nl": "Kaarsen",
    "fr": "Bougies",
+   "el": "Κεριά",
    "aliases": "waxinelichtjes",
    "off": "en:candles"
   },
@@ -2518,6 +2791,7 @@
    "en": "Light bulbs",
    "nl": "Lampen",
    "fr": "Ampoules",
+   "el": "Λάμπες",
    "off": "en:light-bulbs"
   },
   {
@@ -2527,6 +2801,7 @@
    "en": "Batteries",
    "nl": "Batterijen",
    "fr": "Piles",
+   "el": "Μπαταρίες",
    "off": "en:batteries"
   },
   {
@@ -2536,6 +2811,7 @@
    "en": "Rubber gloves",
    "nl": "Huishoudhandschoenen",
    "fr": "Gants de ménage",
+   "el": "Γάντια κουζίνας",
    "off": "en:gloves"
   },
   {
@@ -2545,6 +2821,7 @@
    "en": "Matches",
    "nl": "Lucifers",
    "fr": "Allumettes",
+   "el": "Σπίρτα",
    "aliases": "aansteker",
    "off": "en:matches"
   },
@@ -2555,6 +2832,7 @@
    "en": "Cat food",
    "nl": "Kattenvoer",
    "fr": "Nourriture pour chats",
+   "el": "Γατοτροφή",
    "aliases": "kattenbrokken",
    "off": "en:cat-foods"
   },
@@ -2565,6 +2843,7 @@
    "en": "Cat litter",
    "nl": "Kattenbakvulling",
    "fr": "Litière pour chats",
+   "el": "Άμμος γάτας",
    "aliases": "kattenbak",
    "off": "en:cat-litters"
   },
@@ -2575,6 +2854,7 @@
    "en": "Dog food",
    "nl": "Hondenvoer",
    "fr": "Nourriture pour chiens",
+   "el": "Σκυλοτροφή",
    "off": "en:dog-foods"
   },
   {
@@ -2584,6 +2864,7 @@
    "en": "Dog treats",
    "nl": "Hondensnacks",
    "fr": "Friandises pour chiens",
+   "el": "Λιχουδιές σκύλου",
    "off": "en:dog-treats"
   }
  ]

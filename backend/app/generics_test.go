@@ -27,7 +27,7 @@ func TestTheCatalogueIsLoaded(t *testing.T) {
 		t.Fatalf("milk %v", got)
 	}
 	milk := items[0].(map[string]any)
-	if milk["name_nl"] != "Melk" || milk["name_fr"] != "Lait" || milk["section"] != "dairy" || milk["custom"] != false {
+	if milk["name_nl"] != "Melk" || milk["name_fr"] != "Lait" || milk["name_el"] != "Γάλα" || milk["section"] != "dairy" || milk["custom"] != false {
 		t.Errorf("milk %v", milk)
 	}
 	if n, _ := a.CountRecords("generics"); n < 200 {
@@ -74,6 +74,16 @@ func TestTypedNamesBecomeGenerics(t *testing.T) {
 		t.Fatalf("again %v", again)
 	}
 
+	// Greek, typed without its accent, by someone who reads Greek
+	cara, caraToken := addUser(t, a, "cara@example.com", "member")
+	withLang(t, a, cara, "el")
+	if gala := add(http.StatusOK, caraToken, `{"list":"`+list+`","name":"γαλα"}`); gala["id"] != milk["id"] {
+		t.Errorf("γαλα %v", gala)
+	}
+	if bread := add(http.StatusCreated, caraToken, `{"list":"`+list+`","name":"bread"}`); bread["name"] != "Ψωμί" {
+		t.Errorf("bread %v", bread)
+	}
+
 	// a name in two languages is the one in your own: raisins are grapes in French
 	grapes := add(http.StatusCreated, bobToken, `{"list":"`+list+`","name":"raisins"}`)
 	raisins := add(http.StatusCreated, adaToken, `{"list":"`+list+`","name":"raisins"}`)
@@ -114,7 +124,7 @@ func TestPeopleAddTheirOwnGenerics(t *testing.T) {
 		`{"name_nl":"Kattengras","emoji":"🌱","section":"nowhere","custom":false,"slug":"milk"}`)
 	slug, _ := own["slug"].(string)
 	if own["custom"] != true || !strings.HasPrefix(slug, "custom-kattengras-") || own["section"] != "other" ||
-		own["name_en"] != "Kattengras" || own["names"] != "|kattengras|" {
+		own["name_en"] != "Kattengras" || own["name_el"] != "Kattengras" || own["names"] != "|kattengras|" {
 		t.Fatalf("own %v", own)
 	}
 	if item := send(t, a, http.StatusCreated, http.MethodPost, "/api/app/items", token,

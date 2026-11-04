@@ -1,6 +1,6 @@
 // Package catalogue holds the generic items Shoppa ships with ("melk",
-// "bananen", "wc-papier"), each with a Dutch, French and English name, a store
-// section and an emoji, and keeps the generics collection in step with it.
+// "bananen", "wc-papier"), each with a Dutch, French, English and Greek name, a
+// store section and an emoji, and keeps the generics collection in step with it.
 package catalogue
 
 import (
@@ -23,6 +23,7 @@ type Section struct {
 	EN    string `json:"en"`
 	NL    string `json:"nl"`
 	FR    string `json:"fr"`
+	EL    string `json:"el"`
 }
 
 // Item is one generic item.
@@ -33,6 +34,7 @@ type Item struct {
 	EN      string `json:"en"`
 	NL      string `json:"nl"`
 	FR      string `json:"fr"`
+	EL      string `json:"el"`
 	// other names people use, separated by semicolons
 	Aliases string `json:"aliases,omitempty"`
 	// Open Food Facts category tags, comma-separated, for suggesting products
@@ -78,7 +80,8 @@ func Names(names ...string) string {
 
 // SetNames fills a generic record's names field from its names and aliases.
 func SetNames(r *core.Record) {
-	r.Set("names", Names(r.GetString("name_en"), r.GetString("name_nl"), r.GetString("name_fr"), r.GetString("aliases")))
+	r.Set("names", Names(r.GetString("name_en"), r.GetString("name_nl"), r.GetString("name_fr"),
+		r.GetString("name_el"), r.GetString("aliases")))
 }
 
 // Sync adds the bundled items to the generics collection and updates the ones
@@ -115,6 +118,7 @@ func Sync(app core.App) error {
 			r.Set("name_en", it.EN)
 			r.Set("name_nl", it.NL)
 			r.Set("name_fr", it.FR)
+			r.Set("name_el", it.EL)
 			r.Set("aliases", it.Aliases)
 			r.Set("off_categories", it.OFF)
 			SetNames(r)

@@ -1,11 +1,12 @@
 import type { RecordModel } from 'pocketbase';
 import { itemKey, type Item } from './list';
 
-export type Lang = 'en' | 'nl' | 'fr';
+export type Lang = 'en' | 'nl' | 'fr' | 'el';
 export const langs: { id: Lang; label: string }[] = [
   { id: 'nl', label: 'Nederlands' },
   { id: 'fr', label: 'Français' },
   { id: 'en', label: 'English' },
+  { id: 'el', label: 'Ελληνικά' },
 ];
 
 export interface Section {
@@ -14,6 +15,7 @@ export interface Section {
   en: string;
   nl: string;
   fr: string;
+  el: string;
 }
 
 export interface Generic extends RecordModel {
@@ -23,6 +25,7 @@ export interface Generic extends RecordModel {
   name_en: string;
   name_nl: string;
   name_fr: string;
+  name_el: string;
   aliases: string;
   /** Open Food Facts category tags, comma-separated: how products find their section */
   off_categories: string;
@@ -35,14 +38,14 @@ export const OTHER = 'other';
 export function guessLang(languages: readonly string[]): Lang {
   for (const l of languages) {
     const code = l.slice(0, 2).toLowerCase();
-    if (code === 'nl' || code === 'fr' || code === 'en') return code;
+    if (code === 'nl' || code === 'fr' || code === 'en' || code === 'el') return code;
   }
   return 'nl';
 }
 
 /** A generic's name in the language, or in another when it has none there. */
 export function genericName(g: Generic, lang: Lang): string {
-  return g[`name_${lang}`] || g.name_en || g.name_nl || g.name_fr;
+  return g[`name_${lang}`] || g.name_en || g.name_nl || g.name_fr || g.name_el;
 }
 
 export function sectionLabel(s: Section | undefined, lang: Lang): string {
@@ -51,7 +54,7 @@ export function sectionLabel(s: Section | undefined, lang: Lang): string {
 
 const namesOf = (g: Generic, lang: Lang) => [
   { text: genericName(g, lang), own: true },
-  ...[g.name_en, g.name_nl, g.name_fr, ...g.aliases.split(';')].map((text) => ({
+  ...[g.name_en, g.name_nl, g.name_fr, g.name_el, ...g.aliases.split(';')].map((text) => ({
     text,
     own: false,
   })),
