@@ -115,3 +115,17 @@ func TestNewsOnlyOfWhatIsStillToBuy(t *testing.T) {
 		t.Fatalf("sent %+v", got)
 	}
 }
+
+func TestNewsWaitingWhenTheServerStopsIsLetGo(t *testing.T) {
+	sent := app.CatchPush(t)
+	a := newApp(t)
+	_, token := addUser(t, a, "anna@example.com", "owner")
+	addUser(t, a, "ben@example.com", "member")
+	list := newList(t, a, "Groceries")
+	send(t, a, http.StatusCreated, http.MethodPost, "/api/app/items", token, `{"list":"`+list+`","name":"Melk"}`)
+	a.Cleanup()
+	app.FlushNotices(a)
+	if got := sent(); len(got) != 0 {
+		t.Fatalf("sent %+v after the server stopped", got)
+	}
+}

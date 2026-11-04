@@ -61,6 +61,12 @@ func registerLists(app core.App) {
 		return nil
 	})
 
+	// a notification still waiting when the server stops is let go
+	app.OnTerminate().BindFunc(func(e *core.TerminateEvent) error {
+		notices.forget(e.App)
+		return e.Next()
+	})
+
 	// the first person to sign up gets a list to start with
 	app.OnRecordAfterCreateSuccess("users").BindFunc(func(e *core.RecordEvent) error {
 		if n, err := e.App.CountRecords("lists"); err == nil && n == 0 {

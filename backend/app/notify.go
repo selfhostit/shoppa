@@ -72,12 +72,24 @@ func waitFor(first, now time.Time) time.Duration {
 	return max(min(notifyQuiet, first.Add(notifyMost).Sub(now)), 0)
 }
 
+// forget drops an app's batches, when it stops.
+func (n *notifier) forget(app core.App) {
+	n.mu.Lock()
+	defer n.mu.Unlock()
+	for k, b := range n.batches {
+		if b.app.DataDir() == app.DataDir() {
+			b.timer.Stop()
+			delete(n.batches, k)
+		}
+	}
+}
+
 // flush sends an app's batches now.
 func (n *notifier) flush(app core.App) {
 	n.mu.Lock()
 	var keys []batchKey
 	for k, b := range n.batches {
-		if b.app != app {
+		if b.app.DataDir() != app.DataDir() {
 			continue
 		}
 		b.timer.Stop()
