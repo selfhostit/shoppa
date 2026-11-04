@@ -6,10 +6,12 @@ import (
 	"net/http"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/pocketbase/dbx"
 	"github.com/pocketbase/pocketbase/core"
 	"github.com/pocketbase/pocketbase/tests"
+	"github.com/pocketbase/pocketbase/tools/types"
 )
 
 // newList saves a list and returns its id.
@@ -162,6 +164,17 @@ func TestTickingOffKeepsAPurchase(t *testing.T) {
 	patch(`{"checked":true}`)
 	if n, _ := a.CountRecords("purchases"); n != 2 {
 		t.Errorf("%d purchases", n)
+	}
+
+	// a tick made offline keeps its time once it syncs, unless it's odd
+	patch(`{"checked":false}`)
+	earlier := time.Now().UTC().Add(-2 * time.Hour).Format(types.DefaultDateLayout)
+	if got := patch(`{"checked":true,"checked_at":"` + earlier + `"}`); got["checked_at"] != earlier {
+		t.Errorf("ticked offline at %v, want %s", got["checked_at"], earlier)
+	}
+	patch(`{"checked":false}`)
+	if got := patch(`{"checked":true,"checked_at":"2030-01-01 00:00:00.000Z"}`); got["checked_at"] == "2030-01-01 00:00:00.000Z" {
+		t.Errorf("a tick in the future was kept: %v", got["checked_at"])
 	}
 
 	// nobody writes purchases by hand

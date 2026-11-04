@@ -36,8 +36,9 @@ The list opens and can be ticked off in a shop with no signal. Changes wait on t
 phone and are sent when the server is reachable again, the way Splitwiz's outbox
 works, with one change: the phone gives new items a real PocketBase id when it makes
 them, so nothing needs renaming after the sync. Ticking is the same whoever does it
-first, so two phones ticking the same item never conflict. The service worker keeps
-product photos, so the list looks the same offline.
+first, so two phones ticking the same item never conflict, and a tick made offline
+keeps the time it was made (up to a week back). The service worker keeps product
+photos, so the list looks the same offline. Signing out forgets the copy on the phone.
 
 ## Notifications
 
@@ -148,8 +149,8 @@ Each step is one PR that leaves the app working.
 
 ## Progress
 
-**Now:** 1.8 offline
-**Next:** 1.9 push, grouped
+**Now:** 1.9 push, grouped
+**Next:** 1.10 README, screenshots, org profile, website
 **Blocked:** nothing
 
 ### 0. Agree before code
@@ -167,7 +168,7 @@ Each step is one PR that leaves the app working.
 - [x] 1.5 Thumbnails kept on the NAS, with credits (#12)
 - [x] 1.6 Barcode scan, pin a generic item to a product (#14, #15)
 - [x] 1.7 Check off, recently bought (#10)
-- [ ] 1.8 Offline (#PR)
+- [x] 1.8 Offline (#17)
 - [ ] 1.9 Push, grouped (#PR)
 - [ ] 1.10 README, screenshots, org profile, website (#PR)
 - [ ] 1.11 Running on the Synology, used for a week

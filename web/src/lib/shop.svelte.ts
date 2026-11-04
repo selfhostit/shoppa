@@ -10,6 +10,20 @@ import {
 } from './catalogue';
 import { errorMessage, pb, type User } from './pb';
 import { listsInOrder, parseEntry, upsert, type Item, type List } from './list';
+import {
+  DeviceCopy,
+  emptySnapshot,
+  enqueue,
+  newId,
+  pbNow,
+  renamed,
+  sameThing,
+  unreachable,
+  withPending,
+  type NewItem,
+  type Op,
+  type Snapshot,
+} from './offline';
 import { pinnedFor, type Pin } from './pins';
 import { kindOf, productLine, productName, type Product } from './products';
 import { session } from './session.svelte';
@@ -24,8 +38,13 @@ function remembered(): string {
   }
 }
 
+/** How often to try the server again while it can't be reached. */
+const RETRY_MS = 30_000;
+
 // The household's lists and the open list's items, kept live: a change made
-// on any phone shows up on the others at once.
+// on any phone shows up on the others at once. A copy stays on the phone, and
+// changes to items go through a queue that waits while the server can't be
+// reached (lib/offline.ts).
 class Shop {
   lists = $state<List[]>([]);
   items = $state<Item[]>([]);
@@ -39,8 +58,23 @@ class Shop {
   listId = $state(remembered());
   loading = $state(true);
   error = $state('');
+  /** true while the server can't be reached */
+  offline = $state(false);
+  /** changes to items not sent yet, oldest first */
+  outbox = $state<Op[]>([]);
 
   private stops: UnsubscribeFunc[] = [];
+  /** the open list's items as the server last sent them */
+  private base: Item[] = [];
+  private copy: DeviceCopy | null = null;
+  private snap: Snapshot = emptySnapshot();
+  private sending: Promise<void> | null = null;
+  private connecting: Promise<void> | null = null;
+  private inFlight: Op | null = null;
+  private retry: ReturnType<typeof setInterval> | undefined;
+  private persistTimer: ReturnType<typeof setTimeout> | undefined;
+  private onOnline = () => this.connect();
+  private onVisible = () => document.visibilityState === 'visible' && this.connect();
 
   get ordered() {
     return listsInOrder(this.lists);
@@ -112,9 +146,46 @@ class Shop {
     return (p?.name || p?.email || '').split(/[\s@]/)[0];
   }
 
-  /** Loads everything and starts listening for changes; returns a stop function. */
+  /** Opens the copy on this phone, then loads from the server and listens for changes. */
   async start() {
-    this.error = '';
+    const me = session.user?.id ?? '';
+    this.copy = new DeviceCopy(me);
+    this.snap = this.copy.snapshot();
+    this.outbox = this.copy.outbox();
+    const s = this.snap;
+    this.lists = s.lists;
+    this.people = s.people;
+    this.generics = s.generics;
+    this.sections = s.sections;
+    this.pins = s.pins;
+    this.products = s.products;
+    this.setBase(s.items[this.list?.id ?? ''] ?? []);
+    if (s.lists.length) this.loading = false;
+
+    addEventListener('online', this.onOnline);
+    document.addEventListener('visibilitychange', this.onVisible);
+    this.retry = setInterval(
+      () => (this.offline || this.outbox.length) && this.connect(),
+      RETRY_MS,
+    );
+    await this.connect();
+  }
+
+  stop() {
+    removeEventListener('online', this.onOnline);
+    document.removeEventListener('visibilitychange', this.onVisible);
+    clearInterval(this.retry);
+    clearTimeout(this.persistTimer);
+    this.stops.splice(0).forEach((stop) => stop());
+  }
+
+  /** Loads everything from the server, starts listening once, and sends what waited. */
+  connect(): Promise<void> {
+    this.connecting ??= this.load().finally(() => (this.connecting = null));
+    return this.connecting;
+  }
+
+  private async load() {
     try {
       const [lists, people, generics, sections, pins] = await Promise.all([
         pb.collection<List>('lists').getFullList(),
@@ -129,53 +200,105 @@ class Shop {
       this.generics = generics;
       this.sections = sections;
       await this.loadItems();
-      this.stops.push(
-        await pb.collection<List>('lists').subscribe('*', ({ action, record }) => {
-          this.lists = upsert(this.lists, record, action === 'delete');
-          if (action === 'delete' && record.id === this.list?.id) this.loadItems();
-        }),
-        await pb
-          .collection<Pin>('pins')
-          .subscribe(
-            '*',
-            ({ action, record }) => (this.pins = upsert(this.pins, record, action === 'delete')),
-            { expand: 'product' },
-          ),
-        await pb.collection<Generic>('generics').subscribe('*', ({ action, record }) => {
-          this.generics = upsert(this.generics, record, action === 'delete');
-        }),
-        await pb.collection<Item>('items').subscribe(
-          '*',
-          ({ action, record }) => {
-            if (record.list !== this.list?.id) return;
-            this.keep([record]);
-            this.items = upsert(this.items, record, action === 'delete');
-          },
-          { expand: 'product' },
-        ),
-      );
+      if (!this.stops.length) await this.listen();
+      this.offline = false;
+      if (this.error === errorMessage({ status: 0 })) this.error = '';
+      await this.flush();
     } catch (err) {
-      this.error = errorMessage(err);
+      if (unreachable(err)) this.offline = true;
+      else this.error = errorMessage(err);
     } finally {
       this.loading = false;
+      this.persist();
     }
   }
 
-  stop() {
-    this.stops.splice(0).forEach((stop) => stop());
+  private async listen() {
+    let first = true;
+    this.stops.push(
+      // live updates reconnect by themselves; catch up on what was missed meanwhile
+      await pb.realtime.subscribe('PB_CONNECT', () => {
+        if (first) first = false;
+        else this.connect();
+      }),
+      await pb.collection<List>('lists').subscribe('*', ({ action, record }) => {
+        this.lists = upsert(this.lists, record, action === 'delete');
+        if (action === 'delete' && record.id === this.list?.id) this.loadItems();
+        this.persist();
+      }),
+      await pb.collection<Pin>('pins').subscribe(
+        '*',
+        ({ action, record }) => {
+          this.pins = upsert(this.pins, record, action === 'delete');
+          this.persist();
+        },
+        { expand: 'product' },
+      ),
+      await pb.collection<Generic>('generics').subscribe('*', ({ action, record }) => {
+        this.generics = upsert(this.generics, record, action === 'delete');
+        this.persist();
+      }),
+      await pb.collection<Item>('items').subscribe(
+        '*',
+        ({ action, record }) => {
+          if (record.list !== this.list?.id) return;
+          this.keep([record]);
+          this.setBase(upsert(this.base, record, action === 'delete'));
+        },
+        { expand: 'product' },
+      ),
+    );
+  }
+
+  /** The open list's items: the server's, with the changes still waiting laid over. */
+  private setBase(items: Item[]) {
+    this.base = items;
+    this.show();
+    this.persist();
+  }
+
+  private show() {
+    const list = this.list?.id ?? '';
+    this.items = withPending(this.base, this.outbox, list, session.user?.id ?? '', this.generics);
+  }
+
+  /** Writes the copy on the phone, a moment after the last change. */
+  private persist() {
+    clearTimeout(this.persistTimer);
+    this.persistTimer = setTimeout(() => {
+      const list = this.list?.id;
+      this.snap = {
+        lists: this.lists,
+        people: this.people,
+        generics: this.generics,
+        sections: this.sections,
+        pins: this.pins,
+        products: this.products,
+        items: { ...this.snap.items, ...(list ? { [list]: this.base } : {}) },
+      };
+      this.copy?.saveSnapshot($state.snapshot(this.snap) as Snapshot);
+    }, 300);
   }
 
   async loadItems() {
     const id = this.list?.id;
     if (!id) {
-      this.items = [];
+      this.setBase([]);
       return;
     }
-    this.items = this.keep(
-      await pb
-        .collection<Item>('items')
-        .getFullList({ filter: pb.filter('list = {:id}', { id }), expand: 'product' }),
-    );
+    try {
+      this.setBase(
+        this.keep(
+          await pb
+            .collection<Item>('items')
+            .getFullList({ filter: pb.filter('list = {:id}', { id }), expand: 'product' }),
+        ),
+      );
+    } catch (err) {
+      if (!unreachable(err)) throw err;
+      this.offline = true;
+      this.setBase(this.snap.items[id] ?? []);
+    }
   }
 
   async open(listId: string) {
@@ -188,6 +311,68 @@ class Shop {
     await this.run(() => this.loadItems());
   }
 
+  /** Queues a change to an item, shows it at once, and sends it if it can. */
+  private async change(op: Op) {
+    // the change being sent can't take more in
+    const [head, ...rest] = this.outbox;
+    this.outbox =
+      head && head === this.inFlight ? [head, ...enqueue(rest, op)] : enqueue(this.outbox, op);
+    this.copy?.saveOutbox($state.snapshot(this.outbox) as Op[]);
+    this.show();
+    await this.flush();
+  }
+
+  /** Sends the waiting changes, oldest first, until one can't get through. */
+  flush(): Promise<void> {
+    this.sending ??= (async () => {
+      while (this.outbox.length) {
+        const op = this.outbox[0];
+        this.inFlight = op;
+        let id = op.id;
+        try {
+          id = await this.send(op);
+        } catch (err) {
+          if (unreachable(err)) {
+            this.offline = true;
+            break;
+          }
+          // gone already (someone else removed it), or refused: drop it
+          if ((err as { status?: number }).status !== 404) this.error = errorMessage(err);
+        } finally {
+          this.inFlight = null;
+        }
+        this.outbox = renamed(this.outbox.slice(1), op.id, id);
+        this.copy?.saveOutbox($state.snapshot(this.outbox) as Op[]);
+        this.show();
+      }
+    })().finally(() => (this.sending = null));
+    return this.sending;
+  }
+
+  /** Sends one change; returns the item's id on the server. */
+  private async send(op: Op): Promise<string> {
+    const here = op.list === this.list?.id;
+    if (op.kind === 'add') {
+      const item = await pb.send<Item>('/api/app/items', {
+        method: 'POST',
+        body: { id: op.id, list: op.list, ...op.body },
+      });
+      // the list may have had it already, under its own id
+      if (here) this.base = upsert(upsert(this.base, { id: op.id } as Item, true), item);
+      return item.id;
+    }
+    if (op.kind === 'update') {
+      const item = await pb
+        .collection<Item>('items')
+        .update(op.id, op.change, { expand: 'product' });
+      if (here) this.base = upsert(this.base, this.keep([item])[0]);
+      return op.id;
+    }
+    await pb.collection('items').delete(op.id);
+    if (here) this.base = upsert(this.base, { id: op.id } as Item, true);
+    return op.id;
+  }
+
   /**
    * Puts what was typed on the open list, as the generic it names if there is
    * one, or brings back the one already there.
@@ -198,16 +383,27 @@ class Shop {
     if (!product) generic ??= exactly(this.generics, name, this.lang);
     if (!(name || generic || product) || !list) return;
     if (product) this.products = { ...this.products, [product.id]: product };
-    await this.run(async () => {
-      const item = await pb.send<Item>('/api/app/items', {
-        method: 'POST',
-        body: {
-          list: list.id,
-          ...(product ? { product: product.id } : generic ? { generic: generic.id } : { name }),
-          ...(quantity ? { quantity } : {}),
-        },
-      });
-      this.items = upsert(this.items, item);
+    const body: NewItem = product
+      ? { product: product.id }
+      : generic
+        ? { generic: generic.id }
+        : { name };
+    if (quantity) body.quantity = quantity;
+    const shown = product
+      ? productName(product, this.lang)
+      : generic
+        ? genericName(generic, this.lang)
+        : name;
+    body.name ??= shown;
+    // what's on the list already comes back, as the server would do
+    const there = this.items.find((i) => sameThing(i, body, this.generics));
+    await this.change({
+      kind: 'add',
+      id: there?.id ?? newId(),
+      list: list.id,
+      body,
+      at: pbNow(),
+      ...(there ? { existing: true } : {}),
     });
   }
 
@@ -222,12 +418,13 @@ class Shop {
    */
   async pin(item: Item, product: Product) {
     this.products = { ...this.products, [product.id]: product };
+    await this.flush();
     await this.run(async () => {
       const kept = await pb.send<Item>(`/api/app/items/${item.id}/pin`, {
         method: 'POST',
         body: { product: product.id },
       });
-      this.items = upsert(kept.id === item.id ? this.items : upsert(this.items, item, true), kept);
+      this.setBase(upsert(kept.id === item.id ? this.base : upsert(this.base, item, true), kept));
     });
   }
 
@@ -267,6 +464,7 @@ class Shop {
 
   /** Keeps a typed item as one of the household's own, with an emoji and a section. */
   async remember(item: Item, emoji: string, section: string) {
+    await this.flush();
     await this.run(async () => {
       const generic = await pb.collection<Generic>('generics').create({
         [`name_${this.lang}`]: item.name,
@@ -274,9 +472,11 @@ class Shop {
         section,
       });
       this.generics = upsert(this.generics, generic);
-      this.items = upsert(
-        this.items,
-        await pb.collection<Item>('items').update(item.id, { generic: generic.id }),
+      this.setBase(
+        upsert(
+          this.base,
+          await pb.collection<Item>('items').update(item.id, { generic: generic.id }),
+        ),
       );
     });
   }
@@ -293,37 +493,17 @@ class Shop {
   }
 
   async tick(item: Item) {
-    // the server sets when and by whom; the phone shows it at once
-    await this.save(
-      item,
-      { checked: true },
-      { checked_at: new Date().toISOString().replace('T', ' ') },
-    );
+    // the server keeps who did it, and when, even when that was offline
+    await this.save(item, { checked: true, checked_at: pbNow() });
   }
 
-  /** Changes an item, showing the change (and `shown`) before the server answers. */
-  async save(item: Item, change: Partial<Item>, shown: Partial<Item> = {}) {
-    const before = this.items;
-    this.items = upsert(this.items, { ...item, ...change, ...shown });
-    await this.run(
-      async () =>
-        (this.items = upsert(
-          this.items,
-          this.keep([
-            await pb.collection<Item>('items').update(item.id, change, { expand: 'product' }),
-          ])[0],
-        )),
-      () => (this.items = before),
-    );
+  /** Changes an item: shown at once, sent when the server can be reached. */
+  async save(item: Item, change: Partial<Item>) {
+    await this.change({ kind: 'update', id: item.id, list: item.list, change, at: pbNow() });
   }
 
   async remove(item: Item) {
-    const before = this.items;
-    this.items = upsert(this.items, item, true);
-    await this.run(
-      () => pb.collection('items').delete(item.id),
-      () => (this.items = before),
-    );
+    await this.change({ kind: 'delete', id: item.id, list: item.list, at: pbNow() });
   }
 
   async createList(name: string) {

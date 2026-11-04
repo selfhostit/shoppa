@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/pocketbase/dbx"
 	"github.com/pocketbase/pocketbase/apis"
@@ -40,7 +41,7 @@ func registerLists(app core.App) {
 	app.OnRecordUpdateRequest("items").BindFunc(func(e *core.RecordRequestEvent) error {
 		was, is := e.Record.Original().GetBool("checked"), e.Record.GetBool("checked")
 		if !was && is {
-			e.Record.Set("checked_at", types.NowDateTime())
+			e.Record.Set("checked_at", tickedAt(e.Record))
 			e.Record.Set("checked_by", personID(e.Auth))
 		} else if was && !is {
 			e.Record.Set("checked_by", "")
@@ -72,6 +73,24 @@ func registerLists(app core.App) {
 		}
 		return e.Next()
 	})
+}
+
+// offlineTicks is how long a tick can wait on a phone with no signal and still
+// keep the time it was made.
+const offlineTicks = 7 * 24 * time.Hour
+
+// tickedAt is when an item was ticked off: the time the phone sent, when it
+// ticked it off offline and synced later, or now.
+func tickedAt(item *core.Record) types.DateTime {
+	now := types.NowDateTime()
+	sent := item.GetDateTime("checked_at")
+	if sent.IsZero() || sent.Equal(item.Original().GetDateTime("checked_at")) {
+		return now
+	}
+	if sent.Time().After(now.Time().Add(time.Minute)) || sent.Time().Before(now.Time().Add(-offlineTicks)) {
+		return now
+	}
+	return sent
 }
 
 func registerListRoutes(se *core.ServeEvent) {
