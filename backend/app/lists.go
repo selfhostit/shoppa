@@ -19,9 +19,16 @@ const FirstList = "Groceries"
 
 func registerLists(app core.App) {
 	// an item's key is what makes it the same thing on a list: "Melk",
-	// "melk " and "mélk" are one item
+	// "melk " and "mélk" are one item, and so are "Melk" and "Lait" when they
+	// point at the same generic
 	setKey := func(e *core.RecordEvent) error {
-		e.Record.Set("key", itemKey(e.Record.GetString("name")))
+		// a name that is a generic's name becomes that generic
+		if e.Record.GetString("generic") == "" {
+			if g := matchGeneric(e.App, itemKey(e.Record.GetString("name")), "nl"); g != nil {
+				e.Record.Set("generic", g.Id)
+			}
+		}
+		e.Record.Set("key", recordKey(e.App, e.Record))
 		return e.Next()
 	}
 	app.OnRecordCreate("items").BindFunc(setKey)
@@ -75,30 +82,47 @@ type newItem struct {
 	ID       string  `json:"id"`
 	List     string  `json:"list"`
 	Name     string  `json:"name"`
+	Generic  string  `json:"generic"`
 	Quantity *string `json:"quantity"`
 	Note     *string `json:"note"`
 }
 
 var recordID = regexp.MustCompile(`^[a-z0-9]{15}$`)
 
-// addItem puts something on a list. If the list already has it, the same
-// item comes back: ticked off items return to the list, and a quantity or
-// note sent along replaces the old one.
+// addItem puts something on a list: a generic item, or what was typed, which
+// becomes the generic it names when there is one ("lait" is the generic
+// milk). If the list already has it, the same item comes back: ticked off
+// items return to the list, and a quantity or note sent along replaces the
+// old one.
 func addItem(e *core.RequestEvent) error {
 	var in newItem
 	if err := e.BindBody(&in); err != nil {
 		return e.BadRequestError("That doesn't look right.", err)
-	}
-	name := strings.Join(strings.Fields(in.Name), " ")
-	key := itemKey(name)
-	if key == "" {
-		return e.BadRequestError("Type what you need.", nil)
 	}
 	if in.ID != "" && !recordID.MatchString(in.ID) {
 		return e.BadRequestError("That doesn't look right.", nil)
 	}
 	if _, err := e.App.FindRecordById("lists", in.List); err != nil {
 		return e.NotFoundError("That list is gone.", err)
+	}
+	lang := personLang(e.Auth)
+	name := strings.Join(strings.Fields(in.Name), " ")
+	var generic *core.Record
+	if in.Generic != "" {
+		g, err := e.App.FindRecordById("generics", in.Generic)
+		if err != nil {
+			return e.NotFoundError("That item is gone.", err)
+		}
+		generic = g
+	} else {
+		generic = matchGeneric(e.App, itemKey(name), lang)
+	}
+	key := itemKey(name)
+	if generic != nil {
+		key, name = genericKey(generic), genericName(generic, lang)
+	}
+	if key == "" || name == "" {
+		return e.BadRequestError("Type what you need.", nil)
 	}
 
 	item, err := e.App.FindFirstRecordByFilter("items", "list = {:list} && key = {:key}",
@@ -122,6 +146,9 @@ func addItem(e *core.RequestEvent) error {
 		}
 		item.Set("list", in.List)
 		item.Set("name", name)
+		if generic != nil {
+			item.Set("generic", generic.Id)
+		}
 		item.Set("added_by", personID(e.Auth))
 		status = http.StatusCreated
 	default:
@@ -139,9 +166,24 @@ func addItem(e *core.RequestEvent) error {
 	return e.JSON(status, item)
 }
 
-// itemKey is what an item is found by on its list.
+// itemKey is what an item without a generic is found by on its list.
 func itemKey(name string) string {
 	return food.Normalize(name)
+}
+
+// genericKey is what an item of a generic is found by on its list.
+func genericKey(generic *core.Record) string {
+	return "g:" + generic.GetString("slug")
+}
+
+// recordKey is an item record's key, from its generic or its name.
+func recordKey(app core.App, item *core.Record) string {
+	if id := item.GetString("generic"); id != "" {
+		if g, err := app.FindRecordById("generics", id); err == nil {
+			return genericKey(g)
+		}
+	}
+	return itemKey(item.GetString("name"))
 }
 
 // personID is the signed-in person's id, or "" for a worker.
@@ -160,6 +202,7 @@ func addPurchase(app core.App, item *core.Record, by string) error {
 	p := core.NewRecord(purchases)
 	p.Set("list", item.GetString("list"))
 	p.Set("item", item.Id)
+	p.Set("generic", item.GetString("generic"))
 	p.Set("name", item.GetString("name"))
 	p.Set("key", item.GetString("key"))
 	p.Set("by", by)

@@ -1,6 +1,8 @@
 <script lang="ts">
   import { t } from '../lib/i18n';
+  import { langs, type Lang } from '../lib/catalogue';
   import { install } from '../lib/install.svelte';
+  import { shop } from '../lib/shop.svelte';
   import { pb } from '../lib/pb';
   import { session } from '../lib/session.svelte';
   import Notifications from './Notifications.svelte';
@@ -30,6 +32,23 @@
 {:else if install.needsIosSteps}
   <section class="card"><p>{t('me.install.ios')}</p></section>
 {/if}
+
+<section class="card flex flex-col gap-3">
+  <div>
+    <h2 class="font-semibold">{t('me.lang')}</h2>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400">{t('me.lang.hint')}</p>
+  </div>
+  <div class="flex flex-wrap gap-2" role="radiogroup" aria-label={t('me.lang')}>
+    {#each langs as l (l.id)}
+      <button
+        class="chip {shop.lang === l.id ? 'chosen' : ''}"
+        role="radio"
+        aria-checked={shop.lang === l.id}
+        onclick={() => shop.setLang(l.id as Lang)}>{l.label}</button
+      >
+    {/each}
+  </div>
+</section>
 
 <Notifications />
 
