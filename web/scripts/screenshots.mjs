@@ -202,6 +202,38 @@ for (const scheme of ['light', 'dark']) {
   await page.getByRole('button', { name: 'Switch list' }).click();
   await page.getByRole('button', { name: /Groceries/ }).click();
 
+  // in a shop with no signal: the list still opens, and ticks and new items
+  // wait on the phone until the server is back
+  await page.getByRole('button', { name: 'Tick off Melk' }).waitFor();
+  await page.waitForTimeout(500);
+  await page.context().setOffline(true);
+  await page.reload();
+  await page.getByRole('button', { name: 'Tick off Afwasmiddel' }).click();
+  await page.getByLabel('Add an item').fill('Brood');
+  await page.getByLabel('Add an item').press('Enter');
+  await page.getByText('2 changes wait on this phone').waitFor();
+  await page.getByLabel('Add an item').blur();
+  await page.evaluate(() => scrollTo(0, 0));
+  await shot('offline');
+  await page.context().setOffline(false);
+  await page.evaluate(() => dispatchEvent(new Event('online')));
+  await page.getByText('wait on this phone').waitFor({ state: 'detached' });
+  // they reached the server; put the list back as it was for the next scheme
+  const synced = (
+    await api(`/api/collections/items/records?perPage=200&filter=list='${groceries.id}'`, {
+      token: anna,
+    })
+  ).items;
+  const dish = synced.find((i) => i.name === 'Afwasmiddel');
+  const bread = synced.find((i) => i.name === 'Brood');
+  if (!dish?.checked || !bread) throw new Error('the changes made offline did not sync');
+  await api(`/api/collections/items/records/${dish.id}`, {
+    token: anna,
+    method: 'PATCH',
+    body: { checked: false },
+  });
+  await api(`/api/collections/items/records/${bread.id}`, { token: anna, method: 'DELETE' });
+
   await page.goto(`${base}/#me`);
   await page.getByText('Hi Anna').waitFor();
   await shot('me');

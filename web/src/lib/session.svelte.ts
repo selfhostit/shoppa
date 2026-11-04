@@ -1,4 +1,5 @@
 import { pb, type User } from './pb';
+import { DeviceCopy } from './offline';
 import { forgetPush, syncPush } from './push';
 
 // Who is signed in. PocketBase keeps the token in localStorage, so a reload or
@@ -21,6 +22,8 @@ class Session {
   /** Signs out, and stops this device's notifications for the user. */
   async logout() {
     await forgetPush();
+    // the lists kept on this phone, and changes not sent yet, go too
+    if (this.user) new DeviceCopy(this.user.id).forget();
     pb.authStore.clear();
   }
 

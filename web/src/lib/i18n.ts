@@ -26,6 +26,12 @@ export const en = {
   'list.other': 'Other',
   'list.products': 'Products',
 
+  'offline.title': 'Offline. You can still tick things off; they sync when the server is back.',
+  'offline.waiting_one':
+    'Offline. {n} change waits on this phone and syncs when the server is back.',
+  'offline.waiting_other':
+    'Offline. {n} changes wait on this phone and sync when the server is back.',
+
   'scan.title': 'Scan a barcode',
   'scan.open': 'Scan a barcode',
   'scan.point': 'Point the camera at the barcode of the empty package.',

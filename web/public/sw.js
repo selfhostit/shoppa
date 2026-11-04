@@ -1,6 +1,9 @@
 // Service worker: keeps the app shell cached so the app opens instantly, even
-// offline. API calls and the admin UI always go to the network.
-const CACHE = 'shell-v2';
+// offline, and keeps product photos so a list looks the same in a shop with no
+// signal. Other API calls and the admin UI always go to the network.
+const CACHE = 'shell-v3';
+const PHOTOS = 'photos-v1';
+const photo = /^\/api\/app\/products\/[a-z0-9]+\/photo$/;
 const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png'];
 
 self.addEventListener('install', (event) => {
@@ -16,7 +19,9 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) =>
+        Promise.all(keys.filter((k) => k !== CACHE && k !== PHOTOS).map((k) => caches.delete(k))),
+      )
       .then(() => self.clients.claim()),
   );
 });
@@ -25,6 +30,23 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
   if (req.method !== 'GET' || url.origin !== self.location.origin) return;
+
+  // a product's photo doesn't change: the copy kept here, else the server's
+  if (photo.test(url.pathname)) {
+    event.respondWith(
+      caches.open(PHOTOS).then((c) =>
+        c.match(req).then(
+          (hit) =>
+            hit ||
+            fetch(req).then((res) => {
+              if (res.ok) c.put(req, res.clone());
+              return res;
+            }),
+        ),
+      ),
+    );
+    return;
+  }
   if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/_/')) return;
 
   // pages: network first so updates show up, the cached shell when offline

@@ -195,6 +195,14 @@
   {/if}
 </div>
 
+{#if shop.offline}
+  <p
+    class="rounded-xl bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:bg-amber-950/60 dark:text-amber-200"
+    role="status"
+  >
+    {shop.outbox.length ? tn('offline.waiting', shop.outbox.length) : t('offline.title')}
+  </p>
+{/if}
 {#if shop.error}
   <p class="text-sm text-red-600 dark:text-red-400" role="alert">{shop.error}</p>
 {/if}
