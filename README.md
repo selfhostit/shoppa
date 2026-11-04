@@ -1,6 +1,56 @@
-# shoppa
+<div align="center">
 
-A self-hosted app built on [plasto](https://github.com/selfhostit/plasto).
+<img src="web/public/brand/carty.svg" width="120" alt="Carty, a smiling green shopping cart">
+
+# Shoppa
+
+**A shared shopping list for your household, on your own hardware.**
+
+</div>
+
+Shoppa is a self-hosted shopping list, like Bring!, made for Belgium. Add "melk" and
+it shows up on the other phone at once, with its emoji and in the shop's order of
+sections. Or pick the exact product, from Open Food Facts or by scanning the empty
+package, and the other person sees its photo, brand and size, so they bring home the
+right one. Meet Carty (Mr. Shopping Carty, to strangers), who keeps the bananas warm
+while you shop.
+
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="docs/images/screens/list.png" alt="The Groceries list, grouped by section, with product photos, quantities and notes"><br><sub><b>One list, on every phone.</b> Grouped by section, live as it changes.</sub></td>
+    <td align="center" width="33%"><img src="docs/images/screens/products.png" alt="Typing spread shows Belgian products from Open Food Facts with their photos"><br><sub><b>The exact product.</b> Belgian and Dutch products, found in your own words.</sub></td>
+    <td align="center" width="33%"><img src="docs/images/screens/scan.png" alt="A scanned barcode found the product, ready to add"><br><sub><b>Scan the empty package.</b> It goes on the list as that product.</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/images/screens/usual.png" alt="Typing choco suggests the household's usual product first"><br><sub><b>Your usual first.</b> Pin "choco" to the jar you buy, once.</sub></td>
+    <td align="center"><img src="docs/images/screens/offline.png" alt="The list offline, with two changes waiting on the phone"><br><sub><b>No signal in the shop?</b> Tick off anyway; it syncs later.</sub></td>
+    <td align="center"><img src="docs/images/screens/list-dark.png" alt="The list in dark mode"><br><sub><b>Light and dark.</b> An installable app that follows your phone.</sub></td>
+  </tr>
+</table>
+
+## What it does
+
+- **Lists for the household**, synced live between phones: Groceries, the weekend
+  BBQ, the DIY store.
+- **Add fast.** Type and pick: everyday items with an emoji ("melk", "bananen",
+  "brood"), exact products with brand, size and photo, or anything you type. "2 melk"
+  and "melk x2" both mean two.
+- **Scan a barcode** of the empty package at home to put that exact product on the list.
+- **Pin your usual.** Turn "melk" into "Boni halfvolle melk 1 L" once, and next time
+  "melk" suggests it first.
+- **A quantity and a note** on any item ("2×", "the big one").
+- **Tick off in the shop.** What you bought moves to Recently bought, where one tap
+  puts it back.
+- **Works offline.** The list opens and ticks off without a connection, and syncs
+  once the server is back.
+- **One notification, not ten:** "Anna added 3 items to Groceries", sent once she's done.
+- **Each person's language.** Item and product names in Dutch, French, English or
+  Greek, chosen per person; the interface is in English and ready for translations.
+- **Product photos stay home.** Each is downloaded once into your server, so the
+  phones never contact Open Food Facts.
+
+It is built on [plasto](https://github.com/selfhostit/plasto); [docs/plan.md](docs/plan.md)
+has the architecture, the build plan and where things stand.
 
 ## Quick start
 
@@ -12,53 +62,42 @@ make setup   # install dependencies
 make dev     # backend on :8090, web app with live reload on http://localhost:5173
 ```
 
-Open the app and create your account: the first person becomes the **owner**
-and can also sign in to the admin UI at http://localhost:8090/_/ with the same
-email and password. Add more people there, in the `users` collection.
+Open the app and create your account: the first person becomes the **owner** and
+can also sign in to the admin UI at http://localhost:8090/_/ with the same email and
+password. Add the rest of the household there, in the `users` collection.
 
-## What you get
+A minute after it first starts, the server reads the Open Food Facts export (about a
+gigabyte, streamed) and keeps the Belgian and Dutch products; after that it does so
+on the 10th of each month. Set `SHOPPA_AUTO_IMPORT=off` to skip the first one.
 
-- **First-run setup and sign-in.** No terminal needed to create the first account.
-- **Users and roles.** The owner manages everyone; members can see each other and
-  edit themselves. Nobody can sign themselves up.
-- **Push notifications** straight from your server, with no account or third-party
-  service. Each person turns them on per device; send one from Go with
-  `push.ToUser(app, userID, push.Message{Title: "…", URL: "/…"})`. Phones need the
-  app on HTTPS.
-- **Scheduled jobs that don't get skipped.** `jobs.MustAdd(app, "digest", "0 7 * * *", fn)`
-  runs on a cron schedule in your time zone (`TZ`). If the server was off when a job
-  was due, it runs once when the server starts again. Every run and its error are
-  listed in the admin UI under the `jobs` collection.
-- **Nightly backups** of the database and uploads at 03:00, keeping the last 7, in
-  `pb_data/backups`. Change the schedule or add S3 storage in the admin UI under
-  Settings > Backups.
-- **Python workers** for the heavy lifting (ML, scraping, LLMs), on this machine or
-  another. They sign in with a worker account and read and write records through
-  the API; see [workers/README.md](workers/README.md).
-- **An installable app.** It installs to a phone's home screen or a desktop, opens
-  offline from its cached shell, and follows the system's light or dark mode.
+## Food data
+
+Product data comes from [Open Food Facts](https://world.openfoodfacts.org), under the
+[Open Database Licence](https://opendatacommons.org/licenses/odbl/1-0/). Product
+photos are by Open Food Facts contributors, under
+[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The reading of the
+export is shared with [Troye](https://github.com/selfhostit/troye), in
+[selfhostit/food](https://github.com/selfhostit/food).
 
 ## How it fits together
 
 ```mermaid
 flowchart LR
-  phone["Phone or laptop<br/>installable web app"]
-  subgraph box["Your NAS, Pi or server"]
-    app["Go app on PocketBase<br/>API, auth, realtime, admin UI"]
-    db[("SQLite and files<br/>pb_data/")]
-    jobs["Scheduled jobs<br/>and nightly backups"]
+  phones["Both phones<br/>installable web app"]
+  subgraph box["Your NAS"]
+    app["Go app on PocketBase<br/>lists, search, realtime"]
+    db[("SQLite and photos<br/>pb_data/")]
     app --- db
-    app --- jobs
   end
-  worker["Python workers<br/>ML, scraping, LLMs"]
-  phone -- "HTTPS over Tailscale" --> app
-  worker -- "records through the API" --> app
-  app -. "Web Push" .-> phone
+  off["Open Food Facts<br/>monthly export, photos once"]
+  phones -- "HTTPS" --> app
+  app -. "live updates, Web Push" .-> phones
+  off -- "Belgian and Dutch products" --> app
 ```
 
-Everything a person sees is the web app, served by the Go app. Heavy work runs in
-Python workers, here or on another machine, which write records; Go hooks react to
-those records and notify people.
+The phones only ever talk to your NAS. The NAS reads the Open Food Facts export once
+a month, keeps only the Belgian and Dutch products (no nutrients), and downloads a
+product's small photo the first time someone puts it on a list.
 
 ## Deploy
 
@@ -78,17 +117,19 @@ It asks for a Tailscale auth key, so your devices reach the app at
 backend/            Go app on PocketBase
   main.go           entry point
   app/              routes, hooks and jobs (start here)
+  catalogue/        the everyday items, their names and sections
+  products/         Open Food Facts products and their photos
   jobs/             scheduled jobs with catch-up
   push/             Web Push: keys, subscriptions, sending
   migrations/       database schema as code
 web/                Svelte 5 + Tailwind web app
   src/App.svelte    picks setup, sign-in or the app
-  src/components/   screens; Home.svelte is where your app starts
-  src/lib/          shared code (API client, session, install) and its tests
+  src/components/   screens; ListScreen.svelte is the list
+  src/lib/          the list, search, offline queue and their tests
   public/           manifest, service worker and icons
 workers/            Python worker kit, your workers, their tests and image
 deploy/             compose files, Tailscale sidecar, install script, smoke test
-docs/               decisions, the deploy guide and the first-feature guide
+docs/               the plan, the brand, the deploy guide and the first-feature guide
 Dockerfile          the app's multi-arch image
 Makefile            run `make` to see every command
 ```
@@ -110,7 +151,7 @@ publishes that version.
 
 ## Support
 
-If shoppa saves you time, you can [buy me a coffee](https://buymeacoffee.com/kalfasyan).
+If Shoppa saves you a trip back to the shop, you can [buy me a coffee](https://buymeacoffee.com/kalfasyan).
 
 ## License
 

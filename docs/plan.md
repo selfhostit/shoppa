@@ -151,8 +151,8 @@ Each step is one PR that leaves the app working.
 
 ## Progress
 
-**Now:** 1.10 README, screenshots, org profile, website
-**Next:** 1.11 running on the Synology, used for a week
+**Now:** 1.11 running on the Synology, used for a week
+**Next:** 2.1 stores and aisle order
 **Blocked:** nothing
 
 ### 0. Agree before code
@@ -172,7 +172,7 @@ Each step is one PR that leaves the app working.
 - [x] 1.7 Check off, recently bought (#10)
 - [x] 1.8 Offline (#17)
 - [x] 1.9 Push, grouped (#18)
-- [ ] 1.10 README, screenshots, org profile, website (#PR)
+- [x] 1.10 README, screenshots, org profile, website (#19)
 - [ ] 1.11 Running on the Synology, used for a week
 
 ### 2. Version 2
@@ -186,4 +186,5 @@ Each step is one PR that leaves the app working.
 - 2026-11-04: the app is called Shoppa; the mascot is Carty (short for Mr. Shopping Carty), renamed from Karel
 
 ### Later
-- (ideas found along the way)
+- Brand sheet `docs/images/brand.png` still labels the mascot Karel; redraw it as Carty
+- Deploy files still default to port 8090; set 8093 for the Synology in 1.11
