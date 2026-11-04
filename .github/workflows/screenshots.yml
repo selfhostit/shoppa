@@ -47,6 +47,8 @@ jobs:
         env:
           TZ: Europe/Brussels
         run: |
+          # the one-time code a fresh install asks for on its setup screen
+          export SHOPPA_SETUP_CODE=$(cat "$RUNNER_TEMP/pb_data/setup_code")
           npm i --no-save playwright
           npx playwright install --with-deps chromium
           node scripts/screenshots.mjs "$RUNNER_TEMP/shots"
