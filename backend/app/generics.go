@@ -26,11 +26,11 @@ func registerGenerics(app core.App) {
 	app.OnRecordCreateRequest("generics").BindFunc(func(e *core.RecordRequestEvent) error {
 		r := e.Record
 		r.Set("custom", true)
-		name := firstOf(r.GetString("name_en"), r.GetString("name_nl"), r.GetString("name_fr"))
+		name := firstOf(r.GetString("name_en"), r.GetString("name_nl"), r.GetString("name_fr"), r.GetString("name_el"))
 		if slug := slugOf(name); slug != "" {
 			r.Set("slug", "custom-"+slug+"-"+security.RandomStringWithAlphabet(4, "abcdefghijklmnopqrstuvwxyz0123456789"))
 		}
-		for _, f := range []string{"name_en", "name_nl", "name_fr"} {
+		for _, f := range []string{"name_en", "name_nl", "name_fr", "name_el"} {
 			if strings.TrimSpace(r.GetString(f)) == "" {
 				r.Set(f, name)
 			}
@@ -104,12 +104,13 @@ func matchGeneric(app core.App, key, lang string) *core.Record {
 	return found[0]
 }
 
-// genericName is a generic's name in the language (en, nl or fr).
+// genericName is a generic's name in the language (en, nl, fr or el).
 func genericName(g *core.Record, lang string) string {
-	if lang != "nl" && lang != "fr" {
+	if lang != "nl" && lang != "fr" && lang != "el" {
 		lang = "en"
 	}
-	return firstOf(g.GetString("name_"+lang), g.GetString("name_en"), g.GetString("name_nl"), g.GetString("name_fr"))
+	return firstOf(g.GetString("name_"+lang), g.GetString("name_en"), g.GetString("name_nl"),
+		g.GetString("name_fr"), g.GetString("name_el"))
 }
 
 // personLang is the language a person sees item names in; Dutch until they

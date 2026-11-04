@@ -12,7 +12,7 @@ func TestCatalogue(t *testing.T) {
 	}
 	sections := map[string]bool{}
 	for _, s := range c.Sections {
-		if sections[s.Key] || s.EN == "" || s.NL == "" || s.FR == "" || s.Emoji == "" {
+		if sections[s.Key] || s.EN == "" || s.NL == "" || s.FR == "" || s.EL == "" || s.Emoji == "" {
 			t.Errorf("section %+v", s)
 		}
 		sections[s.Key] = true
@@ -25,7 +25,7 @@ func TestCatalogue(t *testing.T) {
 	}
 	slugs := map[string]bool{}
 	for _, it := range c.Items {
-		if slugs[it.Slug] || !sections[it.Section] || it.EN == "" || it.NL == "" || it.FR == "" || it.Emoji == "" ||
+		if slugs[it.Slug] || !sections[it.Section] || it.EN == "" || it.NL == "" || it.FR == "" || it.EL == "" || it.Emoji == "" ||
 			strings.HasPrefix(it.Slug, "custom-") {
 			t.Errorf("item %+v", it)
 		}
