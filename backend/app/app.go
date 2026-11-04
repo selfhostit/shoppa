@@ -37,6 +37,7 @@ func Register(app core.App, cfg Config) {
 		registerWorkerRoutes(se)
 		registerListRoutes(se)
 		registerGenericRoutes(se)
+		registerPinRoutes(se)
 		push.RegisterRoutes(se)
 
 		// Serve the web app, falling back to index.html for client-side routes.

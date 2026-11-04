@@ -176,6 +176,10 @@ func addItem(e *core.RequestEvent) error {
 	if err := e.App.Save(item); err != nil {
 		return e.BadRequestError("That item can't be saved.", err)
 	}
+	if product != nil {
+		// a pinned product picked again comes first next time
+		productPicked(e.App, product.Id)
+	}
 	return e.JSON(status, item)
 }
 

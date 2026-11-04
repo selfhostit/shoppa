@@ -95,6 +95,21 @@ for (const code of ['5449000000996', '3017620422003', '5410126116953', '54111881
 }
 for (const p of found.slice(0, 3)) await add(anna, groceries.id, '', { product: p.id });
 
+// the household's usual chocolate spread is Nutella: pinned once, from a
+// "choco" item on a scratch list
+const nutella = found.find((p) => /nutella/i.test(p.name));
+if (nutella) {
+  const scratch = await api('/api/collections/lists/records', {
+    token: anna,
+    body: { name: 'Scratch', sort: 9 },
+  });
+  const choco = await add(anna, scratch.id, 'choco');
+  await api(`/api/app/items/${choco.id}/pin`, { token: anna, body: { product: nutella.id } });
+  await api(`/api/collections/lists/records/${scratch.id}`, { token: anna, method: 'DELETE' });
+  // and Ben wants choco again, without saying which
+  await add(ben, groceries.id, 'pâte à tartiner');
+}
+
 const bbq = await api('/api/collections/lists/records', {
   token: anna,
   body: { name: 'Weekend BBQ', emoji: '🔥', sort: 1 },
@@ -145,6 +160,12 @@ for (const scheme of ['light', 'dark']) {
     await page.waitForTimeout(800);
     await shot('products');
   }
+  if (nutella) {
+    // the usual comes first
+    await page.getByLabel('Add an item').fill('choco');
+    await page.getByText('Your usual').first().waitFor();
+    await shot('usual');
+  }
   await page.getByLabel('Add an item').fill('');
 
   if (found.length) {
@@ -155,6 +176,15 @@ for (const scheme of ['light', 'dark']) {
     await page.getByRole('status').waitFor();
     await shot('scan');
     await page.getByRole('button', { name: 'Done' }).click();
+  }
+
+  if (nutella) {
+    // which one? the usual first, then the rest
+    await page.getByRole('button', { name: 'Change Choco' }).click();
+    await page.getByText('Which one?').waitFor();
+    await page.waitForTimeout(600);
+    await shot('pick');
+    await page.getByRole('button', { name: 'Close' }).click();
   }
 
   await page.getByRole('button', { name: 'Change Kaas' }).click();

@@ -3,10 +3,12 @@
   import { t } from '../lib/i18n';
   import type { Item } from '../lib/list';
   import { shop } from '../lib/shop.svelte';
+  import PickProduct from './PickProduct.svelte';
   import Sheet from './Sheet.svelte';
 
-  // Change an item's name, quantity and note, or take it off the list. A typed
-  // item can be kept as one of the household's usual items.
+  // Pick the exact product for a usual item, change an item's name, quantity
+  // and note, or take it off the list. A typed item can be kept as one of the
+  // household's usual items.
   let { item, onclose }: { item: Item; onclose: () => void } = $props();
 
   // svelte-ignore state_referenced_locally
@@ -48,6 +50,9 @@
 </script>
 
 <Sheet title={t('item.title')} {onclose}>
+  {#if item.generic && !item.checked}
+    <div class="mb-6"><PickProduct {item} onpicked={onclose} /></div>
+  {/if}
   <form class="flex flex-col gap-4" onsubmit={save}>
     <label class="flex flex-col gap-1.5">
       <span class="text-sm font-medium">{t('item.name')}</span>
