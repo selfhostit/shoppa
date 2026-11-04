@@ -340,12 +340,11 @@
         <span class="truncate font-medium">{productName(p, shop.lang)}</span>
         <span class="truncate text-sm text-zinc-500 dark:text-zinc-400">{productLine(p)}</span>
       </span>
-      {#if onListProducts.has(p.id)}
-        <span class="shrink-0 text-xs text-brand-700 dark:text-brand-400">{t('list.onlist')}</span>
-      {:else if mine}
-        <span class="shrink-0 text-xs font-medium text-brand-700 dark:text-brand-400"
-          >★ {t('pin.usual')}</span
-        >
+      {#if mine || onListProducts.has(p.id)}
+        <span class="flex shrink-0 flex-col items-end text-xs text-brand-700 dark:text-brand-400">
+          {#if mine}<span class="font-medium">★ {t('pin.usual')}</span>{/if}
+          {#if onListProducts.has(p.id)}<span>{t('list.onlist')}</span>{/if}
+        </span>
       {/if}
     </button>
   </li>
