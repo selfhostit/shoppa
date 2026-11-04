@@ -108,9 +108,22 @@ for (const scheme of ['light', 'dark']) {
     deviceScaleFactor: 2,
     colorScheme: scheme,
   });
-  const shot = (name) =>
-    page.screenshot({ path: `${out}/${name}${scheme === 'dark' ? '-dark' : ''}.png` });
+  // product photos are downloaded by the server the first time they're shown
+  const photos = () =>
+    page
+      .waitForFunction(() => [...document.images].every((i) => i.complete), null, {
+        timeout: 15000,
+      })
+      .catch(() => console.warn('some photos did not load'));
+  const shot = async (name) => {
+    await photos();
+    await page.screenshot({ path: `${out}/${name}${scheme === 'dark' ? '-dark' : ''}.png` });
+  };
 
+  page.on('response', (res) => {
+    if (res.url().includes('/photo') && res.status() >= 400)
+      console.warn(`photo ${res.status()}: ${res.url()}`);
+  });
   await page.goto(base);
   await page.getByLabel('Email').fill('anna@example.com');
   await page.getByLabel('Password').fill(password);
