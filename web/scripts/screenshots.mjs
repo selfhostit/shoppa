@@ -147,6 +147,16 @@ for (const scheme of ['light', 'dark']) {
   }
   await page.getByLabel('Add an item').fill('');
 
+  if (found.length) {
+    // scanning: no camera here, so the number under the barcode is typed
+    await page.getByRole('button', { name: 'Scan a barcode' }).click();
+    await page.getByLabel('Barcode number').fill(found.at(-1).barcode);
+    await page.getByRole('button', { name: 'Look up' }).click();
+    await page.getByRole('status').waitFor();
+    await shot('scan');
+    await page.getByRole('button', { name: 'Done' }).click();
+  }
+
   await page.getByRole('button', { name: 'Change Kaas' }).click();
   await page.getByRole('dialog').waitFor();
   await shot('item');
@@ -174,7 +184,7 @@ await page.goto(base);
 await page.getByLabel('Email').fill('ben@example.com');
 await page.getByLabel('Password').fill(password);
 await page.getByRole('button', { name: 'Sign in' }).click();
-await page.getByRole('button', { name: 'Tick off Lait' }).waitFor();
+await page.getByRole('button', { name: 'Tick off Lait' }).first().waitFor();
 await page.screenshot({ path: `${out}/list-fr.png` });
 
 // and in Greek
