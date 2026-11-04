@@ -80,7 +80,9 @@
       <li class="flex">{@render row(p, false)}</li>
     {:else}
       {#if searched}
-        <li class="px-1 py-2 text-sm text-zinc-500 dark:text-zinc-400">{t('pin.none')}</li>
+        <li class="px-1 py-2 text-sm text-zinc-500 dark:text-zinc-400">
+          {pinned.length ? t('pin.noother') : t('pin.none')}
+        </li>
       {/if}
     {/each}
   </ul>

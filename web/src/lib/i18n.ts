@@ -49,6 +49,7 @@ export const en = {
   'pin.search': 'Search products',
   'pin.forget': 'Forget {name} as your usual',
   'pin.none': 'No products found for that.',
+  'pin.noother': 'No other products found.',
 
   'item.title': 'Item',
   'item.name': 'Name',
