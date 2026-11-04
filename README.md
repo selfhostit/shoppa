@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="web/public/brand/carty.svg" width="120" alt="Carty, a smiling green shopping cart">
+<img src="docs/logo.png" width="420" alt="Carty, a smiling green shopping cart, rolling home with bread, a tomato and a leek, while a banana and a carton of milk jump out">
 
 # Shoppa
 
