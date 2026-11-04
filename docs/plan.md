@@ -187,4 +187,3 @@ Each step is one PR that leaves the app working.
 
 ### Later
 - Brand sheet `docs/images/brand.png` still labels the mascot Karel; redraw it as Carty
-- Deploy files still default to port 8090; set 8093 for the Synology in 1.11
