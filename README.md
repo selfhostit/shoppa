@@ -62,8 +62,8 @@ make setup   # install dependencies
 make dev     # backend on :8090, web app with live reload on http://localhost:5173
 ```
 
-Open the app and create your account: the first person becomes the **owner** and
-can also sign in to the admin UI at http://localhost:8090/_/ with the same email and
+Open the app and create your account with the setup code that `make dev` prints:
+you become the **owner** and can also sign in to the admin UI at http://localhost:8090/_/ with the same email and
 password. Add the rest of the household there, in the `users` collection.
 
 A minute after it first starts, the server reads the Open Food Facts export (about a

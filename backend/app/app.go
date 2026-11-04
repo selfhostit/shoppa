@@ -33,7 +33,9 @@ func Register(app core.App, cfg Config) {
 
 	app.OnServe().BindFunc(func(se *core.ServeEvent) error {
 		se.Router.GET("/api/app/info", info)
-		registerSetupRoutes(se)
+		if err := registerSetupRoutes(se); err != nil {
+			return err
+		}
 		registerWorkerRoutes(se)
 		registerListRoutes(se)
 		registerGenericRoutes(se)
