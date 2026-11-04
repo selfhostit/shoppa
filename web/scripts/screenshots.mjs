@@ -4,7 +4,7 @@
 //
 //   make build && dist/shoppa serve --dir=/tmp/shoppa-shots &
 //   cd web && npm i --no-save playwright && npx playwright install chromium
-//   node scripts/screenshots.mjs ../docs/images/screens
+//   SHOPPA_SETUP_CODE=$(cat /tmp/shoppa-shots/setup_code) node scripts/screenshots.mjs ../docs/images/screens
 import { mkdirSync } from 'node:fs';
 import { chromium } from 'playwright';
 
@@ -28,7 +28,9 @@ const signIn = (email) =>
 
 // a household of two, with a week's shopping; Anna sees item names in Dutch,
 // Ben in French
-await api('/api/app/setup', { body: { name: 'Anna', email: 'anna@example.com', password } });
+await api('/api/app/setup', {
+  body: { name: 'Anna', email: 'anna@example.com', password, code: process.env.SHOPPA_SETUP_CODE },
+});
 const owner = await signIn('anna@example.com');
 const anna = owner.token;
 await api('/api/collections/users/records', {

@@ -33,7 +33,9 @@ func Register(app core.App, cfg Config) {
 
 	app.OnServe().BindFunc(func(se *core.ServeEvent) error {
 		se.Router.GET("/api/app/info", info)
-		registerSetupRoutes(se)
+		if err := registerSetupRoutes(se); err != nil {
+			return err
+		}
 		registerWorkerRoutes(se)
 		registerListRoutes(se)
 		registerGenericRoutes(se)
@@ -42,7 +44,7 @@ func Register(app core.App, cfg Config) {
 
 		// Serve the web app, falling back to index.html for client-side routes.
 		if !se.Router.HasRoute(http.MethodGet, "/{path...}") {
-			se.Router.GET("/{path...}", apis.Static(os.DirFS(cfg.PublicDir), true))
+			se.Router.GET("/{path...}", apis.Static(os.DirFS(cfg.PublicDir), true)).BindFunc(secureHeaders)
 		}
 		return se.Next()
 	})
