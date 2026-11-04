@@ -29,6 +29,7 @@ const generics = [
   g('chocolate-milk', 'Chocolate milk', 'Chocomelk', 'Lait chocolaté'),
   g('buttermilk', 'Buttermilk', 'Karnemelk', 'Babeurre'),
   g('melon', 'Melon', 'Meloen', 'Melon', { section: 'produce' }),
+  g('salad-mix', 'Salad mix', 'Slamix', 'Mélange de salades', { section: 'produce' }),
   g('grapes', 'Grapes', 'Druiven', 'Raisins', { section: 'produce' }),
   g('raisins', 'Raisins', 'Rozijnen', 'Raisins secs', { section: 'produce' }),
 ];
@@ -46,6 +47,22 @@ describe('suggest', () => {
         .map((x) => x.slug)
         .slice(0, 2),
     ).toEqual(['milk', 'melon']);
+  });
+
+  it('ranks matches in other languages after your own', () => {
+    // the French "mélange" starts with mel too, but a Dutch speaker means melk
+    expect(suggest(generics, 'mel', 'nl').map((x) => x.slug)).toEqual([
+      'milk',
+      'melon',
+      'chocolate-milk',
+      'buttermilk',
+      'salad-mix',
+    ]);
+    expect(
+      suggest(generics, 'mel', 'fr')
+        .map((x) => x.slug)
+        .slice(0, 2),
+    ).toEqual(['melon', 'salad-mix']);
   });
 
   it('finds names in every language, and other names', () => {

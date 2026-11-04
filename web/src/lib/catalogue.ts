@@ -58,7 +58,8 @@ const namesOf = (g: Generic, lang: Lang) => [
 /**
  * The generics that match what is being typed, best first: a whole name before
  * the start of a name before the start of a word, names in your own language
- * before others, your household's own before the catalogue, and short names.
+ * well before others, your household's own before the catalogue, and short
+ * names.
  */
 export function suggest(generics: Generic[], typed: string, lang: Lang, limit = 6): Generic[] {
   const q = itemKey(typed);
@@ -74,7 +75,10 @@ export function suggest(generics: Generic[], typed: string, lang: Lang, limit = 
       else if (name.startsWith(q)) s = 70;
       else if (` ${name}`.includes(` ${q}`)) s = 50;
       else if (q.length >= 3 && name.includes(q)) s = 20;
+      // a match in another language counts less, unless it's the whole name:
+      // "mel" is the start of the French "mélange", but a Dutch speaker means melk
       if (s && own) s += 5;
+      else if (s && s < 100) s *= 0.3;
       best = Math.max(best, s);
     }
     if (best)
