@@ -20,6 +20,7 @@ All files are SVG in `web/public/brand/` unless noted, so the web app serves the
 | `carty.svg` | Mascot, default (happy) |
 | `carty-thinking.svg` | Mascot while searching or looking a barcode up |
 | `carty-cheer.svg` | Mascot for a list that's all done, with groceries sticking out |
+| `docs/logo.svg`, `docs/logo.png` | Wide logo for the README and the selfhostit profile: Carty rolling home with a full basket |
 | `avatar-default.svg` | User avatar before they add a photo (light theme) |
 | `avatar-default-dark.svg` | Same, for dark theme |
 

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="900" height="430">
+  <title>Shoppa: Carty the cart rolling home with a full basket</title>
+  <!-- the shop floor -->
+  <path d="M40 392 Q450 372 860 392" fill="none" stroke="#a7f3d0" stroke-width="10" stroke-linecap="round"/>
+  <!-- speed lines -->
+  <g stroke="#6ee7b7" stroke-width="10" stroke-linecap="round">
+    <path d="M110 220h110"/><path d="M70 270h140"/><path d="M130 320h80"/>
+  </g>
+  <!-- a receipt fluttering behind -->
+  <g transform="translate(120 120) rotate(-18)">
+    <path d="M0 0h52v78l-9-6-8 6-9-6-9 6-8-6-9 6z" fill="#fff" stroke="#047857" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M12 18h28M12 32h20M12 46h26" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <!-- Carty -->
+  <g transform="translate(300 10) scale(1.5)"><ellipse cx="132" cy="242" rx="84" ry="8" fill="#022c22" opacity=".12"/><path d="M84 104L60 34" stroke="#d97706" stroke-width="20" stroke-linecap="round"/><path d="M66 50l10-3M71 64l10-3M75 78l10-3" stroke="#fde68a" stroke-width="4" stroke-linecap="round"/><path d="M190 104l14-62" stroke="#ecfccb" stroke-width="14" stroke-linecap="round"/><path d="M204 42l-12-26M204 42l2-30M204 42l16-22" stroke="#65a30d" stroke-width="8" stroke-linecap="round"/><circle cx="146" cy="92" r="20" fill="#ef4444"/><path d="M146 72q4-10 12-12" stroke="#65a30d" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="139" cy="86" r="5" fill="#fff" opacity=".6"/><path d="M14 64h24l20 44" fill="none" stroke="#047857" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><path d="M58 104h178l-22 102H80z" fill="#ecfdf5" stroke="#10b981" stroke-width="12" stroke-linejoin="round"/><path d="M80 206l-8 18h146" fill="none" stroke="#047857" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><circle cx="104" cy="168" r="10" fill="#fb7185" opacity=".45"/><circle cx="192" cy="168" r="10" fill="#fb7185" opacity=".45"/><path d="M110 146q10-12 20 0M162 146q10-12 20 0" stroke="#022c22" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M126 164q22 26 44 0z" fill="#022c22"/><path d="M136 172q12 8 24 0" stroke="#fb7185" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="94" cy="232" r="13" fill="#022c22"/><circle cx="94" cy="232" r="4.5" fill="#a7f3d0"/><circle cx="200" cy="232" r="13" fill="#022c22"/><circle cx="200" cy="232" r="4.5" fill="#a7f3d0"/><path d="M30 140l4 9 9 4-9 4-4 9-4-9-9-4 9-4z" fill="#fbbf24"/><path d="M236 150l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#fbbf24"/></g>
+  <!-- a milk carton and a banana that jumped out -->
+  <g transform="translate(720 230) rotate(14)">
+    <path d="M0 30l14-22h36l14 22v86H0z" fill="#eff6ff" stroke="#1d4ed8" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M14 8V0h36v8" fill="none" stroke="#1d4ed8" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M0 30h64" stroke="#1d4ed8" stroke-width="6"/>
+    <path d="M10 62h44v26H10z" fill="#bfdbfe"/>
+  </g>
+  <g transform="translate(790 150) rotate(-24)">
+    <path d="M4 10c10 44 44 64 82 54-30-6-54-26-66-58z" fill="#fde047" stroke="#a16207" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M4 10l-4-8" stroke="#a16207" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <!-- sparkles -->
+  <path d="M700 100l5 11 11 5-11 5-5 11-5-11-11-5 11-5z" fill="#fbbf24"/>
+  <path d="M260 80l4 8 8 4-8 4-4 8-4-8-8-4 8-4z" fill="#fbbf24"/>
+</svg>
