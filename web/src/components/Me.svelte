@@ -6,6 +6,7 @@
   import { pb } from '../lib/pb';
   import { session } from '../lib/session.svelte';
   import Notifications from './Notifications.svelte';
+  import ProductData from './ProductData.svelte';
 
   // Your account, installing the app and notifications.
   const user = $derived(session.user!);
@@ -51,6 +52,8 @@
 </section>
 
 <Notifications />
+
+<ProductData />
 
 <section class="card text-sm text-zinc-600 dark:text-zinc-400">
   {t('me.signedin', { email: user.email })}{session.isOwner ? ` ${t('me.owner')}` : ''}.

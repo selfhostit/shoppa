@@ -12,6 +12,8 @@ import (
 	"github.com/pocketbase/pocketbase/core"
 	"github.com/pocketbase/pocketbase/tools/types"
 	"github.com/selfhostit/food"
+
+	"github.com/selfhostit/shoppa/products"
 )
 
 // FirstList is the list a new household starts with.
@@ -23,7 +25,7 @@ func registerLists(app core.App) {
 	// point at the same generic
 	setKey := func(e *core.RecordEvent) error {
 		// a name that is a generic's name becomes that generic
-		if e.Record.GetString("generic") == "" {
+		if e.Record.GetString("generic") == "" && e.Record.GetString("product") == "" {
 			if g := matchGeneric(e.App, itemKey(e.Record.GetString("name")), "nl"); g != nil {
 				e.Record.Set("generic", g.Id)
 			}
@@ -83,6 +85,7 @@ type newItem struct {
 	List     string  `json:"list"`
 	Name     string  `json:"name"`
 	Generic  string  `json:"generic"`
+	Product  string  `json:"product"`
 	Quantity *string `json:"quantity"`
 	Note     *string `json:"note"`
 }
@@ -107,8 +110,14 @@ func addItem(e *core.RequestEvent) error {
 	}
 	lang := personLang(e.Auth)
 	name := strings.Join(strings.Fields(in.Name), " ")
-	var generic *core.Record
-	if in.Generic != "" {
+	var product, generic *core.Record
+	if in.Product != "" {
+		p, err := e.App.FindRecordById("products", in.Product)
+		if err != nil {
+			return e.NotFoundError("That product is gone.", err)
+		}
+		product = p
+	} else if in.Generic != "" {
 		g, err := e.App.FindRecordById("generics", in.Generic)
 		if err != nil {
 			return e.NotFoundError("That item is gone.", err)
@@ -118,7 +127,9 @@ func addItem(e *core.RequestEvent) error {
 		generic = matchGeneric(e.App, itemKey(name), lang)
 	}
 	key := itemKey(name)
-	if generic != nil {
+	if product != nil {
+		key, name = productKey(product), products.Name(product, lang)
+	} else if generic != nil {
 		key, name = genericKey(generic), genericName(generic, lang)
 	}
 	if key == "" || name == "" {
@@ -146,7 +157,9 @@ func addItem(e *core.RequestEvent) error {
 		}
 		item.Set("list", in.List)
 		item.Set("name", name)
-		if generic != nil {
+		if product != nil {
+			item.Set("product", product.Id)
+		} else if generic != nil {
 			item.Set("generic", generic.Id)
 		}
 		item.Set("added_by", personID(e.Auth))
@@ -176,8 +189,17 @@ func genericKey(generic *core.Record) string {
 	return "g:" + generic.GetString("slug")
 }
 
-// recordKey is an item record's key, from its generic or its name.
+// productKey is what an item of an exact product is found by on its list.
+func productKey(product *core.Record) string {
+	return "p:" + product.Id
+}
+
+// recordKey is an item record's key, from its product, its generic or its
+// name.
 func recordKey(app core.App, item *core.Record) string {
+	if id := item.GetString("product"); id != "" {
+		return "p:" + id
+	}
 	if id := item.GetString("generic"); id != "" {
 		if g, err := app.FindRecordById("generics", id); err == nil {
 			return genericKey(g)
@@ -203,6 +225,7 @@ func addPurchase(app core.App, item *core.Record, by string) error {
 	p.Set("list", item.GetString("list"))
 	p.Set("item", item.Id)
 	p.Set("generic", item.GetString("generic"))
+	p.Set("product", item.GetString("product"))
 	p.Set("name", item.GetString("name"))
 	p.Set("key", item.GetString("key"))
 	p.Set("by", by)

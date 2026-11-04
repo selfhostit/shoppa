@@ -18,6 +18,7 @@ func newApp(t testing.TB) *tests.TestApp {
 	if err != nil {
 		t.Fatal(err)
 	}
+	app.AutoImport = false
 	app.Register(testApp, app.Config{PublicDir: "testdata"})
 	return testApp
 }

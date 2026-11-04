@@ -3,8 +3,11 @@
   import { bySection, sectionLabel, suggest, type Generic } from '../lib/catalogue';
   import { t, tn } from '../lib/i18n';
   import { itemKey, parseEntry, recentlyBought, toBuy, type Item } from '../lib/list';
+  import type { Product } from '../lib/products';
+  import { productLine, productName } from '../lib/products';
   import { shop } from '../lib/shop.svelte';
   import ItemSheet from './ItemSheet.svelte';
+  import Thumb from './Thumb.svelte';
   import ListPicker from './ListPicker.svelte';
 
   // The open list: add what you need at the top, tick it off in the shop, and
@@ -25,6 +28,19 @@
     suggestions.some((g) => itemKey(shop.nameOfGeneric(g)) === itemKey(typed.name)),
   );
 
+  // products for what is typed, fetched a moment after typing stops
+  let found = $state<Product[]>([]);
+  $effect(() => {
+    const q = typed.name;
+    if (q.length < 2) {
+      found = [];
+      return;
+    }
+    const timer = setTimeout(async () => (found = await shop.searchProducts(q)), 250);
+    return () => clearTimeout(timer);
+  });
+  const onListProducts = $derived(new Set(open.map((i) => i.product).filter(Boolean)));
+
   onMount(() => {
     shop.start();
     return () => shop.stop();
@@ -35,10 +51,11 @@
     await addThis();
   }
 
-  async function addThis(generic?: Generic) {
+  async function addThis(generic?: Generic, product?: Product) {
     const was = text;
     text = '';
-    await shop.add(was, generic);
+    found = [];
+    await shop.add(was, generic, product);
     if (shop.error) text = was;
     input.focus();
   }
@@ -93,7 +110,7 @@
 
   {#if typed.name}
     <ul
-      class="card absolute inset-x-0 top-full z-10 mt-2 divide-y divide-zinc-100 p-0 shadow-lg dark:divide-zinc-800"
+      class="card absolute inset-x-0 top-full z-10 mt-2 max-h-[70dvh] divide-y divide-zinc-100 overflow-y-auto p-0 shadow-lg dark:divide-zinc-800"
       aria-label={t('list.suggestions')}
     >
       {#each suggestions as g (g.id)}
@@ -122,6 +139,34 @@
           </button>
         </li>
       {/each}
+      {#if found.length}
+        <li
+          class="bg-zinc-50 px-4 pt-3 pb-1.5 text-xs font-semibold tracking-wide text-zinc-500 uppercase dark:bg-zinc-950/40 dark:text-zinc-400"
+        >
+          {t('list.products')}
+        </li>
+        {#each found as p (p.id)}
+          <li>
+            <button
+              class="flex w-full items-center gap-3 px-4 py-2.5 text-left"
+              onclick={() => addThis(undefined, p)}
+            >
+              <Thumb product={p} />
+              <span class="flex min-w-0 flex-1 flex-col">
+                <span class="truncate font-medium">{productName(p, shop.lang)}</span>
+                <span class="truncate text-sm text-zinc-500 dark:text-zinc-400"
+                  >{productLine(p)}</span
+                >
+              </span>
+              {#if onListProducts.has(p.id)}
+                <span class="shrink-0 text-xs text-brand-700 dark:text-brand-400"
+                  >{t('list.onlist')}</span
+                >
+              {/if}
+            </button>
+          </li>
+        {/each}
+      {/if}
       {#if !typedIsGeneric}
         <li>
           <button
@@ -180,9 +225,7 @@
             onclick={() => (editing = item)}
             aria-label={t('list.edit', { name })}
           >
-            {#if shop.emojiOf(item)}
-              <span class="text-xl" aria-hidden="true">{shop.emojiOf(item)}</span>
-            {/if}
+            <Thumb product={shop.productOf(item)} emoji={shop.emojiOf(item)} />
             <span class="flex min-w-0 flex-col">
               <span class="flex w-full items-baseline gap-2">
                 <span class="truncate text-[1.05rem] font-medium">{name}</span>
@@ -193,6 +236,11 @@
                   >
                 {/if}
               </span>
+              {#if shop.lineOf(item)}
+                <span class="truncate text-sm text-zinc-500 dark:text-zinc-400"
+                  >{shop.lineOf(item)}</span
+                >
+              {/if}
               {#if item.note}
                 <span class="truncate text-sm text-zinc-500 dark:text-zinc-400">{item.note}</span>
               {/if}

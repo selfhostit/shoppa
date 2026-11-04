@@ -24,6 +24,8 @@ export interface Generic extends RecordModel {
   name_nl: string;
   name_fr: string;
   aliases: string;
+  /** Open Food Facts category tags, comma-separated: how products find their section */
+  off_categories: string;
   custom: boolean;
 }
 
