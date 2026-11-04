@@ -111,8 +111,8 @@ with its texts in one place, ready for translations.
 
 The app runs on the Synology DS220+, set up like Flowy and Troye:
 
-- `deploy/install.sh` over SSH, on port **8093**, next to Splitwiz (8090),
-  Flowy (8091) and Troye (8092).
+- `deploy/install.sh` over SSH, on port **8094**, next to Splitwiz (8090),
+  Flowy (8091), Troye (8092) and should-we (8093).
 - `https://shoppa.<name>.synology.me` through the DSM reverse proxy with the
   existing Let's Encrypt wildcard certificate, so both phones reach it in the shop
   with no VPN app, and push and app install work (they need HTTPS).
@@ -183,8 +183,8 @@ Each step is one PR that leaves the app working.
 
 ### Decisions
 - 2026-11-04: images are downloaded on first use and kept in pb_data
+- 2026-11-04: Shoppa runs on port 8094 on the Synology (should-we has 8093)
 - 2026-11-04: the app is called Shoppa; the mascot is Carty (short for Mr. Shopping Carty), renamed from Karel
 
 ### Later
 - Brand sheet `docs/images/brand.png` still labels the mascot Karel; redraw it as Carty
-- Deploy files still default to port 8090; set 8093 for the Synology in 1.11
