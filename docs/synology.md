@@ -5,13 +5,13 @@ and both phones on `https://shoppa.<name>.synology.me`, at home and in the shop.
 takes about twenty minutes, and the first product import runs by itself afterwards.
 
 ```
- phones ──HTTPS──▶ router :443 ──▶ DSM reverse proxy ──▶ Shoppa on 127.0.0.1:8093 ── /volume1/docker/shoppa/pb_data
+ phones ──HTTPS──▶ router :443 ──▶ DSM reverse proxy ──▶ Shoppa on 127.0.0.1:8094 ── /volume1/docker/shoppa/pb_data
                                                               │
                                      Open Food Facts ◀────────┘  monthly export, product photos once
 ```
 
 `<name>` is your Synology DDNS name, the same one the other apps on the NAS use.
-Shoppa uses port 8093, next to Splitwiz (8090), Flowy (8091) and Troye (8092).
+Shoppa uses port 8094, next to Splitwiz (8090), Flowy (8091), Troye (8092) and should-we (8093).
 
 ## Before you start
 
@@ -29,7 +29,7 @@ Sign in to the NAS from a computer: `ssh <your DSM user>@<NAS address>`. Then ru
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/selfhostit/shoppa/main/deploy/install.sh |
-  sudo PORT=8093 sh -s /volume1/docker/shoppa
+  sudo PORT=8094 sh -s /volume1/docker/shoppa
 ```
 
 Press Enter when it asks for a Tailscale key; the reverse proxy below replaces it.
@@ -54,7 +54,7 @@ sudo docker compose up -d
    - Name: `shoppa`
    - Source: protocol **HTTPS**, host name `shoppa.<name>.synology.me`, port **443**,
      and tick **Enable HSTS**.
-   - Destination: protocol **HTTP**, host name `localhost`, port **8093**.
+   - Destination: protocol **HTTP**, host name `localhost`, port **8094**.
 2. Control Panel > Security > Certificate > **Settings**: set the wildcard certificate
    for `shoppa.<name>.synology.me`.
 3. Open `https://shoppa.<name>.synology.me` on a computer. You should see the setup
@@ -115,7 +115,7 @@ files. Your settings and data stay.
 
 - **See the logs:** Container Manager > Container > the `shoppa-app-1` container >
   Log, or `sudo docker compose logs app` in the folder.
-- **The page doesn't load:** check that `curl http://127.0.0.1:8093/api/health`
+- **The page doesn't load:** check that `curl http://127.0.0.1:8094/api/health`
   answers on the NAS, then the reverse proxy rule and the certificate.
 - **The install stops with a port error:** another app has the port. Set `PORT` in
   `.env` to a free one, run `sudo docker compose up -d`, and change the reverse
