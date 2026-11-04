@@ -199,6 +199,16 @@ class Shop {
     });
   }
 
+  /** The product with this barcode, or null when nobody knows it. */
+  async lookup(code: string): Promise<Product | null> {
+    try {
+      return await pb.send<Product>(`/api/app/barcode/${encodeURIComponent(code)}`, {});
+    } catch (err) {
+      if ((err as { status?: number }).status === 404) return null;
+      throw err;
+    }
+  }
+
   /** Products for what is being typed, best first. */
   async searchProducts(q: string): Promise<Product[]> {
     try {

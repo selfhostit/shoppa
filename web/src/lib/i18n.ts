@@ -26,6 +26,23 @@ export const en = {
   'list.other': 'Other',
   'list.products': 'Products',
 
+  'scan.title': 'Scan a barcode',
+  'scan.open': 'Scan a barcode',
+  'scan.point': 'Point the camera at the barcode of the empty package.',
+  'scan.nocamera':
+    'This browser can’t read barcodes with the camera. Type the number under the barcode instead.',
+  'scan.camerafail': 'Couldn’t open the camera. Type the number under the barcode instead.',
+  'scan.number': 'Barcode number',
+  'scan.lookup': 'Look up',
+  'scan.looking': 'Looking up {code}…',
+  'scan.added': 'On the list',
+  'scan.again': 'Scan another',
+  'scan.done': 'Done',
+  'scan.unknown':
+    'Open Food Facts doesn’t know {code} yet. Type what it is, and it goes on the list as text.',
+  'scan.unknown.placeholder': 'What is it?',
+  'scan.unknown.add': 'Add',
+
   'item.title': 'Item',
   'item.name': 'Name',
   'item.quantity': 'How many',

@@ -9,12 +9,14 @@
   import ItemSheet from './ItemSheet.svelte';
   import Thumb from './Thumb.svelte';
   import ListPicker from './ListPicker.svelte';
+  import ScanSheet from './ScanSheet.svelte';
 
   // The open list: add what you need at the top, tick it off in the shop, and
   // put recently bought things back with one tap.
   let text = $state('');
   let editing = $state<Item | null>(null);
   let picking = $state(false);
+  let scanning = $state(false);
   let input: HTMLInputElement;
 
   const open = $derived(toBuy(shop.items));
@@ -97,6 +99,28 @@
       autocomplete="off"
       disabled={!shop.list}
     />
+    {#if !text.trim()}
+      <button
+        type="button"
+        class="btn-secondary shrink-0 px-3.5"
+        onclick={() => (scanning = true)}
+        disabled={!shop.list}
+        aria-label={t('scan.open')}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          class="size-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+          ><path
+            d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M8 8v8M11 8v8M14 8v8M17 8v8"
+          /></svg
+        >
+      </button>
+    {/if}
     <button
       class="btn-primary shrink-0 px-4"
       disabled={!text.trim()}
@@ -308,4 +332,7 @@
 {/if}
 {#if picking}
   <ListPicker onclose={() => (picking = false)} />
+{/if}
+{#if scanning}
+  <ScanSheet onclose={() => (scanning = false)} />
 {/if}
