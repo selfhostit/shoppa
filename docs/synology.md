@@ -35,7 +35,8 @@ curl -fsSL https://raw.githubusercontent.com/selfhostit/shoppa/main/deploy/insta
 Press Enter when it asks for a Tailscale key; the reverse proxy below replaces it.
 The script creates `/volume1/docker/shoppa` with the settings in `.env` and the
 database in `pb_data`, owned by your DSM user, and starts the app. It ends with
-`shoppa is running`.
+`shoppa is running`, with the address it is on: if another app already has port 8094,
+the installer takes the next free one, so use that port wherever this guide says 8094.
 
 ## 2. Settings
 
