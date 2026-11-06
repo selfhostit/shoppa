@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { OTHER, sectionLabel } from '../lib/catalogue';
+  import { sectionLabel, standardIcons } from '../lib/catalogue';
   import { t } from '../lib/i18n';
   import type { Item } from '../lib/list';
   import { shop } from '../lib/shop.svelte';
@@ -7,8 +7,8 @@
   import Sheet from './Sheet.svelte';
 
   // Pick the exact product for a usual item, change an item's name, quantity
-  // and note, or take it off the list. A typed item can be kept as one of the
-  // household's usual items.
+  // and note, pick its section and icon, or take it off the list. A typed item
+  // can be kept as one of the household's usual items.
   let { item, onclose }: { item: Item; onclose: () => void } = $props();
 
   // svelte-ignore state_referenced_locally
@@ -20,8 +20,14 @@
   // svelte-ignore state_referenced_locally
   let note = $state(item.note);
 
-  let emoji = $state('');
-  let section = $state(OTHER);
+  let pickingIcon = $state(false);
+  const icons = $derived(standardIcons(shop.sections, shop.generics));
+  const choice = $derived(shop.choiceOf(item));
+
+  async function pickIcon(emoji: string) {
+    pickingIcon = false;
+    await shop.pick(item, { emoji });
+  }
 
   async function save(e: SubmitEvent) {
     e.preventDefault();
@@ -34,7 +40,7 @@
 
   async function remember(e: SubmitEvent) {
     e.preventDefault();
-    await shop.remember(item, emoji, section);
+    await shop.remember(item, shop.emojiOf(item), shop.sectionOf(item));
     if (!shop.error) onclose();
   }
 
@@ -78,25 +84,70 @@
     >
   </form>
 
+  <section class="card mt-6 flex flex-col gap-3" aria-labelledby="item-look">
+    <div>
+      <h3 id="item-look" class="font-semibold">{t('item.look')}</h3>
+      <p class="text-sm text-zinc-500 dark:text-zinc-400">{t('item.look.hint', { name: shown })}</p>
+    </div>
+    <div class="flex gap-2">
+      <div class="flex w-20 flex-col gap-1.5">
+        <span class="text-sm font-medium">{t('item.icon')}</span>
+        <button
+          type="button"
+          class="grid h-[3.125rem] place-items-center rounded-xl border border-zinc-300 bg-white text-2xl dark:border-zinc-700 dark:bg-zinc-900"
+          aria-label={t('item.icon.change')}
+          aria-expanded={pickingIcon}
+          onclick={() => (pickingIcon = !pickingIcon)}>{shop.emojiOf(item) || '🛒'}</button
+        >
+      </div>
+      <label class="flex flex-1 flex-col gap-1.5">
+        <span class="text-sm font-medium">{t('item.section')}</span>
+        <select
+          value={shop.sectionOf(item)}
+          onchange={(e) => shop.pick(item, { section: e.currentTarget.value })}
+        >
+          {#each shop.sections as s (s.key)}
+            <option value={s.key}>{s.emoji} {sectionLabel(s, shop.lang)}</option>
+          {/each}
+        </select>
+      </label>
+    </div>
+    {#if pickingIcon}
+      <div class="flex flex-col gap-2">
+        {#if choice?.emoji}
+          <button type="button" class="chip self-start" onclick={() => pickIcon('')}
+            >{t('item.icon.auto')}</button
+          >
+        {/if}
+        <div
+          class="grid max-h-56 grid-cols-7 gap-1 overflow-y-auto"
+          role="listbox"
+          aria-label={t('item.icon')}
+        >
+          {#each icons as icon (icon)}
+            <button
+              type="button"
+              role="option"
+              aria-selected={shop.emojiOf(item) === icon}
+              aria-label={t('item.icon.pick', { icon })}
+              class="grid aspect-square place-items-center rounded-lg text-2xl hover:bg-zinc-100 dark:hover:bg-zinc-800 {shop.emojiOf(
+                item,
+              ) === icon
+                ? 'bg-brand-500/15 ring-2 ring-brand-500'
+                : ''}"
+              onclick={() => pickIcon(icon)}>{icon}</button
+            >
+          {/each}
+        </div>
+      </div>
+    {/if}
+  </section>
+
   {#if !item.generic}
     <form class="card mt-6 flex flex-col gap-3" onsubmit={remember}>
       <div>
         <h3 class="font-semibold">{t('item.remember')}</h3>
         <p class="text-sm text-zinc-500 dark:text-zinc-400">{t('item.remember.hint')}</p>
-      </div>
-      <div class="flex gap-2">
-        <label class="flex w-20 flex-col gap-1.5">
-          <span class="text-sm font-medium">{t('item.remember.emoji')}</span>
-          <input bind:value={emoji} maxlength="16" class="text-center text-xl" placeholder="🛒" />
-        </label>
-        <label class="flex flex-1 flex-col gap-1.5">
-          <span class="text-sm font-medium">{t('item.remember.section')}</span>
-          <select bind:value={section}>
-            {#each shop.sections as s (s.key)}
-              <option value={s.key}>{s.emoji} {sectionLabel(s, shop.lang)}</option>
-            {/each}
-          </select>
-        </label>
       </div>
       <button class="btn-secondary">{t('item.remember.button')}</button>
     </form>

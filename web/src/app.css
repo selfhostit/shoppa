@@ -1,5 +1,17 @@
 @import 'tailwindcss';
 
+/* dark like the phone, unless someone picked light or dark (lib/theme.svelte.ts) */
+@custom-variant dark {
+  &:where(.dark, .dark *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not(.light), :root:not(.light) *) {
+      @slot;
+    }
+  }
+}
+
 @theme {
   --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   /* the brand color: change these to restyle every button and link */

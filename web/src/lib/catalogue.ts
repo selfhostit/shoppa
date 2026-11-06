@@ -32,6 +32,32 @@ export interface Generic extends RecordModel {
   custom: boolean;
 }
 
+/** The section and icon the household picked for an item, by its key. */
+export interface Choice extends RecordModel {
+  key: string;
+  /** empty when only the icon was picked */
+  section: string;
+  /** empty when only the section was picked */
+  emoji: string;
+}
+
+/**
+ * What a choice of section and icon is kept by: the exact product or
+ * catalogue item, or else the name as typed, in any case and with or without
+ * accents.
+ */
+export function choiceKey(item: Pick<Item, 'product' | 'generic' | 'name'>): string {
+  if (item.product) return `product:${item.product}`;
+  if (item.generic) return `generic:${item.generic}`;
+  return itemKey(item.name).slice(0, 120);
+}
+
+/** The icons to pick from: every section's and catalogue item's, once each. */
+export function standardIcons(sections: Section[], generics: Generic[]): string[] {
+  const icons = [...sections, ...generics.filter((g) => !g.custom)].map((x) => x.emoji);
+  return [...new Set(icons.filter(Boolean))];
+}
+
 export const OTHER = 'other';
 
 /** The language to show item names in before someone picks one: their phone's, else Dutch. */
@@ -101,6 +127,57 @@ export function exactly(generics: Generic[], typed: string, lang: Lang): Generic
   if (!top) return undefined;
   const q = itemKey(typed);
   return namesOf(top, lang).some(({ text }) => itemKey(text) === q) ? top : undefined;
+}
+
+/**
+ * How well a typed word stands for a word of a catalogue name: 2 when it is
+ * the word, or the word with a plural ending ("yogurts", "thigh" for
+ * "thighs"), 1 when it ends in it, like Dutch compounds do ("aardbeienyoghurt"
+ * is a yoghurt), and 0 otherwise.
+ */
+function wordMatch(typed: string, word: string): number {
+  if (typed === word) return 2;
+  const [long, short] = typed.length > word.length ? [typed, word] : [word, typed];
+  if (short.length >= 3 && long.startsWith(short) && long.length - short.length <= 2) return 2;
+  if (word.length >= 4 && typed.endsWith(word)) return 1;
+  return 0;
+}
+
+/** How well the typed words hold all the words of a name, one after another. */
+function wordsMatch(typed: string[], name: string[]): number {
+  let best = 0;
+  for (let i = 0; i + name.length <= typed.length; i++) {
+    let worst = 2;
+    for (let j = 0; j < name.length && worst; j++)
+      worst = Math.min(worst, wordMatch(typed[i + j], name[j]));
+    best = Math.max(best, worst);
+  }
+  return best;
+}
+
+/**
+ * The catalogue item a name the household typed is most likely a kind of, for
+ * its icon and section: "Yogurt lactose free" is a yoghurt and "chicken breast
+ * small" a chicken breast. A name counts when all its words are among the
+ * typed ones, in any case and with or without accents; the longest such name
+ * is the most specific and wins, then names in your own language.
+ */
+export function guess(generics: Generic[], typed: string, lang: Lang): Generic | undefined {
+  const words = itemKey(typed).split(' ').filter(Boolean);
+  if (!words.length) return undefined;
+  let best: Generic | undefined;
+  let bestScore = 0;
+  for (const g of generics) {
+    for (const { text, own } of namesOf(g, lang)) {
+      const name = itemKey(text);
+      if (!name) continue;
+      const match = wordsMatch(words, name.split(' '));
+      if (!match) continue;
+      const score = name.length * 10 + match * 3 + (own ? 2 : 0) + (g.custom ? 1 : 0);
+      if (score > bestScore) [best, bestScore] = [g, score];
+    }
+  }
+  return best;
 }
 
 /** The items grouped by store section, in the sections' order; items without one go last. */

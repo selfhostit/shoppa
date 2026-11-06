@@ -5,6 +5,14 @@ What changed in each release of Shoppa. Installs update to the newest release; s
 
 ## Unreleased
 
+- Tap a product's photo to see it larger. The server keeps a 400-pixel copy the first
+  time someone looks.
+- Typed items get an icon and a section from the words in their name: "Yogurt lactose
+  free" is a yoghurt, "chicken breast small" a chicken breast. The most specific match
+  wins.
+- Pick any item's section and icon by hand. The choice is kept by the item's name, for
+  the whole household, and wins over the automatic one.
+- A light, dark or like-the-phone look, in Me, kept on each phone.
 - golang.org/x/net 0.62.0, which fixes GO-2026-6860.
 - SECURITY.md: how to report a problem privately, and how quickly fixes ship.
 - Security scans on every pull request and every Monday: CodeQL, govulncheck, Grype
