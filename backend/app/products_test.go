@@ -110,6 +110,13 @@ func TestProductRoutes(t *testing.T) {
 			ExpectedContent: []string{`"status":404`},
 		},
 		{
+			Name:            "a large photo of a product without a photo",
+			Method:          http.MethodGet,
+			URL:             "/api/app/products/" + boni.Id + "/photo?size=large",
+			ExpectedStatus:  http.StatusNotFound,
+			ExpectedContent: []string{`"status":404`},
+		},
+		{
 			Name:            "members can't start an import",
 			Method:          http.MethodPost,
 			URL:             "/api/app/products/import",

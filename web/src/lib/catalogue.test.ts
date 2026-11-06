@@ -1,9 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import {
   bySection,
+  choiceKey,
   exactly,
   genericName,
+  guess,
   guessLang,
+  standardIcons,
   suggest,
   type Generic,
   type Section,
@@ -129,5 +132,70 @@ describe('names and sections', () => {
       ['dairy', ['Melk', 'Kaas']],
       ['other', ['Kattengras']],
     ]);
+  });
+});
+
+describe('guess', () => {
+  const food = [
+    ...generics,
+    g('yoghurt', 'Yoghurt', 'Yoghurt', 'Yaourt', { aliases: 'yogurt', emoji: '🥣' }),
+    g('greek-yoghurt', 'Greek yoghurt', 'Griekse yoghurt', 'Yaourt grec'),
+    g('chicken', 'Chicken', 'Kip', 'Poulet', { section: 'meat', emoji: '🍗' }),
+    g('chicken-breast', 'Chicken breast', 'Kipfilet (vers)', 'Blanc de poulet', {
+      section: 'meat',
+    }),
+    g('chicken-thighs', 'Chicken thighs', 'Kippendijen', 'Cuisses de poulet', { section: 'meat' }),
+    g('chickpeas', 'Chickpeas', 'Kikkererwten', 'Pois chiches', { section: 'pantry' }),
+    g('eggs', 'Eggs', 'Eieren', 'Œufs', { name_el: 'Αυγά' }),
+  ];
+  const kind = (typed: string, lang: 'en' | 'nl' | 'fr' | 'el' = 'en') =>
+    guess(food, typed, lang)?.slug;
+
+  it('finds the item in a longer name, in any case', () => {
+    expect(kind('Yogurt lactose free')).toBe('yoghurt');
+    expect(kind('LACTOSE FREE YOGHURT')).toBe('yoghurt');
+    expect(kind('yaourt nature', 'fr')).toBe('yoghurt');
+  });
+
+  it('prefers the most specific item', () => {
+    expect(kind('chicken breast small')).toBe('chicken-breast');
+    expect(kind('chicken wings')).toBe('chicken');
+    expect(kind('greek yoghurt 0%')).toBe('greek-yoghurt');
+    expect(kind('chocolate milk for the kids')).toBe('chocolate-milk');
+  });
+
+  it('takes plurals and singulars, accents and compounds', () => {
+    expect(kind('yogurts')).toBe('yoghurt');
+    expect(kind('chicken thigh')).toBe('chicken-thighs');
+    expect(kind('egg')).toBe('eggs');
+    expect(kind('αυγα βιολογικα', 'el')).toBe('eggs');
+    expect(kind('aardbeienyoghurt', 'nl')).toBe('yoghurt');
+  });
+
+  it("doesn't guess from parts of words", () => {
+    expect(kind('chickpeas in a tin')).toBe('chickpeas');
+    expect(kind('kipcurry', 'nl')).toBeUndefined();
+    expect(kind('lactose free')).toBeUndefined();
+    expect(kind('')).toBeUndefined();
+  });
+});
+
+describe('choices', () => {
+  it('keeps a typed name in any case, and the exact thing otherwise', () => {
+    const item = { product: '', generic: '', name: 'Chicken  Breast, small' };
+    expect(choiceKey(item)).toBe('chicken breast small');
+    expect(choiceKey({ ...item, name: 'chicken breast small' })).toBe('chicken breast small');
+    expect(choiceKey({ ...item, generic: 'g1' })).toBe('generic:g1');
+    expect(choiceKey({ ...item, generic: 'g1', product: 'p1' })).toBe('product:p1');
+  });
+
+  it("offers each standard icon once, not the household's own", () => {
+    const sections = [{ key: 'dairy', emoji: '🥛', en: 'Dairy', nl: '', fr: '', el: '' }];
+    const icons = standardIcons(sections, [
+      ...generics,
+      g('mine', 'Mine', 'Mijn', 'Le mien', { emoji: '🦄', custom: true }),
+      g('apples', 'Apples', 'Appels', 'Pommes', { emoji: '🍎' }),
+    ]);
+    expect(icons).toEqual(['🥛', '🍎']);
   });
 });

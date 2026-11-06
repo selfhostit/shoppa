@@ -100,7 +100,8 @@ module in a PR of its own that changes no behavior.
 | `purchases` | item, list, generic, product, by, at |
 | `generics` | slug, name_en, name_nl, name_fr, aliases, section, emoji, off_categories, custom |
 | `pins` | generic, product, uses, last_used |
-| `products` | barcode, name, name_nl, name_fr, brand, quantity, categories, image_url, thumb, search, source |
+| `item_choices` | key (the item's normalized name, or its generic or product), section, emoji |
+| `products` | barcode, name, name_nl, name_fr, brand, quantity, categories, image_url, thumb, photo, search, source |
 | `product_imports` | name, version, products, imported, running, error |
 
 One install is one household: everyone signed in sees every list. Each person picks

@@ -244,12 +244,18 @@
               >
             </span>
           </button>
+          {#if shop.productOf(item)}
+            <!-- outside the button that opens the item, so a tap on the photo shows it larger -->
+            <span class="mr-2 flex shrink-0">
+              <Thumb product={shop.productOf(item)} emoji={shop.emojiOf(item)} zoom={name} />
+            </span>
+          {/if}
           <button
             class="flex min-w-0 flex-1 items-center gap-3 py-3 text-left"
             onclick={() => (editing = item)}
             aria-label={t('list.edit', { name })}
           >
-            <Thumb product={shop.productOf(item)} emoji={shop.emojiOf(item)} />
+            {#if !shop.productOf(item)}<Thumb emoji={shop.emojiOf(item)} />{/if}
             <span class="flex min-w-0 flex-col">
               <span class="flex w-full items-baseline gap-2">
                 <span class="truncate text-[1.05rem] font-medium">{name}</span>

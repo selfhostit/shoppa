@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -256,7 +257,8 @@ func Lookup(app core.App, code string) (*core.Record, error) {
 
 var photoClient = &http.Client{Timeout: 15 * time.Second}
 
-// maxPhoto is the largest photo kept; the small ones are a few tens of kB.
+// maxPhoto is the largest photo kept; the small ones are a few tens of kB, the
+// large ones about a hundred.
 const maxPhoto = 1 << 20
 
 // ErrNoPhoto means the product has no photo, or it can't be downloaded.
@@ -264,10 +266,24 @@ var ErrNoPhoto = errors.New("no photo")
 
 // KeepPhoto downloads the product's small photo into its thumb field, once.
 func KeepPhoto(app core.App, p *core.Record) error {
-	if p.GetString("thumb") != "" {
+	return keep(app, p, "thumb", p.GetString("image_url"))
+}
+
+// smallSize is how Open Food Facts names its small photos: front_nl.4.200.jpg
+// is 200 pixels high, and front_nl.4.400.jpg the same photo at 400.
+var smallSize = regexp.MustCompile(`\.200\.(jpg|png|webp)$`)
+
+// KeepLargePhoto downloads the product's photo at 400 pixels into its photo
+// field, once, for seeing it better. A product whose photo comes in one size
+// only keeps that one again.
+func KeepLargePhoto(app core.App, p *core.Record) error {
+	return keep(app, p, "photo", smallSize.ReplaceAllString(p.GetString("image_url"), ".400.$1"))
+}
+
+func keep(app core.App, p *core.Record, field, url string) error {
+	if p.GetString(field) != "" {
 		return nil
 	}
-	url := p.GetString("image_url")
 	if !strings.HasPrefix(url, "https://") {
 		return ErrNoPhoto
 	}
@@ -296,7 +312,7 @@ func KeepPhoto(app core.App, p *core.Record) error {
 	if err != nil {
 		return err
 	}
-	p.Set("thumb", file)
+	p.Set(field, file)
 	return app.Save(p)
 }
 

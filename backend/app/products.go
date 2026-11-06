@@ -86,15 +86,26 @@ func startImport(e *core.RequestEvent) error {
 }
 
 // productPhoto sends the product's photo, downloading it from Open Food Facts
-// the first time and keeping it.
+// the first time and keeping it. ?size=large sends the larger one, or the small
+// one when there is no larger.
 func productPhoto(e *core.RequestEvent) error {
 	p, err := e.App.FindRecordById("products", e.Request.PathValue("id"))
 	if err != nil {
 		return e.NotFoundError("", err)
 	}
-	if err := products.KeepPhoto(e.App, p); err != nil {
-		return e.NotFoundError("", err)
+	field := "thumb"
+	if e.Request.URL.Query().Get("size") == "large" {
+		if err := products.KeepLargePhoto(e.App, p); err == nil {
+			field = "photo"
+		} else if !errors.Is(err, products.ErrNoPhoto) {
+			e.App.Logger().Warn("Could not keep a product's large photo", "product", p.Id, "error", err)
+		}
+	}
+	if field == "thumb" {
+		if err := products.KeepPhoto(e.App, p); err != nil {
+			return e.NotFoundError("", err)
+		}
 	}
 	e.Response.Header().Set("Cache-Control", "public, max-age=2592000")
-	return e.Redirect(http.StatusFound, "/api/files/"+p.Collection().Id+"/"+p.Id+"/"+p.GetString("thumb"))
+	return e.Redirect(http.StatusFound, "/api/files/"+p.Collection().Id+"/"+p.Id+"/"+p.GetString(field))
 }

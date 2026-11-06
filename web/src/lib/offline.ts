@@ -1,4 +1,4 @@
-import type { Generic, Section } from './catalogue';
+import type { Choice, Generic, Section } from './catalogue';
 import { itemKey, type Item, type List } from './list';
 import type { User } from './pb';
 import type { Pin } from './pins';
@@ -37,6 +37,8 @@ export type Snapshot = {
   generics: Generic[];
   sections: Section[];
   pins: Pin[];
+  /** the household's picks of section and icon */
+  choices: Choice[];
   products: Record<string, Product>;
   /** each list's items, by list id */
   items: Record<string, Item[]>;
@@ -48,6 +50,7 @@ export const emptySnapshot = (): Snapshot => ({
   generics: [],
   sections: [],
   pins: [],
+  choices: [],
   products: {},
   items: {},
 });

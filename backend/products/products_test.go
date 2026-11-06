@@ -236,3 +236,35 @@ func TestKeepPhoto(t *testing.T) {
 		t.Errorf("no photo: %v", err)
 	}
 }
+
+func TestKeepLargePhoto(t *testing.T) {
+	a := newApp(t)
+	var asked []string
+	srv := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		asked = append(asked, r.URL.Path)
+		w.Write(png)
+	}))
+	defer srv.Close()
+	products.SetPhotoClient(srv.Client())
+
+	col, _ := a.FindCollectionByNameOrId("products")
+	p := core.NewRecord(col)
+	p.Set("barcode", "5410000000001")
+	p.Set("name", "Halfvolle melk")
+	p.Set("image_url", srv.URL+"/541/front_nl.4.200.jpg")
+	if err := a.Save(p); err != nil {
+		t.Fatal(err)
+	}
+	if err := products.KeepLargePhoto(a, p); err != nil {
+		t.Fatal(err)
+	}
+	if err := products.KeepLargePhoto(a, p); err != nil {
+		t.Fatal(err)
+	}
+	if len(asked) != 1 || asked[0] != "/541/front_nl.4.400.jpg" {
+		t.Errorf("downloaded %v, want the 400 pixel photo once", asked)
+	}
+	if p.GetString("photo") == "" || p.GetString("thumb") != "" {
+		t.Errorf("photo %q, thumb %q", p.GetString("photo"), p.GetString("thumb"))
+	}
+}

@@ -1,9 +1,12 @@
 import type { UnsubscribeFunc } from 'pocketbase';
 import {
+  choiceKey,
   exactly,
   genericName,
+  guess,
   guessLang,
   OTHER,
+  type Choice,
   type Generic,
   type Lang,
   type Section,
@@ -53,6 +56,8 @@ class Shop {
   sections = $state<Section[]>([]);
   /** the household's choice of product for a generic item */
   pins = $state<Pin[]>([]);
+  /** the section and icon the household picked for items */
+  choices = $state<Choice[]>([]);
   /** the products on the list, by id, from the items' expand */
   products = $state<Record<string, Product>>({});
   listId = $state(remembered());
@@ -97,10 +102,33 @@ class Shop {
     return item.product ? this.products[item.product] : undefined;
   }
 
-  /** The catalogue item an item is, or its product is a kind of. */
+  /**
+   * The catalogue item an item is, or its product is a kind of, or else what
+   * its name sounds like: "chicken breast small" is a chicken breast.
+   */
   private kind(item: Item): Generic | undefined {
     const p = this.productOf(item);
-    return p ? kindOf(p, this.generics) : this.genericOf(item);
+    const known = p ? kindOf(p, this.generics) : this.genericOf(item);
+    return known ?? this.guessed(p ? productName(p, this.lang) : item.name);
+  }
+
+  private guesses = new Map<string, Generic | undefined>();
+  private guessedFrom: Generic[] = [];
+
+  private guessed(name: string): Generic | undefined {
+    if (this.guessedFrom !== this.generics) {
+      this.guesses.clear();
+      this.guessedFrom = this.generics;
+    }
+    const key = `${this.lang}:${name}`;
+    if (!this.guesses.has(key)) this.guesses.set(key, guess(this.generics, name, this.lang));
+    return this.guesses.get(key);
+  }
+
+  /** What the household picked for an item, if they did. */
+  choiceOf(item: Item): Choice | undefined {
+    const key = choiceKey(item);
+    return this.choices.find((c) => c.key === key);
   }
 
   /**
@@ -125,11 +153,11 @@ class Shop {
   }
 
   emojiOf(item: Item): string {
-    return this.kind(item)?.emoji ?? '';
+    return this.choiceOf(item)?.emoji || this.kind(item)?.emoji || '';
   }
 
   sectionOf(item: Item): string {
-    return this.kind(item)?.section || OTHER;
+    return this.choiceOf(item)?.section || this.kind(item)?.section || OTHER;
   }
 
   /** Keeps the products that come along with items. */
@@ -164,6 +192,7 @@ class Shop {
     this.generics = s.generics;
     this.sections = s.sections;
     this.pins = s.pins;
+    this.choices = s.choices;
     this.products = s.products;
     this.setBase(s.items[this.list?.id ?? ''] ?? []);
     if (s.lists.length) this.loading = false;
@@ -193,14 +222,16 @@ class Shop {
 
   private async load() {
     try {
-      const [lists, people, generics, sections, pins] = await Promise.all([
+      const [lists, people, generics, sections, pins, choices] = await Promise.all([
         pb.collection<List>('lists').getFullList(),
         pb.collection<User>('users').getFullList({ sort: 'name' }),
         pb.collection<Generic>('generics').getFullList({ batch: 1000 }),
         pb.send<Section[]>('/api/app/sections', {}),
         pb.collection<Pin>('pins').getFullList({ expand: 'product' }),
+        pb.collection<Choice>('item_choices').getFullList({ batch: 1000 }),
       ]);
       this.pins = pins;
+      this.choices = choices;
       this.lists = lists;
       this.people = people;
       this.generics = generics;
@@ -240,6 +271,10 @@ class Shop {
         },
         { expand: 'product' },
       ),
+      await pb.collection<Choice>('item_choices').subscribe('*', ({ action, record }) => {
+        this.choices = upsert(this.choices, record, action === 'delete');
+        this.persist();
+      }),
       await pb.collection<Generic>('generics').subscribe('*', ({ action, record }) => {
         this.generics = upsert(this.generics, record, action === 'delete');
         this.persist();
@@ -279,6 +314,7 @@ class Shop {
         generics: this.generics,
         sections: this.sections,
         pins: this.pins,
+        choices: this.choices,
         products: this.products,
         items: { ...this.snap.items, ...(list ? { [list]: this.base } : {}) },
       };
@@ -471,6 +507,32 @@ class Shop {
       // a newer search took its place, or the server can't be reached
       return [];
     }
+  }
+
+  /**
+   * Picks an item's section or icon, for this item and every next one by the
+   * same name. An empty one goes back to what the item gets on its own.
+   */
+  async pick(item: Item, pick: { section?: string; emoji?: string }) {
+    await this.run(async () => {
+      const was = this.choiceOf(item);
+      const next = { section: was?.section ?? '', emoji: was?.emoji ?? '', ...pick };
+      if (was && !next.section && !next.emoji) {
+        await pb.collection('item_choices').delete(was.id);
+        this.choices = upsert(this.choices, was, true);
+      } else if (was) {
+        this.choices = upsert(
+          this.choices,
+          await pb.collection<Choice>('item_choices').update(was.id, next),
+        );
+      } else if (next.section || next.emoji) {
+        this.choices = upsert(
+          this.choices,
+          await pb.collection<Choice>('item_choices').create({ key: choiceKey(item), ...next }),
+        );
+      }
+      this.persist();
+    });
   }
 
   /** Keeps a typed item as one of the household's own, with an emoji and a section. */

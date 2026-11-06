@@ -62,7 +62,7 @@
     </div>
   {:else if step.kind === 'added'}
     <div class="card flex items-center gap-4" role="status">
-      <Thumb product={step.product} size="size-16" />
+      <Thumb product={step.product} size="size-16" zoom={productName(step.product, shop.lang)} />
       <div class="min-w-0 flex-1">
         <p class="line-clamp-2 font-semibold">{productName(step.product, shop.lang)}</p>
         <p class="truncate text-sm text-zinc-500 dark:text-zinc-400">

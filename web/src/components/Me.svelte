@@ -5,10 +5,11 @@
   import { shop } from '../lib/shop.svelte';
   import { pb } from '../lib/pb';
   import { session } from '../lib/session.svelte';
+  import { theme, type Theme } from '../lib/theme.svelte';
   import Notifications from './Notifications.svelte';
   import ProductData from './ProductData.svelte';
 
-  // Your account, installing the app and notifications.
+  // Your account, installing the app, the look and notifications.
   const user = $derived(session.user!);
   const version = pb
     .send<{ version: string }>('/api/app/info', {})
@@ -46,6 +47,23 @@
         role="radio"
         aria-checked={shop.lang === l.id}
         onclick={() => shop.setLang(l.id as Lang)}>{l.label}</button
+      >
+    {/each}
+  </div>
+</section>
+
+<section class="card flex flex-col gap-3">
+  <div>
+    <h2 class="font-semibold">{t('me.theme')}</h2>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400">{t('me.theme.hint')}</p>
+  </div>
+  <div class="flex flex-wrap gap-2" role="radiogroup" aria-label={t('me.theme')}>
+    {#each ['system', 'light', 'dark'] as const as id (id)}
+      <button
+        class="chip {theme.current === id ? 'chosen' : ''}"
+        role="radio"
+        aria-checked={theme.current === id}
+        onclick={() => theme.set(id as Theme)}>{t(`me.theme.${id}`)}</button
       >
     {/each}
   </div>
