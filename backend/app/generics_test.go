@@ -38,7 +38,7 @@ func TestTheCatalogueIsLoaded(t *testing.T) {
 		Method:                http.MethodGet,
 		URL:                   "/api/app/sections",
 		ExpectedStatus:        http.StatusOK,
-		ExpectedContent:       []string{`"key":"produce"`, `"nl":"Groenten & fruit"`},
+		ExpectedContent:       []string{`"key":"produce"`, `"nl":"Groenten & fruit"`, `"kind":"home"`, `"icon":"sofa"`},
 		TestAppFactory:        func(testing.TB) *tests.TestApp { return a },
 		DisableTestAppCleanup: true,
 	}
@@ -144,4 +144,67 @@ func TestPeopleAddTheirOwnGenerics(t *testing.T) {
 	}
 	send(t, a, http.StatusNotFound, http.MethodPatch, "/api/collections/generics/records/"+milk.Id, token, `{"emoji":"🐄"}`)
 	send(t, a, http.StatusNotFound, http.MethodDelete, "/api/collections/generics/records/"+milk.Id, token, "")
+}
+
+func TestEachKindOfListHasItsOwnItems(t *testing.T) {
+	a := newApp(t)
+	defer a.Cleanup()
+	yannis, token := addUser(t, a, "yannis@example.com", "owner")
+	withLang(t, a, yannis, "el")
+	groceries := newList(t, a, "Groceries")
+	furniture := send(t, a, http.StatusOK, http.MethodPost, "/api/collections/lists/records", token,
+		`{"name":"Furniture","kind":"home"}`)
+	home := furniture["id"].(string)
+	if l, _ := a.FindRecordById("lists", groceries); l.GetString("kind") != "groceries" {
+		t.Errorf("a list without a kind is %q", l.GetString("kind"))
+	}
+	add := func(want int, list, name string) map[string]any {
+		t.Helper()
+		return send(t, a, want, http.MethodPost, "/api/app/items", token, `{"list":"`+list+`","name":"`+name+`"}`)
+	}
+	slugOf := func(item map[string]any) string {
+		g, err := a.FindRecordById("generics", item["generic"].(string))
+		if err != nil {
+			return ""
+		}
+		return g.GetString("slug")
+	}
+
+	// curtains on a furniture list are the furniture curtains
+	if c := add(http.StatusCreated, home, "κουρτίνες"); slugOf(c) != "home-curtains" || c["name"] != "Κουρτίνες" {
+		t.Errorf("curtains %v", c)
+	}
+	// candles are in the catalogue twice: once for groceries, once for the home
+	if c := add(http.StatusCreated, home, "candles"); slugOf(c) != "home-candles-home" {
+		t.Errorf("candles at home %v", c)
+	}
+	if c := add(http.StatusCreated, groceries, "candles"); slugOf(c) != "candles" {
+		t.Errorf("candles in the shop %v", c)
+	}
+	// and a sofa on a grocery list is just what was typed
+	if s := add(http.StatusCreated, groceries, "sofa"); s["generic"] != "" {
+		t.Errorf("sofa in the shop %v", s)
+	}
+
+	// someone's own item belongs to the kind of list it was kept from
+	own := send(t, a, http.StatusOK, http.MethodPost, "/api/collections/generics/records", token,
+		`{"name_el":"Σκαμπό","kind":"home","section":"home-furniture","icon":"armchair"}`)
+	if own["kind"] != "home" || own["section"] != "home-furniture" || own["icon"] != "armchair" {
+		t.Errorf("own %v", own)
+	}
+	// a section of another kind won't do
+	odd := send(t, a, http.StatusOK, http.MethodPost, "/api/collections/generics/records", token,
+		`{"name_el":"Κάτι","kind":"camping","section":"dairy"}`)
+	if odd["section"] != "other" {
+		t.Errorf("odd %v", odd)
+	}
+	if s := add(http.StatusCreated, home, "σκαμπο"); s["generic"] != own["id"] {
+		t.Errorf("stool %v", s)
+	}
+
+	// the household picks another icon for a section
+	send(t, a, http.StatusOK, http.MethodPost, "/api/collections/section_icons/records", token,
+		`{"key":"home:home-textiles","icon":"blinds"}`)
+	send(t, a, http.StatusBadRequest, http.MethodPost, "/api/collections/section_icons/records", token,
+		`{"key":"home:home-lighting","icon":"<svg>"}`)
 }

@@ -80,8 +80,12 @@
   {/if}
 </section>
 
-{#await version then v}
-  {#if v}<p class="mt-auto text-center text-xs text-zinc-400">
-      {t('me.version', { version: v })}
-    </p>{/if}
-{/await}
+<div class="mt-auto flex flex-col gap-1 text-center text-xs text-zinc-400">
+  {#await version then v}
+    {#if v}<p>{t('me.version', { version: v })}</p>{/if}
+  {/await}
+  <p>
+    {t('me.icons')}
+    <a class="underline" href="https://lucide.dev" target="_blank" rel="noreferrer">Lucide</a> (ISC).
+  </p>
+</div>

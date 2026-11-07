@@ -1,13 +1,16 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { bySection, sectionLabel, suggest, type Generic } from '../lib/catalogue';
+  import { bySection, sectionLabel, suggest, type Generic, type Section } from '../lib/catalogue';
   import { t, tn } from '../lib/i18n';
+  import { GROCERIES, kindIcon } from '../lib/kinds';
   import { itemKey, parseEntry, recentlyBought, toBuy, type Item } from '../lib/list';
   import type { Product } from '../lib/products';
   import { productLine, productName } from '../lib/products';
   import { usualFor } from '../lib/pins';
   import { shop } from '../lib/shop.svelte';
+  import Glyph from './Glyph.svelte';
   import ItemSheet from './ItemSheet.svelte';
+  import SectionSheet from './SectionSheet.svelte';
   import Thumb from './Thumb.svelte';
   import ListPicker from './ListPicker.svelte';
   import ScanSheet from './ScanSheet.svelte';
@@ -18,13 +21,17 @@
   let editing = $state<Item | null>(null);
   let picking = $state(false);
   let scanning = $state(false);
+  // the section whose icon is being picked; null for Other
+  let iconFor = $state<{ section: Section | undefined } | null>(null);
   let input: HTMLInputElement;
 
   const open = $derived(toBuy(shop.items));
-  const groups = $derived(bySection(open, shop.sections, (i) => shop.sectionOf(i)));
+  const groups = $derived(bySection(open, shop.kindSections, (i) => shop.sectionOf(i)));
+  // products, barcodes and usual brands are for groceries
+  const groceries = $derived(shop.kind === GROCERIES);
   const recent = $derived(recentlyBought(shop.items));
   const typed = $derived(parseEntry(text));
-  const suggestions = $derived(suggest(shop.generics, typed.name, shop.lang));
+  const suggestions = $derived(suggest(shop.kindGenerics, typed.name, shop.lang));
   // what is already on the list doesn't need suggesting
   const onList = $derived(new Set(open.map((i) => i.generic).filter(Boolean)));
   const typedIsGeneric = $derived(
@@ -35,7 +42,7 @@
   let found = $state<Product[]>([]);
   $effect(() => {
     const q = typed.name;
-    if (q.length < 2) {
+    if (q.length < 2 || !groceries) {
       found = [];
       return;
     }
@@ -73,7 +80,10 @@
     onclick={() => (picking = true)}
     aria-label={t('lists.switch')}
   >
-    <span class="text-2xl" aria-hidden="true">{shop.list?.emoji || '🛒'}</span>
+    <span
+      class="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-600 text-white"
+      aria-hidden="true"><Glyph icon={kindIcon(shop.kind)} class="size-5" /></span
+    >
     <span class="truncate text-2xl font-bold tracking-tight">{shop.list?.name ?? ''}</span>
     <svg
       viewBox="0 0 24 24"
@@ -103,7 +113,7 @@
       autocomplete="off"
       disabled={!shop.list}
     />
-    {#if !text.trim()}
+    {#if !text.trim() && groceries}
       <button
         type="button"
         class="btn-secondary shrink-0 px-3.5"
@@ -150,7 +160,9 @@
             class="flex w-full items-center gap-3 px-4 py-3 text-left"
             onclick={() => addThis(g)}
           >
-            <span class="w-7 text-center text-xl" aria-hidden="true">{g.emoji}</span>
+            <span class="grid w-7 place-items-center text-brand-700 dark:text-brand-400"
+              ><Glyph icon={g.icon || g.emoji} class="size-6" /></span
+            >
             <span class="flex-1">
               <span class="font-medium">{shop.nameOfGeneric(g)}</span>
               {#if typed.quantity}<span class="text-sm text-zinc-500">
@@ -162,7 +174,7 @@
             {:else}
               <span class="text-xs text-zinc-400"
                 >{sectionLabel(
-                  shop.sections.find((s) => s.key === g.section),
+                  shop.kindSections.find((s) => s.key === g.section),
                   shop.lang,
                 )}</span
               >
@@ -208,15 +220,19 @@
 {/if}
 
 {#each groups as group (group.section?.key ?? 'other')}
+  {@const label = sectionLabel(group.section, shop.lang) || t('list.other')}
   <section>
-    <h2
-      class="mb-1.5 flex items-center gap-1.5 px-1 text-xs font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400"
-    >
-      <span aria-hidden="true">{group.section?.emoji ?? '🛒'}</span>
-      <!-- in its own language, so Greek capitals lose their accents -->
-      <span lang={group.section ? shop.lang : 'en'}
-        >{sectionLabel(group.section, shop.lang) || t('list.other')}</span
+    <h2 class="mb-1.5 px-1">
+      <!-- a tap picks another icon for the section -->
+      <button
+        class="-mx-1 flex items-center gap-1.5 rounded-lg px-1 py-0.5 text-xs font-semibold tracking-wide text-zinc-500 uppercase hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-900"
+        onclick={() => (iconFor = { section: group.section })}
+        aria-label={t('section.change', { name: label })}
       >
+        <Glyph icon={shop.sectionIcon(group.section)} class="size-4 text-sm" />
+        <!-- in its own language, so Greek capitals lose their accents -->
+        <span lang={group.section ? shop.lang : 'en'}>{label}</span>
+      </button>
     </h2>
     <ul class="card divide-y divide-zinc-100 p-0 dark:divide-zinc-800">
       {#each group.items as item (item.id)}
@@ -247,7 +263,7 @@
           {#if shop.productOf(item)}
             <!-- outside the button that opens the item, so a tap on the photo shows it larger -->
             <span class="mr-2 flex shrink-0">
-              <Thumb product={shop.productOf(item)} emoji={shop.emojiOf(item)} zoom={name} />
+              <Thumb product={shop.productOf(item)} icon={shop.iconOf(item)} zoom={name} />
             </span>
           {/if}
           <button
@@ -255,7 +271,7 @@
             onclick={() => (editing = item)}
             aria-label={t('list.edit', { name })}
           >
-            {#if !shop.productOf(item)}<Thumb emoji={shop.emojiOf(item)} />{/if}
+            {#if !shop.productOf(item)}<Thumb icon={shop.iconOf(item)} />{/if}
             <span class="flex min-w-0 flex-col">
               <span class="flex w-full items-baseline gap-2">
                 <span class="truncate text-[1.05rem] font-medium">{name}</span>
@@ -313,18 +329,7 @@
       {#each recent as item (item.id)}
         <li>
           <button class="chip" onclick={() => shop.putBack(item)}>
-            {#if shop.emojiOf(item)}
-              <span aria-hidden="true">{shop.emojiOf(item)}</span>
-            {:else}
-              <svg
-                viewBox="0 0 24 24"
-                class="size-3.5 text-brand-600 dark:text-brand-400"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                aria-hidden="true"><path d="M12 5v14M5 12h14" stroke-linecap="round" /></svg
-              >
-            {/if}
+            <Glyph icon={shop.iconOf(item)} class="size-4 text-brand-700 dark:text-brand-400" />
             {shop.nameOf(item)}</button
           >
         </li>
@@ -341,6 +346,9 @@
 {/if}
 {#if scanning}
   <ScanSheet onclose={() => (scanning = false)} />
+{/if}
+{#if iconFor}
+  <SectionSheet section={iconFor.section} onclose={() => (iconFor = null)} />
 {/if}
 
 {#snippet productRow(p: Product, mine: boolean)}

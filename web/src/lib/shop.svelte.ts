@@ -3,14 +3,19 @@ import {
   choiceKey,
   exactly,
   genericName,
+  genericsFor,
   guess,
   guessLang,
   OTHER,
+  sectionIconKey,
+  sectionsFor,
   type Choice,
   type Generic,
   type Lang,
   type Section,
+  type SectionIcon,
 } from './catalogue';
+import { kindOfList, type Kind } from './kinds';
 import { errorMessage, pb, type User } from './pb';
 import { listsInOrder, parseEntry, upsert, type Item, type List } from './list';
 import {
@@ -58,6 +63,8 @@ class Shop {
   pins = $state<Pin[]>([]);
   /** the section and icon the household picked for items */
   choices = $state<Choice[]>([]);
+  /** the icons the household picked for sections */
+  sectionIcons = $state<SectionIcon[]>([]);
   /** the products on the list, by id, from the items' expand */
   products = $state<Record<string, Product>>({});
   listId = $state(remembered());
@@ -89,6 +96,27 @@ class Shop {
     return this.ordered.find((l) => l.id === this.listId) ?? this.ordered[0];
   }
 
+  /** What the open list is for. */
+  get kind(): Kind {
+    return kindOfList(this.list);
+  }
+
+  /** The open list's sections, in their order, Other last. */
+  get kindSections(): Section[] {
+    return sectionsFor(this.sections, this.kind);
+  }
+
+  private kindCache: { from: Generic[]; kind: Kind; generics: Generic[] } | null = null;
+
+  /** The catalogue items for the open list's kind: no sofas on a grocery list. */
+  get kindGenerics(): Generic[] {
+    const c = this.kindCache;
+    if (c && c.from === this.generics && c.kind === this.kind) return c.generics;
+    const generics = genericsFor(this.generics, this.kind);
+    this.kindCache = { from: this.generics, kind: this.kind, generics };
+    return generics;
+  }
+
   /** The language item names show in for whoever is signed in. */
   get lang(): Lang {
     return session.user?.lang || guessLang(navigator.languages ?? [navigator.language]);
@@ -106,7 +134,7 @@ class Shop {
    * The catalogue item an item is, or its product is a kind of, or else what
    * its name sounds like: "chicken breast small" is a chicken breast.
    */
-  private kind(item: Item): Generic | undefined {
+  private catalogueItem(item: Item): Generic | undefined {
     const p = this.productOf(item);
     const known = p ? kindOf(p, this.generics) : this.genericOf(item);
     return known ?? this.guessed(p ? productName(p, this.lang) : item.name);
@@ -120,14 +148,14 @@ class Shop {
       this.guesses.clear();
       this.guessedFrom = this.generics;
     }
-    const key = `${this.lang}:${name}`;
-    if (!this.guesses.has(key)) this.guesses.set(key, guess(this.generics, name, this.lang));
+    const key = `${this.kind}:${this.lang}:${name}`;
+    if (!this.guesses.has(key)) this.guesses.set(key, guess(this.kindGenerics, name, this.lang));
     return this.guesses.get(key);
   }
 
   /** What the household picked for an item, if they did. */
   choiceOf(item: Item): Choice | undefined {
-    const key = choiceKey(item);
+    const key = choiceKey(item, this.kind);
     return this.choices.find((c) => c.key === key);
   }
 
@@ -152,12 +180,38 @@ class Shop {
     return genericName(g, this.lang);
   }
 
-  emojiOf(item: Item): string {
-    return this.choiceOf(item)?.emoji || this.kind(item)?.emoji || '';
+  /**
+   * An item's icon: the one the household picked, or its catalogue item's, or
+   * else its section's. An emoji when that is what was picked before.
+   */
+  iconOf(item: Item): string {
+    const choice = this.choiceOf(item);
+    const it = this.catalogueItem(item);
+    return (
+      choice?.icon ||
+      choice?.emoji ||
+      it?.icon ||
+      it?.emoji ||
+      this.sectionIcon(this.kindSections.find((s) => s.key === this.sectionOf(item)))
+    );
   }
 
+  /** The section an item is in on the open list: the household's pick, or its own. */
   sectionOf(item: Item): string {
-    return this.choiceOf(item)?.section || this.kind(item)?.section || OTHER;
+    const fits = (key: string | undefined) =>
+      key && this.kindSections.some((s) => s.key === key) ? key : '';
+    return fits(this.choiceOf(item)?.section) || fits(this.catalogueItem(item)?.section) || OTHER;
+  }
+
+  /** A section's icon on the open list: the one the household picked, or its own. */
+  sectionIcon(section: Section | undefined): string {
+    const key = sectionIconKey(this.kind, section?.key ?? OTHER);
+    return (
+      this.sectionIcons.find((s) => s.key === key)?.icon ||
+      section?.icon ||
+      section?.emoji ||
+      'package'
+    );
   }
 
   /** Keeps the products that come along with items. */
@@ -193,6 +247,7 @@ class Shop {
     this.sections = s.sections;
     this.pins = s.pins;
     this.choices = s.choices;
+    this.sectionIcons = s.sectionIcons;
     this.products = s.products;
     this.setBase(s.items[this.list?.id ?? ''] ?? []);
     if (s.lists.length) this.loading = false;
@@ -222,16 +277,18 @@ class Shop {
 
   private async load() {
     try {
-      const [lists, people, generics, sections, pins, choices] = await Promise.all([
+      const [lists, people, generics, sections, pins, choices, sectionIcons] = await Promise.all([
         pb.collection<List>('lists').getFullList(),
         pb.collection<User>('users').getFullList({ sort: 'name' }),
         pb.collection<Generic>('generics').getFullList({ batch: 1000 }),
         pb.send<Section[]>('/api/app/sections', {}),
         pb.collection<Pin>('pins').getFullList({ expand: 'product' }),
         pb.collection<Choice>('item_choices').getFullList({ batch: 1000 }),
+        pb.collection<SectionIcon>('section_icons').getFullList(),
       ]);
       this.pins = pins;
       this.choices = choices;
+      this.sectionIcons = sectionIcons;
       this.lists = lists;
       this.people = people;
       this.generics = generics;
@@ -275,6 +332,10 @@ class Shop {
         this.choices = upsert(this.choices, record, action === 'delete');
         this.persist();
       }),
+      await pb.collection<SectionIcon>('section_icons').subscribe('*', ({ action, record }) => {
+        this.sectionIcons = upsert(this.sectionIcons, record, action === 'delete');
+        this.persist();
+      }),
       await pb.collection<Generic>('generics').subscribe('*', ({ action, record }) => {
         this.generics = upsert(this.generics, record, action === 'delete');
         this.persist();
@@ -315,6 +376,7 @@ class Shop {
         sections: this.sections,
         pins: this.pins,
         choices: this.choices,
+        sectionIcons: this.sectionIcons,
         products: this.products,
         items: { ...this.snap.items, ...(list ? { [list]: this.base } : {}) },
       };
@@ -427,7 +489,7 @@ class Shop {
   async add(text: string, generic?: Generic, product?: Product) {
     const { name, quantity } = parseEntry(text);
     const list = this.list;
-    if (!product) generic ??= exactly(this.generics, name, this.lang);
+    if (!product) generic ??= exactly(this.kindGenerics, name, this.lang);
     if (!(name || generic || product) || !list) return;
     if (product) this.products = { ...this.products, [product.id]: product };
     const body: NewItem = product
@@ -511,13 +573,21 @@ class Shop {
 
   /**
    * Picks an item's section or icon, for this item and every next one by the
-   * same name. An empty one goes back to what the item gets on its own.
+   * same name on this kind of list. An empty one goes back to what the item
+   * gets on its own.
    */
-  async pick(item: Item, pick: { section?: string; emoji?: string }) {
+  async pick(item: Item, pick: { section?: string; icon?: string }) {
     await this.run(async () => {
       const was = this.choiceOf(item);
-      const next = { section: was?.section ?? '', emoji: was?.emoji ?? '', ...pick };
-      if (was && !next.section && !next.emoji) {
+      const next = {
+        section: was?.section ?? '',
+        icon: was?.icon ?? '',
+        emoji: was?.emoji ?? '',
+        ...pick,
+      };
+      // a new icon, or going back to the automatic one, replaces an old emoji
+      if ('icon' in pick) next.emoji = '';
+      if (was && !next.section && !next.icon && !next.emoji) {
         await pb.collection('item_choices').delete(was.id);
         this.choices = upsert(this.choices, was, true);
       } else if (was) {
@@ -525,23 +595,51 @@ class Shop {
           this.choices,
           await pb.collection<Choice>('item_choices').update(was.id, next),
         );
-      } else if (next.section || next.emoji) {
+      } else if (next.section || next.icon || next.emoji) {
         this.choices = upsert(
           this.choices,
-          await pb.collection<Choice>('item_choices').create({ key: choiceKey(item), ...next }),
+          await pb
+            .collection<Choice>('item_choices')
+            .create({ key: choiceKey(item, this.kind), ...next }),
         );
       }
       this.persist();
     });
   }
 
-  /** Keeps a typed item as one of the household's own, with an emoji and a section. */
-  async remember(item: Item, emoji: string, section: string) {
+  /** Picks the icon a section shows on this kind of list; an empty one goes back to its own. */
+  async pickSectionIcon(section: Section | undefined, icon: string) {
+    const key = sectionIconKey(this.kind, section?.key ?? OTHER);
+    await this.run(async () => {
+      const was = this.sectionIcons.find((s) => s.key === key);
+      const own = section?.icon ?? '';
+      if (was && (!icon || icon === own)) {
+        await pb.collection('section_icons').delete(was.id);
+        this.sectionIcons = upsert(this.sectionIcons, was, true);
+      } else if (was) {
+        this.sectionIcons = upsert(
+          this.sectionIcons,
+          await pb.collection<SectionIcon>('section_icons').update(was.id, { icon }),
+        );
+      } else if (icon && icon !== own) {
+        this.sectionIcons = upsert(
+          this.sectionIcons,
+          await pb.collection<SectionIcon>('section_icons').create({ key, icon }),
+        );
+      }
+      this.persist();
+    });
+  }
+
+  /** Keeps a typed item as one of the household's own, with an icon and a section. */
+  async remember(item: Item, icon: string, section: string) {
     await this.flush();
     await this.run(async () => {
+      const own = /^[a-z0-9-]+$/.test(icon);
       const generic = await pb.collection<Generic>('generics').create({
         [`name_${this.lang}`]: item.name,
-        emoji: emoji.trim(),
+        kind: this.kind,
+        ...(own ? { icon } : { emoji: icon }),
         section,
       });
       this.generics = upsert(this.generics, generic);
@@ -579,11 +677,11 @@ class Shop {
     await this.change({ kind: 'delete', id: item.id, list: item.list, at: pbNow() });
   }
 
-  async createList(name: string) {
+  async createList(name: string, kind: Kind) {
     await this.run(async () => {
       const list = await pb.collection<List>('lists').create({
         name: name.trim(),
-        emoji: '🛒',
+        kind,
         sort: Math.max(0, ...this.lists.map((l) => l.sort)) + 1,
       });
       this.lists = upsert(this.lists, list);
@@ -597,6 +695,13 @@ class Shop {
         this.lists,
         await pb.collection<List>('lists').update(list.id, { name: name.trim() }),
       );
+    });
+  }
+
+  /** Changes what a list is for, and so its sections. */
+  async setKind(list: List, kind: Kind) {
+    await this.run(async () => {
+      this.lists = upsert(this.lists, await pb.collection<List>('lists').update(list.id, { kind }));
     });
   }
 
