@@ -14,6 +14,7 @@ import (
 	"github.com/pocketbase/pocketbase/tools/types"
 	"github.com/selfhostit/food"
 
+	"github.com/selfhostit/shoppa/catalogue"
 	"github.com/selfhostit/shoppa/products"
 )
 
@@ -27,7 +28,8 @@ func registerLists(app core.App) {
 	setKey := func(e *core.RecordEvent) error {
 		// a name that is a generic's name becomes that generic
 		if e.Record.GetString("generic") == "" && e.Record.GetString("product") == "" {
-			if g := matchGeneric(e.App, itemKey(e.Record.GetString("name")), "nl"); g != nil {
+			if g := matchGeneric(e.App, itemKey(e.Record.GetString("name")), "nl",
+				listKind(e.App, e.Record.GetString("list"))); g != nil {
 				e.Record.Set("generic", g.Id)
 			}
 		}
@@ -35,6 +37,13 @@ func registerLists(app core.App) {
 		return e.Next()
 	}
 	app.OnRecordCreate("items").BindFunc(setKey)
+	// a list is for groceries unless it says otherwise
+	app.OnRecordCreate("lists").BindFunc(func(e *core.RecordEvent) error {
+		if e.Record.GetString("kind") == "" {
+			e.Record.Set("kind", catalogue.Groceries)
+		}
+		return e.Next()
+	})
 	app.OnRecordUpdate("items").BindFunc(setKey)
 
 	// ticking an item off records who did it and when, and keeps a purchase
@@ -76,7 +85,7 @@ func registerLists(app core.App) {
 			}
 			l := core.NewRecord(lists)
 			l.Set("name", FirstList)
-			l.Set("emoji", "🛒")
+			l.Set("kind", catalogue.Groceries)
 			if err := e.App.Save(l); err != nil {
 				e.App.Logger().Error("creating the first list", "error", err)
 			}
@@ -134,8 +143,13 @@ func addItem(e *core.RequestEvent) error {
 	if in.ID != "" && !recordID.MatchString(in.ID) {
 		return e.BadRequestError("That doesn't look right.", nil)
 	}
-	if _, err := e.App.FindRecordById("lists", in.List); err != nil {
+	list, err := e.App.FindRecordById("lists", in.List)
+	if err != nil {
 		return e.NotFoundError("That list is gone.", err)
+	}
+	kind := list.GetString("kind")
+	if !catalogue.ValidKind(kind) {
+		kind = catalogue.Groceries
 	}
 	lang := personLang(e.Auth)
 	name := strings.Join(strings.Fields(in.Name), " ")
@@ -153,7 +167,7 @@ func addItem(e *core.RequestEvent) error {
 		}
 		generic = g
 	} else {
-		generic = matchGeneric(e.App, itemKey(name), lang)
+		generic = matchGeneric(e.App, itemKey(name), lang, kind)
 	}
 	key := itemKey(name)
 	if product != nil {

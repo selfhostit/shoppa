@@ -1,12 +1,14 @@
 // Package catalogue holds the generic items Shoppa ships with ("melk",
-// "bananen", "wc-papier"), each with a Dutch, French, English and Greek name, a
-// store section and an emoji, and keeps the generics collection in step with it.
+// "bananen", "wc-papier", "sofa", "tent"), each with a Dutch, French, English
+// and Greek name, a kind of list, a section and an icon, and keeps the
+// generics collection in step with it.
 package catalogue
 
 import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/pocketbase/pocketbase/core"
@@ -16,10 +18,25 @@ import (
 //go:embed generics.json
 var data []byte
 
-// Section is a part of the store; the list is grouped by them, in this order.
+// The kinds of list. Each has its own sections and items.
+const (
+	Groceries = "groceries"
+	Home      = "home"
+	Camping   = "camping"
+	Trip      = "trip"
+)
+
+// Kinds is every kind of list, groceries first.
+var Kinds = []string{Groceries, Home, Camping, Trip}
+
+// Section is a part of the store, or of a list of another kind; the list is
+// grouped by them, in this order. Other has no kind: every list has it.
 type Section struct {
-	Key   string `json:"key"`
-	Emoji string `json:"emoji"`
+	Key  string `json:"key"`
+	Kind string `json:"kind,omitempty"`
+	// a line icon's name (web/src/lib/icons.ts)
+	Icon  string `json:"icon"`
+	Emoji string `json:"emoji,omitempty"`
 	EN    string `json:"en"`
 	NL    string `json:"nl"`
 	FR    string `json:"fr"`
@@ -28,9 +45,12 @@ type Section struct {
 
 // Item is one generic item.
 type Item struct {
-	Slug    string `json:"slug"`
+	Slug string `json:"slug"`
+	// the kind of list it is for; groceries when empty
+	Kind    string `json:"kind,omitempty"`
 	Section string `json:"section"`
-	Emoji   string `json:"emoji"`
+	Icon    string `json:"icon"`
+	Emoji   string `json:"emoji,omitempty"`
 	EN      string `json:"en"`
 	NL      string `json:"nl"`
 	FR      string `json:"fr"`
@@ -53,7 +73,27 @@ func Load() (Catalogue, error) {
 	if err := json.Unmarshal(data, &c); err != nil {
 		return c, fmt.Errorf("reading the catalogue: %w", err)
 	}
+	for i := range c.Items {
+		if c.Items[i].Kind == "" {
+			c.Items[i].Kind = Groceries
+		}
+	}
 	return c, nil
+}
+
+// ValidKind tells whether kind is one of the kinds of list.
+func ValidKind(kind string) bool {
+	return slices.Contains(Kinds, kind)
+}
+
+// SectionFits tells whether a section is one a list of the kind has.
+func (c Catalogue) SectionFits(key, kind string) bool {
+	for _, s := range c.Sections {
+		if s.Key == key {
+			return s.Kind == "" || s.Kind == kind
+		}
+	}
+	return false
 }
 
 // Other is the section for things that aren't in any other.
@@ -113,7 +153,9 @@ func Sync(app core.App) error {
 				continue
 			}
 			before := r.PublicExport()
+			r.Set("kind", it.Kind)
 			r.Set("section", it.Section)
+			r.Set("icon", it.Icon)
 			r.Set("emoji", it.Emoji)
 			r.Set("name_en", it.EN)
 			r.Set("name_nl", it.NL)

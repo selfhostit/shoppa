@@ -1,16 +1,17 @@
 <script lang="ts">
   import { photoUrl, type Product } from '../lib/products';
   import { t } from '../lib/i18n';
+  import Glyph from './Glyph.svelte';
   import PhotoViewer from './PhotoViewer.svelte';
 
   // An item's picture: its product's photo, kept on the server, or else its
-  // emoji. Given a name, a tap on the photo shows it larger.
+  // icon on a soft tile. Given a name, a tap on the photo shows it larger.
   let {
     product,
-    emoji = '',
+    icon = '',
     size = 'size-10',
     zoom = '',
-  }: { product?: Product; emoji?: string; size?: string; zoom?: string } = $props();
+  }: { product?: Product; icon?: string; size?: string; zoom?: string } = $props();
 
   let failed = $state(false);
   let viewing = $state(false);
@@ -39,6 +40,9 @@
   {/if}
 {:else if src}
   {@render photo()}
-{:else if emoji}
-  <span class="grid {size} shrink-0 place-items-center text-xl" aria-hidden="true">{emoji}</span>
+{:else if icon}
+  <span
+    class="grid {size} shrink-0 place-items-center rounded-xl bg-brand-500/10 text-xl text-brand-700 dark:bg-brand-400/10 dark:text-brand-400"
+    aria-hidden="true"><Glyph {icon} class="size-6" /></span
+  >
 {/if}

@@ -95,12 +95,13 @@ module in a PR of its own that changes no behavior.
 
 | Collection | Fields |
 |---|---|
-| `lists` | name, emoji, sort, archived |
+| `lists` | name, kind (groceries, home, camping, trip), emoji, sort, archived |
 | `items` | list, name, generic, product, quantity, note, checked, checked_at, checked_by, added_by |
 | `purchases` | item, list, generic, product, by, at |
-| `generics` | slug, name_en, name_nl, name_fr, aliases, section, emoji, off_categories, custom |
+| `generics` | slug, kind, name_en, name_nl, name_fr, name_el, aliases, section, icon, emoji, off_categories, custom |
 | `pins` | generic, product, uses, last_used |
-| `item_choices` | key (the item's normalized name, or its generic or product), section, emoji |
+| `item_choices` | key (the item's normalized name, prefixed by the list's kind unless groceries, or its generic or product), section, icon, emoji |
+| `section_icons` | key (kind:section), icon |
 | `products` | barcode, name, name_nl, name_fr, brand, quantity, categories, image_url, thumb, photo, search, source |
 | `product_imports` | name, version, products, imported, running, error |
 
@@ -181,11 +182,13 @@ Each step is one PR that leaves the app working.
 - [ ] 2.2 Mealie: add a recipe's ingredients
 - [ ] 2.3 Troye: nutrition on product cards
 - [ ] 2.4 Usual items and suggestions
+- [x] 2.5 Kinds of list (furniture & home, camping, trips) with their own sections and items, line icons, picked section icons
 
 ### Decisions
 - 2026-11-04: images are downloaded on first use and kept in pb_data
 - 2026-11-04: Shoppa runs on port 8094 on the Synology (should-we has 8093)
 - 2026-11-04: the app is called Shoppa; the mascot is Carty (short for Mr. Shopping Carty), renamed from Karel
+- 2026-11-07: items and sections show line icons from Lucide (ISC), vendored in `web/src/lib/icons.ts` by `web/scripts/icons.mjs`, not emojis
 
 ### Later
 - Brand sheet `docs/images/brand.png` still labels the mascot Karel; redraw it as Carty

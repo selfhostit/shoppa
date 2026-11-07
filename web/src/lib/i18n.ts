@@ -78,6 +78,16 @@ export const en = {
   'item.remember.hint': 'It is suggested when you type, with this section and icon.',
   'item.remember.button': 'Keep it',
 
+  'kind.groceries': 'Groceries',
+  'kind.home': 'Furniture & home',
+  'kind.camping': 'Camping',
+  'kind.trip': 'Trips & outings',
+
+  'section.title': 'Icon for {name}',
+  'section.hint': 'Shown for {name} on every “{kind}” list, on everyone’s phone.',
+  'section.change': 'Change the icon for {name}',
+  'section.own': 'Its own icon',
+
   'photo.show': 'See the photo of {name}',
   'photo.title': 'Photo of {name}',
 
@@ -87,6 +97,9 @@ export const en = {
   'lists.new.placeholder': 'Weekend, party, DIY…',
   'lists.create': 'Create',
   'lists.rename': 'Rename',
+  'lists.kind': 'What is it for?',
+  'lists.kind.hint': 'Each kind of list has its own sections and icons.',
+  'lists.kind.this': 'This list is for',
   'lists.delete': 'Delete this list',
   'lists.delete.confirm': 'Delete {name} and everything on it? This can’t be undone.',
   'lists.last': 'A household needs at least one list.',
@@ -116,6 +129,7 @@ export const en = {
   'me.owner': '(owner)',
   'me.admin': 'Manage people and data on the admin page.',
   'me.version': 'Version {version}',
+  'me.icons': 'Icons from',
 } as const;
 
 export type Key = keyof typeof en;

@@ -1,8 +1,11 @@
 <script lang="ts">
-  import { sectionLabel, standardIcons } from '../lib/catalogue';
+  import { sectionLabel } from '../lib/catalogue';
   import { t } from '../lib/i18n';
+  import { GROCERIES } from '../lib/kinds';
   import type { Item } from '../lib/list';
   import { shop } from '../lib/shop.svelte';
+  import Glyph from './Glyph.svelte';
+  import IconPicker from './IconPicker.svelte';
   import PickProduct from './PickProduct.svelte';
   import Sheet from './Sheet.svelte';
 
@@ -21,12 +24,11 @@
   let note = $state(item.note);
 
   let pickingIcon = $state(false);
-  const icons = $derived(standardIcons(shop.sections, shop.generics));
   const choice = $derived(shop.choiceOf(item));
 
-  async function pickIcon(emoji: string) {
+  async function pickIcon(icon: string) {
     pickingIcon = false;
-    await shop.pick(item, { emoji });
+    await shop.pick(item, { icon });
   }
 
   async function save(e: SubmitEvent) {
@@ -40,7 +42,7 @@
 
   async function remember(e: SubmitEvent) {
     e.preventDefault();
-    await shop.remember(item, shop.emojiOf(item), shop.sectionOf(item));
+    await shop.remember(item, shop.iconOf(item), shop.sectionOf(item));
     if (!shop.error) onclose();
   }
 
@@ -56,7 +58,7 @@
 </script>
 
 <Sheet title={t('item.title')} {onclose}>
-  {#if item.generic && !item.checked}
+  {#if item.generic && !item.checked && shop.kind === GROCERIES}
     <div class="mb-6"><PickProduct {item} onpicked={onclose} /></div>
   {/if}
   <form class="flex flex-col gap-4" onsubmit={save}>
@@ -94,10 +96,11 @@
         <span class="text-sm font-medium">{t('item.icon')}</span>
         <button
           type="button"
-          class="grid h-[3.125rem] place-items-center rounded-xl border border-zinc-300 bg-white text-2xl dark:border-zinc-700 dark:bg-zinc-900"
+          class="grid h-[3.125rem] place-items-center rounded-xl border border-zinc-300 bg-white text-2xl text-brand-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-brand-400"
           aria-label={t('item.icon.change')}
           aria-expanded={pickingIcon}
-          onclick={() => (pickingIcon = !pickingIcon)}>{shop.emojiOf(item) || '🛒'}</button
+          onclick={() => (pickingIcon = !pickingIcon)}
+          ><Glyph icon={shop.iconOf(item)} class="size-7" /></button
         >
       </div>
       <label class="flex flex-1 flex-col gap-1.5">
@@ -106,40 +109,18 @@
           value={shop.sectionOf(item)}
           onchange={(e) => shop.pick(item, { section: e.currentTarget.value })}
         >
-          {#each shop.sections as s (s.key)}
-            <option value={s.key}>{s.emoji} {sectionLabel(s, shop.lang)}</option>
+          {#each shop.kindSections as s (s.key)}
+            <option value={s.key}>{sectionLabel(s, shop.lang)}</option>
           {/each}
         </select>
       </label>
     </div>
     {#if pickingIcon}
-      <div class="flex flex-col gap-2">
-        {#if choice?.emoji}
-          <button type="button" class="chip self-start" onclick={() => pickIcon('')}
-            >{t('item.icon.auto')}</button
-          >
-        {/if}
-        <div
-          class="grid max-h-56 grid-cols-7 gap-1 overflow-y-auto"
-          role="listbox"
-          aria-label={t('item.icon')}
-        >
-          {#each icons as icon (icon)}
-            <button
-              type="button"
-              role="option"
-              aria-selected={shop.emojiOf(item) === icon}
-              aria-label={t('item.icon.pick', { icon })}
-              class="grid aspect-square place-items-center rounded-lg text-2xl hover:bg-zinc-100 dark:hover:bg-zinc-800 {shop.emojiOf(
-                item,
-              ) === icon
-                ? 'bg-brand-500/15 ring-2 ring-brand-500'
-                : ''}"
-              onclick={() => pickIcon(icon)}>{icon}</button
-            >
-          {/each}
-        </div>
-      </div>
+      <IconPicker
+        current={shop.iconOf(item)}
+        reset={choice?.icon || choice?.emoji ? t('item.icon.auto') : ''}
+        onpick={pickIcon}
+      />
     {/if}
   </section>
 

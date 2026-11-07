@@ -1,7 +1,10 @@
 import type { RecordModel } from 'pocketbase';
+import type { Kind } from './kinds';
 
 export interface List extends RecordModel {
   name: string;
+  /** what the list is for; groceries when empty */
+  kind: Kind | '';
   emoji: string;
   sort: number;
   archived: boolean;

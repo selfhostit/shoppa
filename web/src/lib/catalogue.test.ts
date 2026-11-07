@@ -5,12 +5,17 @@ import {
   exactly,
   genericName,
   guess,
+  genericsFor,
   guessLang,
-  standardIcons,
+  iconChoices,
+  sectionsFor,
   suggest,
   type Generic,
   type Section,
 } from './catalogue';
+import bundled from '../../../backend/catalogue/generics.json';
+import { icons } from './icons';
+import type { Kind } from './kinds';
 import type { Item } from './list';
 
 const g = (slug: string, en: string, nl: string, fr: string, over: Partial<Generic> = {}) =>
@@ -189,13 +194,90 @@ describe('choices', () => {
     expect(choiceKey({ ...item, generic: 'g1', product: 'p1' })).toBe('product:p1');
   });
 
-  it("offers each standard icon once, not the household's own", () => {
-    const sections = [{ key: 'dairy', emoji: '🥛', en: 'Dairy', nl: '', fr: '', el: '' }];
-    const icons = standardIcons(sections, [
-      ...generics,
-      g('mine', 'Mine', 'Mijn', 'Le mien', { emoji: '🦄', custom: true }),
-      g('apples', 'Apples', 'Appels', 'Pommes', { emoji: '🍎' }),
-    ]);
-    expect(icons).toEqual(['🥛', '🍎']);
+  it('keeps a typed name per kind of list', () => {
+    const item = { product: '', generic: '', name: 'Lamp' };
+    expect(choiceKey(item, 'groceries')).toBe('lamp');
+    expect(choiceKey(item, 'home')).toBe('home:lamp');
+    expect(choiceKey({ ...item, generic: 'g1' }, 'home')).toBe('generic:g1');
+  });
+
+  it("offers the kind of list's icons first, each once, then every other", () => {
+    const sections = [
+      { key: 'dairy', kind: 'groceries', icon: 'milk', en: 'Dairy', nl: '', fr: '', el: '' },
+      { key: 'home-beds', kind: 'home', icon: 'bed', en: 'Beds', nl: '', fr: '', el: '' },
+    ] as Section[];
+    const choices = iconChoices(
+      sections,
+      [
+        g('apples', 'Apples', 'Appels', 'Pommes', { kind: 'groceries', icon: 'apple' }),
+        g('sofa', 'Sofa', 'Zetel', 'Canapé', { kind: 'home', icon: 'sofa' }),
+        g('mine', 'Mine', 'Mijn', 'Le mien', { kind: 'home', icon: 'cat', custom: true }),
+        g('old', 'Old', 'Oud', 'Vieux', { kind: 'home', icon: '', emoji: '🦄' }),
+      ],
+      'home',
+    );
+    expect(choices.slice(0, 2)).toEqual(['bed', 'sofa']);
+    expect(new Set(choices).size).toBe(choices.length);
+    expect(choices).toContain('apple');
+    expect(choices).not.toContain('🦄');
+    expect(choices.length).toBe(Object.keys(icons).length);
+  });
+});
+
+describe('kinds of list', () => {
+  const catalogue = bundled as unknown as {
+    sections: Section[];
+    items: {
+      slug: string;
+      kind?: Kind;
+      section: string;
+      icon: string;
+      aliases?: string;
+      en: string;
+      nl: string;
+      fr: string;
+      el: string;
+    }[];
+  };
+  const all = catalogue.items.map((it) =>
+    g(it.slug, it.en, it.nl, it.fr, {
+      kind: it.kind ?? 'groceries',
+      section: it.section,
+      icon: it.icon,
+      name_el: it.el,
+      aliases: it.aliases ?? '',
+    }),
+  );
+
+  it('has an icon for every section and item', () => {
+    for (const s of catalogue.sections) expect(icons[s.icon], s.key).toBeDefined();
+    for (const it of catalogue.items) expect(icons[it.icon], it.slug).toBeDefined();
+  });
+
+  it('gives each kind its own sections, Other last', () => {
+    const home = sectionsFor(catalogue.sections, 'home').map((s) => s.key);
+    expect(home[0]).toBe('home-furniture');
+    expect(home.at(-1)).toBe('other');
+    expect(home).not.toContain('dairy');
+    expect(sectionsFor(catalogue.sections, 'groceries')[0].key).toBe('produce');
+  });
+
+  it('puts furniture typed in Greek in its section', () => {
+    const home = genericsFor(all, 'home');
+    const section = (typed: string) => guess(home, typed, 'el')?.section;
+    expect(section('Αποθηκευτικό έπιπλο')).toBe('home-furniture');
+    expect(section('Έπιπλο για είσοδο, παπουτσοθήκη')).toBe('home-furniture');
+    expect(section('Χαλί διάδρομος για κουζίνα')).toBe('home-textiles');
+    expect(section('Έπιλο μικρό μπάνιο νεροχύτη')).toBe('home-bathroom');
+    expect(section('Κουρτίνες σαλόνι')).toBe('home-textiles');
+  });
+
+  it('only suggests what fits the kind of list', () => {
+    const top = (kind: Kind, typed: string) =>
+      suggest(genericsFor(all, kind), typed, 'en', 1)[0]?.slug;
+    expect(top('home', 'sofa')).toBe('home-sofa');
+    expect(top('groceries', 'sofa')).toBeUndefined();
+    expect(top('camping', 'tent')).toBe('camp-tent');
+    expect(top('trip', 'passport')).toBe('trip-passport');
   });
 });

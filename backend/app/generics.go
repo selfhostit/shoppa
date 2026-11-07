@@ -27,9 +27,12 @@ func registerGenerics(app core.App) {
 		r := e.Record
 		r.Set("custom", true)
 		name := firstOf(r.GetString("name_en"), r.GetString("name_nl"), r.GetString("name_fr"), r.GetString("name_el"))
-		if slug := slugOf(name); slug != "" {
-			r.Set("slug", "custom-"+slug+"-"+security.RandomStringWithAlphabet(4, "abcdefghijklmnopqrstuvwxyz0123456789"))
+		// a Greek name has no letters a slug can hold: "custom-x7k2"
+		slug := "custom-"
+		if s := slugOf(name); s != "" {
+			slug += s + "-"
 		}
+		r.Set("slug", slug+security.RandomStringWithAlphabet(4, "abcdefghijklmnopqrstuvwxyz0123456789"))
 		for _, f := range []string{"name_en", "name_nl", "name_fr", "name_el"} {
 			if strings.TrimSpace(r.GetString(f)) == "" {
 				r.Set(f, name)
@@ -43,7 +46,10 @@ func registerGenerics(app core.App) {
 		return e.Next()
 	})
 	setNames := func(e *core.RecordEvent) error {
-		if !validSection(e.Record.GetString("section")) {
+		if !catalogue.ValidKind(e.Record.GetString("kind")) {
+			e.Record.Set("kind", catalogue.Groceries)
+		}
+		if !validSection(e.Record.GetString("section"), e.Record.GetString("kind")) {
 			e.Record.Set("section", catalogue.Other)
 		}
 		catalogue.SetNames(e.Record)
@@ -57,8 +63,8 @@ func registerGenericRoutes(se *core.ServeEvent) {
 	se.Router.GET("/api/app/sections", sections)
 }
 
-// sections tells the web app the store sections, in the order the list
-// shows them.
+// sections tells the web app the sections of every kind of list, in the
+// order the list shows them.
 func sections(e *core.RequestEvent) error {
 	c, err := catalogue.Load()
 	if err != nil {
@@ -67,28 +73,30 @@ func sections(e *core.RequestEvent) error {
 	return e.JSON(http.StatusOK, c.Sections)
 }
 
-func validSection(key string) bool {
+// validSection tells whether a section is one of a kind of list.
+func validSection(key, kind string) bool {
 	c, err := catalogue.Load()
-	if err != nil {
-		return false
-	}
-	for _, s := range c.Sections {
-		if s.Key == key {
-			return true
-		}
-	}
-	return false
+	return err == nil && c.SectionFits(key, kind)
 }
 
-// matchGeneric finds the generic named exactly what was typed (normalized), in
-// any language. When names clash across languages ("raisins" is French for
-// grapes), the one in the person's language wins.
-func matchGeneric(app core.App, key, lang string) *core.Record {
+// listKind is the kind of a list: groceries, home, camping or trip.
+func listKind(app core.App, id string) string {
+	if l, err := app.FindRecordById("lists", id); err == nil && catalogue.ValidKind(l.GetString("kind")) {
+		return l.GetString("kind")
+	}
+	return catalogue.Groceries
+}
+
+// matchGeneric finds the generic of a kind of list named exactly what was
+// typed (normalized), in any language. When names clash across languages
+// ("raisins" is French for grapes), the one in the person's language wins.
+func matchGeneric(app core.App, key, lang, kind string) *core.Record {
 	if key == "" {
 		return nil
 	}
 	var found []*core.Record
 	err := app.RecordQuery("generics").
+		AndWhere(dbx.HashExp{"kind": kind}).
 		AndWhere(dbx.Like("names", "|"+key+"|").Match(true, true)).
 		OrderBy("custom DESC", "created").
 		Limit(10).
@@ -124,8 +132,12 @@ func personLang(auth *core.Record) string {
 	return "nl"
 }
 
+// slugOf is a name's letters a to z and digits, with dashes between words.
 func slugOf(s string) string {
-	return strings.ReplaceAll(food.Normalize(s), " ", "-")
+	words := strings.FieldsFunc(food.Normalize(s), func(r rune) bool {
+		return (r < 'a' || r > 'z') && (r < '0' || r > '9')
+	})
+	return strings.Join(words, "-")
 }
 
 func firstOf(values ...string) string {

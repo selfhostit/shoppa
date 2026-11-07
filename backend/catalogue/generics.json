@@ -6,7 +6,9 @@
    "en": "Fruit & vegetables",
    "nl": "Groenten & fruit",
    "fr": "Fruits & légumes",
-   "el": "Φρούτα & λαχανικά"
+   "el": "Φρούτα & λαχανικά",
+   "icon": "carrot",
+   "kind": "groceries"
   },
   {
    "key": "bakery",
@@ -14,7 +16,9 @@
    "en": "Bread & bakery",
    "nl": "Brood & bakkerij",
    "fr": "Pain & boulangerie",
-   "el": "Ψωμί & αρτοποιείο"
+   "el": "Ψωμί & αρτοποιείο",
+   "icon": "croissant",
+   "kind": "groceries"
   },
   {
    "key": "dairy",
@@ -22,7 +26,9 @@
    "en": "Dairy & eggs",
    "nl": "Zuivel & eieren",
    "fr": "Produits laitiers & œufs",
-   "el": "Γαλακτοκομικά & αυγά"
+   "el": "Γαλακτοκομικά & αυγά",
+   "icon": "milk",
+   "kind": "groceries"
   },
   {
    "key": "deli",
@@ -30,7 +36,9 @@
    "en": "Cheese & cold cuts",
    "nl": "Kaas & vleeswaren",
    "fr": "Fromage & charcuterie",
-   "el": "Τυριά & αλλαντικά"
+   "el": "Τυριά & αλλαντικά",
+   "icon": "cheese",
+   "kind": "groceries"
   },
   {
    "key": "meat",
@@ -38,7 +46,9 @@
    "en": "Meat & fish",
    "nl": "Vlees & vis",
    "fr": "Viande & poisson",
-   "el": "Κρέας & ψάρι"
+   "el": "Κρέας & ψάρι",
+   "icon": "beef",
+   "kind": "groceries"
   },
   {
    "key": "frozen",
@@ -46,7 +56,9 @@
    "en": "Frozen",
    "nl": "Diepvries",
    "fr": "Surgelés",
-   "el": "Κατεψυγμένα"
+   "el": "Κατεψυγμένα",
+   "icon": "snowflake",
+   "kind": "groceries"
   },
   {
    "key": "pantry",
@@ -54,7 +66,9 @@
    "en": "Pasta, rice & tins",
    "nl": "Pasta, rijst & conserven",
    "fr": "Pâtes, riz & conserves",
-   "el": "Ζυμαρικά, ρύζι & κονσέρβες"
+   "el": "Ζυμαρικά, ρύζι & κονσέρβες",
+   "icon": "can",
+   "kind": "groceries"
   },
   {
    "key": "cooking",
@@ -62,7 +76,9 @@
    "en": "Cooking & baking",
    "nl": "Koken & bakken",
    "fr": "Cuisine & pâtisserie",
-   "el": "Μαγειρική & ζαχαροπλαστική"
+   "el": "Μαγειρική & ζαχαροπλαστική",
+   "icon": "chef-hat",
+   "kind": "groceries"
   },
   {
    "key": "breakfast",
@@ -70,7 +86,9 @@
    "en": "Breakfast & spreads",
    "nl": "Ontbijt & smeersels",
    "fr": "Petit-déjeuner & tartinades",
-   "el": "Πρωινό & αλείμματα"
+   "el": "Πρωινό & αλείμματα",
+   "icon": "coffee",
+   "kind": "groceries"
   },
   {
    "key": "snacks",
@@ -78,7 +96,9 @@
    "en": "Sweets & snacks",
    "nl": "Snoep & snacks",
    "fr": "Sucreries & snacks",
-   "el": "Γλυκά & σνακ"
+   "el": "Γλυκά & σνακ",
+   "icon": "cookie",
+   "kind": "groceries"
   },
   {
    "key": "drinks",
@@ -86,7 +106,9 @@
    "en": "Drinks",
    "nl": "Dranken",
    "fr": "Boissons",
-   "el": "Ποτά"
+   "el": "Ποτά",
+   "icon": "cup-soda",
+   "kind": "groceries"
   },
   {
    "key": "baby",
@@ -94,7 +116,9 @@
    "en": "Baby",
    "nl": "Baby",
    "fr": "Bébé",
-   "el": "Μωρό"
+   "el": "Μωρό",
+   "icon": "baby",
+   "kind": "groceries"
   },
   {
    "key": "care",
@@ -102,7 +126,9 @@
    "en": "Personal care",
    "nl": "Verzorging",
    "fr": "Soins",
-   "el": "Προσωπική φροντίδα"
+   "el": "Προσωπική φροντίδα",
+   "icon": "tube-lotion",
+   "kind": "groceries"
   },
   {
    "key": "household",
@@ -110,7 +136,9 @@
    "en": "Household",
    "nl": "Huishouden",
    "fr": "Maison",
-   "el": "Νοικοκυριό"
+   "el": "Νοικοκυριό",
+   "icon": "spray-can",
+   "kind": "groceries"
   },
   {
    "key": "pets",
@@ -118,7 +146,225 @@
    "en": "Pets",
    "nl": "Huisdieren",
    "fr": "Animaux",
-   "el": "Κατοικίδια"
+   "el": "Κατοικίδια",
+   "icon": "paw-print",
+   "kind": "groceries"
+  },
+  {
+   "key": "home-furniture",
+   "kind": "home",
+   "icon": "sofa",
+   "en": "Furniture",
+   "nl": "Meubels",
+   "fr": "Meubles",
+   "el": "Έπιπλα"
+  },
+  {
+   "key": "home-beds",
+   "kind": "home",
+   "icon": "bed-double",
+   "en": "Beds & bedding",
+   "nl": "Bedden & beddengoed",
+   "fr": "Lits & literie",
+   "el": "Κρεβάτια & κλινοσκεπάσματα"
+  },
+  {
+   "key": "home-textiles",
+   "kind": "home",
+   "icon": "rug",
+   "en": "Rugs & curtains",
+   "nl": "Tapijten & gordijnen",
+   "fr": "Tapis & rideaux",
+   "el": "Χαλιά & κουρτίνες"
+  },
+  {
+   "key": "home-lighting",
+   "kind": "home",
+   "icon": "lamp-ceiling",
+   "en": "Lighting",
+   "nl": "Verlichting",
+   "fr": "Éclairage",
+   "el": "Φωτισμός"
+  },
+  {
+   "key": "home-kitchen",
+   "kind": "home",
+   "icon": "utensils",
+   "en": "Kitchen & dining",
+   "nl": "Keuken & tafel",
+   "fr": "Cuisine & table",
+   "el": "Κουζίνα & τραπεζαρία"
+  },
+  {
+   "key": "home-bathroom",
+   "kind": "home",
+   "icon": "bath",
+   "en": "Bathroom",
+   "nl": "Badkamer",
+   "fr": "Salle de bain",
+   "el": "Μπάνιο"
+  },
+  {
+   "key": "home-decor",
+   "kind": "home",
+   "icon": "plant-pot",
+   "en": "Decoration & plants",
+   "nl": "Decoratie & planten",
+   "fr": "Déco & plantes",
+   "el": "Διακόσμηση & φυτά"
+  },
+  {
+   "key": "home-appliances",
+   "kind": "home",
+   "icon": "washing-machine",
+   "en": "Appliances",
+   "nl": "Toestellen",
+   "fr": "Électroménager",
+   "el": "Ηλεκτρικές συσκευές"
+  },
+  {
+   "key": "home-diy",
+   "kind": "home",
+   "icon": "hammer",
+   "en": "Tools & DIY",
+   "nl": "Gereedschap & klussen",
+   "fr": "Outils & bricolage",
+   "el": "Εργαλεία & μαστορέματα"
+  },
+  {
+   "key": "camp-sleep",
+   "kind": "camping",
+   "icon": "tent",
+   "en": "Tent & sleeping",
+   "nl": "Tent & slapen",
+   "fr": "Tente & couchage",
+   "el": "Σκηνή & ύπνος"
+  },
+  {
+   "key": "camp-kitchen",
+   "kind": "camping",
+   "icon": "cooking-pot",
+   "en": "Cooking & water",
+   "nl": "Koken & water",
+   "fr": "Cuisine & eau",
+   "el": "Μαγείρεμα & νερό"
+  },
+  {
+   "key": "camp-gear",
+   "kind": "camping",
+   "icon": "flashlight",
+   "en": "Lights & tools",
+   "nl": "Licht & gereedschap",
+   "fr": "Lumière & outils",
+   "el": "Φακοί & εργαλεία"
+  },
+  {
+   "key": "camp-clothes",
+   "kind": "camping",
+   "icon": "shirt",
+   "en": "Clothing & shoes",
+   "nl": "Kleding & schoenen",
+   "fr": "Vêtements & chaussures",
+   "el": "Ρούχα & παπούτσια"
+  },
+  {
+   "key": "camp-hygiene",
+   "kind": "camping",
+   "icon": "toothbrush",
+   "en": "Hygiene",
+   "nl": "Hygiëne",
+   "fr": "Hygiène",
+   "el": "Υγιεινή"
+  },
+  {
+   "key": "camp-firstaid",
+   "kind": "camping",
+   "icon": "briefcase-medical",
+   "en": "First aid",
+   "nl": "EHBO",
+   "fr": "Premiers secours",
+   "el": "Πρώτες βοήθειες"
+  },
+  {
+   "key": "camp-food",
+   "kind": "camping",
+   "icon": "sandwich",
+   "en": "Food & drinks",
+   "nl": "Eten & drinken",
+   "fr": "Nourriture & boissons",
+   "el": "Φαγητό & ποτά"
+  },
+  {
+   "key": "trip-docs",
+   "kind": "trip",
+   "icon": "id-card",
+   "en": "Documents & money",
+   "nl": "Documenten & geld",
+   "fr": "Papiers & argent",
+   "el": "Έγγραφα & χρήματα"
+  },
+  {
+   "key": "trip-clothes",
+   "kind": "trip",
+   "icon": "shirt",
+   "en": "Clothes",
+   "nl": "Kleren",
+   "fr": "Vêtements",
+   "el": "Ρούχα"
+  },
+  {
+   "key": "trip-toiletries",
+   "kind": "trip",
+   "icon": "toothbrush",
+   "en": "Toiletries",
+   "nl": "Toiletgerief",
+   "fr": "Toilette",
+   "el": "Είδη προσωπικής υγιεινής"
+  },
+  {
+   "key": "trip-health",
+   "kind": "trip",
+   "icon": "pill",
+   "en": "Medicine",
+   "nl": "Medicijnen",
+   "fr": "Médicaments",
+   "el": "Φάρμακα"
+  },
+  {
+   "key": "trip-tech",
+   "kind": "trip",
+   "icon": "plug",
+   "en": "Electronics",
+   "nl": "Elektronica",
+   "fr": "Électronique",
+   "el": "Ηλεκτρονικά"
+  },
+  {
+   "key": "trip-food",
+   "kind": "trip",
+   "icon": "sandwich",
+   "en": "Food for the road",
+   "nl": "Eten onderweg",
+   "fr": "À manger en route",
+   "el": "Φαγητό για τον δρόμο"
+  },
+  {
+   "key": "trip-beach",
+   "kind": "trip",
+   "icon": "sun",
+   "en": "Beach & outdoors",
+   "nl": "Strand & buiten",
+   "fr": "Plage & plein air",
+   "el": "Παραλία & εξοχή"
+  },
+  {
+   "key": "trip-bags",
+   "kind": "trip",
+   "icon": "luggage",
+   "en": "Bags & extras",
+   "nl": "Tassen & extra’s",
+   "fr": "Sacs & extras",
+   "el": "Τσάντες & άλλα"
   },
   {
    "key": "other",
@@ -126,7 +372,8 @@
    "en": "Other",
    "nl": "Overige",
    "fr": "Autres",
-   "el": "Άλλα"
+   "el": "Άλλα",
+   "icon": "package"
   }
  ],
  "items": [
@@ -138,7 +385,8 @@
    "nl": "Bananen",
    "fr": "Bananes",
    "el": "Μπανάνες",
-   "off": "en:bananas"
+   "off": "en:bananas",
+   "icon": "banana"
   },
   {
    "slug": "apples",
@@ -148,7 +396,8 @@
    "nl": "Appels",
    "fr": "Pommes",
    "el": "Μήλα",
-   "off": "en:apples"
+   "off": "en:apples",
+   "icon": "apple"
   },
   {
    "slug": "pears",
@@ -158,7 +407,8 @@
    "nl": "Peren",
    "fr": "Poires",
    "el": "Αχλάδια",
-   "off": "en:pears"
+   "off": "en:pears",
+   "icon": "apple"
   },
   {
    "slug": "oranges",
@@ -169,7 +419,8 @@
    "fr": "Oranges",
    "el": "Πορτοκάλια",
    "aliases": "appelsienen",
-   "off": "en:oranges"
+   "off": "en:oranges",
+   "icon": "citrus"
   },
   {
    "slug": "mandarins",
@@ -180,7 +431,8 @@
    "fr": "Mandarines",
    "el": "Μανταρίνια",
    "aliases": "clementines; clementinen",
-   "off": "en:mandarin-oranges"
+   "off": "en:mandarin-oranges",
+   "icon": "citrus"
   },
   {
    "slug": "lemons",
@@ -190,7 +442,8 @@
    "nl": "Citroenen",
    "fr": "Citrons",
    "el": "Λεμόνια",
-   "off": "en:lemons"
+   "off": "en:lemons",
+   "icon": "citrus"
   },
   {
    "slug": "limes",
@@ -200,7 +453,8 @@
    "nl": "Limoenen",
    "fr": "Citrons verts",
    "el": "Λάιμ",
-   "off": "en:limes"
+   "off": "en:limes",
+   "icon": "citrus"
   },
   {
    "slug": "grapes",
@@ -210,7 +464,8 @@
    "nl": "Druiven",
    "fr": "Raisins",
    "el": "Σταφύλια",
-   "off": "en:grapes"
+   "off": "en:grapes",
+   "icon": "grape"
   },
   {
    "slug": "strawberries",
@@ -220,7 +475,8 @@
    "nl": "Aardbeien",
    "fr": "Fraises",
    "el": "Φράουλες",
-   "off": "en:strawberries"
+   "off": "en:strawberries",
+   "icon": "cherry"
   },
   {
    "slug": "blueberries",
@@ -231,7 +487,8 @@
    "fr": "Myrtilles",
    "el": "Μύρτιλα",
    "aliases": "bosbessen",
-   "off": "en:blueberries"
+   "off": "en:blueberries",
+   "icon": "grape"
   },
   {
    "slug": "raspberries",
@@ -241,7 +498,8 @@
    "nl": "Frambozen",
    "fr": "Framboises",
    "el": "Βατόμουρα",
-   "off": "en:raspberries"
+   "off": "en:raspberries",
+   "icon": "cherry"
   },
   {
    "slug": "watermelon",
@@ -251,7 +509,8 @@
    "nl": "Watermeloen",
    "fr": "Pastèque",
    "el": "Καρπούζι",
-   "off": "en:watermelons"
+   "off": "en:watermelons",
+   "icon": "citrus"
   },
   {
    "slug": "melon",
@@ -261,7 +520,8 @@
    "nl": "Meloen",
    "fr": "Melon",
    "el": "Πεπόνι",
-   "off": "en:melons"
+   "off": "en:melons",
+   "icon": "citrus"
   },
   {
    "slug": "pineapple",
@@ -271,7 +531,8 @@
    "nl": "Ananas",
    "fr": "Ananas",
    "el": "Ανανάς",
-   "off": "en:pineapples"
+   "off": "en:pineapples",
+   "icon": "citrus"
   },
   {
    "slug": "mango",
@@ -281,7 +542,8 @@
    "nl": "Mango",
    "fr": "Mangue",
    "el": "Μάνγκο",
-   "off": "en:mangoes"
+   "off": "en:mangoes",
+   "icon": "mango"
   },
   {
    "slug": "kiwis",
@@ -292,7 +554,8 @@
    "fr": "Kiwis",
    "el": "Ακτινίδια",
    "aliases": "kiwi",
-   "off": "en:kiwis"
+   "off": "en:kiwis",
+   "icon": "citrus"
   },
   {
    "slug": "peaches",
@@ -303,7 +566,8 @@
    "fr": "Pêches",
    "el": "Ροδάκινα",
    "aliases": "nectarines",
-   "off": "en:peaches"
+   "off": "en:peaches",
+   "icon": "apple"
   },
   {
    "slug": "cherries",
@@ -313,7 +577,8 @@
    "nl": "Kersen",
    "fr": "Cerises",
    "el": "Κεράσια",
-   "off": "en:cherries"
+   "off": "en:cherries",
+   "icon": "cherry"
   },
   {
    "slug": "avocados",
@@ -324,7 +589,8 @@
    "fr": "Avocats",
    "el": "Αβοκάντο",
    "aliases": "avocado",
-   "off": "en:avocados"
+   "off": "en:avocados",
+   "icon": "avocado"
   },
   {
    "slug": "tomatoes",
@@ -334,7 +600,8 @@
    "nl": "Tomaten",
    "fr": "Tomates",
    "el": "Ντομάτες",
-   "off": "en:tomatoes"
+   "off": "en:tomatoes",
+   "icon": "tomato"
   },
   {
    "slug": "cherry-tomatoes",
@@ -345,7 +612,8 @@
    "fr": "Tomates cerises",
    "el": "Ντοματίνια",
    "aliases": "cherrytomaten",
-   "off": "en:cherry-tomatoes"
+   "off": "en:cherry-tomatoes",
+   "icon": "tomato"
   },
   {
    "slug": "cucumber",
@@ -355,7 +623,8 @@
    "nl": "Komkommer",
    "fr": "Concombre",
    "el": "Αγγούρι",
-   "off": "en:cucumbers"
+   "off": "en:cucumbers",
+   "icon": "leafy-green"
   },
   {
    "slug": "peppers",
@@ -366,7 +635,8 @@
    "fr": "Poivrons",
    "el": "Πιπεριές",
    "aliases": "paprika",
-   "off": "en:sweet-peppers"
+   "off": "en:sweet-peppers",
+   "icon": "leafy-green"
   },
   {
    "slug": "carrots",
@@ -377,7 +647,8 @@
    "fr": "Carottes",
    "el": "Καρότα",
    "aliases": "worteltjes",
-   "off": "en:carrots"
+   "off": "en:carrots",
+   "icon": "carrot"
   },
   {
    "slug": "potatoes",
@@ -388,7 +659,8 @@
    "fr": "Pommes de terre",
    "el": "Πατάτες",
    "aliases": "patatten; patates",
-   "off": "en:potatoes"
+   "off": "en:potatoes",
+   "icon": "bean"
   },
   {
    "slug": "onions",
@@ -399,7 +671,8 @@
    "fr": "Oignons",
    "el": "Κρεμμύδια",
    "aliases": "ajuin",
-   "off": "en:onions"
+   "off": "en:onions",
+   "icon": "onion"
   },
   {
    "slug": "red-onions",
@@ -410,7 +683,8 @@
    "fr": "Oignons rouges",
    "el": "Κόκκινα κρεμμύδια",
    "aliases": "rode ajuin",
-   "off": "en:red-onions"
+   "off": "en:red-onions",
+   "icon": "onion"
   },
   {
    "slug": "garlic",
@@ -421,7 +695,8 @@
    "fr": "Ail",
    "el": "Σκόρδο",
    "aliases": "knoflook",
-   "off": "en:garlic"
+   "off": "en:garlic",
+   "icon": "onion"
   },
   {
    "slug": "ginger",
@@ -431,7 +706,8 @@
    "nl": "Gember",
    "fr": "Gingembre",
    "el": "Τζίντζερ",
-   "off": "en:ginger"
+   "off": "en:ginger",
+   "icon": "sprout"
   },
   {
    "slug": "lettuce",
@@ -442,7 +718,8 @@
    "fr": "Salade",
    "el": "Μαρούλι",
    "aliases": "kropsla; laitue",
-   "off": "en:lettuces"
+   "off": "en:lettuces",
+   "icon": "leafy-green"
   },
   {
    "slug": "lamb-s-lettuce",
@@ -452,7 +729,8 @@
    "nl": "Veldsla",
    "fr": "Mâche",
    "el": "Μάχη",
-   "off": "en:lamb-s-lettuce"
+   "off": "en:lamb-s-lettuce",
+   "icon": "leafy-green"
   },
   {
    "slug": "rocket",
@@ -462,7 +740,8 @@
    "nl": "Rucola",
    "fr": "Roquette",
    "el": "Ρόκα",
-   "off": "en:rocket"
+   "off": "en:rocket",
+   "icon": "leafy-green"
   },
   {
    "slug": "spinach",
@@ -472,7 +751,8 @@
    "nl": "Spinazie",
    "fr": "Épinards",
    "el": "Σπανάκι",
-   "off": "en:spinach"
+   "off": "en:spinach",
+   "icon": "leafy-green"
   },
   {
    "slug": "chicory",
@@ -483,7 +763,8 @@
    "fr": "Chicons",
    "el": "Αντίδια",
    "aliases": "witlof; endives",
-   "off": "en:chicory"
+   "off": "en:chicory",
+   "icon": "leafy-green"
   },
   {
    "slug": "broccoli",
@@ -493,7 +774,8 @@
    "nl": "Broccoli",
    "fr": "Brocoli",
    "el": "Μπρόκολο",
-   "off": "en:broccoli"
+   "off": "en:broccoli",
+   "icon": "broccoli"
   },
   {
    "slug": "cauliflower",
@@ -503,7 +785,8 @@
    "nl": "Bloemkool",
    "fr": "Chou-fleur",
    "el": "Κουνουπίδι",
-   "off": "en:cauliflowers"
+   "off": "en:cauliflowers",
+   "icon": "broccoli"
   },
   {
    "slug": "brussels-sprouts",
@@ -514,7 +797,8 @@
    "fr": "Choux de Bruxelles",
    "el": "Λαχανάκια Βρυξελλών",
    "aliases": "spruiten",
-   "off": "en:brussels-sprouts"
+   "off": "en:brussels-sprouts",
+   "icon": "leafy-green"
   },
   {
    "slug": "leeks",
@@ -524,7 +808,8 @@
    "nl": "Prei",
    "fr": "Poireaux",
    "el": "Πράσα",
-   "off": "en:leeks"
+   "off": "en:leeks",
+   "icon": "leafy-green"
   },
   {
    "slug": "celery",
@@ -535,7 +820,8 @@
    "fr": "Céleri",
    "el": "Σέλινο",
    "aliases": "selderij",
-   "off": "en:celery"
+   "off": "en:celery",
+   "icon": "leafy-green"
   },
   {
    "slug": "courgette",
@@ -546,7 +832,8 @@
    "fr": "Courgette",
    "el": "Κολοκυθάκια",
    "aliases": "zucchini",
-   "off": "en:zucchini"
+   "off": "en:zucchini",
+   "icon": "leafy-green"
   },
   {
    "slug": "aubergine",
@@ -557,7 +844,8 @@
    "fr": "Aubergine",
    "el": "Μελιτζάνες",
    "aliases": "eggplant",
-   "off": "en:eggplants"
+   "off": "en:eggplants",
+   "icon": "leafy-green"
   },
   {
    "slug": "mushrooms",
@@ -567,7 +855,8 @@
    "nl": "Champignons",
    "fr": "Champignons",
    "el": "Μανιτάρια",
-   "off": "en:mushrooms"
+   "off": "en:mushrooms",
+   "icon": "sprout"
   },
   {
    "slug": "green-beans",
@@ -578,7 +867,8 @@
    "fr": "Haricots verts",
    "el": "Φασολάκια",
    "aliases": "sperziebonen",
-   "off": "en:green-beans"
+   "off": "en:green-beans",
+   "icon": "bean"
   },
   {
    "slug": "peas",
@@ -589,7 +879,8 @@
    "fr": "Petits pois",
    "el": "Αρακάς",
    "aliases": "erwtjes",
-   "off": "en:peas"
+   "off": "en:peas",
+   "icon": "bean"
   },
   {
    "slug": "sweetcorn",
@@ -600,7 +891,8 @@
    "fr": "Maïs",
    "el": "Καλαμπόκι",
    "aliases": "mais",
-   "off": "en:sweet-corns"
+   "off": "en:sweet-corns",
+   "icon": "wheat"
   },
   {
    "slug": "pumpkin",
@@ -611,7 +903,8 @@
    "fr": "Potiron",
    "el": "Κολοκύθα",
    "aliases": "butternut",
-   "off": "en:pumpkins"
+   "off": "en:pumpkins",
+   "icon": "apple"
   },
   {
    "slug": "beetroot",
@@ -622,7 +915,8 @@
    "fr": "Betterave",
    "el": "Παντζάρια",
    "aliases": "rode bieten",
-   "off": "en:beetroots"
+   "off": "en:beetroots",
+   "icon": "salad"
   },
   {
    "slug": "sweet-potatoes",
@@ -632,7 +926,8 @@
    "nl": "Zoete aardappelen",
    "fr": "Patates douces",
    "el": "Γλυκοπατάτες",
-   "off": "en:sweet-potatoes"
+   "off": "en:sweet-potatoes",
+   "icon": "carrot"
   },
   {
    "slug": "fresh-herbs",
@@ -642,7 +937,8 @@
    "nl": "Verse kruiden",
    "fr": "Herbes fraîches",
    "el": "Φρέσκα μυρωδικά",
-   "off": "en:herbs"
+   "off": "en:herbs",
+   "icon": "leaf"
   },
   {
    "slug": "parsley",
@@ -652,7 +948,8 @@
    "nl": "Peterselie",
    "fr": "Persil",
    "el": "Μαϊντανός",
-   "off": "en:parsley"
+   "off": "en:parsley",
+   "icon": "leaf"
   },
   {
    "slug": "basil",
@@ -662,7 +959,8 @@
    "nl": "Basilicum",
    "fr": "Basilic",
    "el": "Βασιλικός",
-   "off": "en:basil"
+   "off": "en:basil",
+   "icon": "leaf"
   },
   {
    "slug": "coriander",
@@ -672,7 +970,8 @@
    "nl": "Koriander",
    "fr": "Coriandre",
    "el": "Κόλιανδρος",
-   "off": "en:coriander"
+   "off": "en:coriander",
+   "icon": "leaf"
   },
   {
    "slug": "chives",
@@ -682,7 +981,8 @@
    "nl": "Bieslook",
    "fr": "Ciboulette",
    "el": "Σχοινόπρασο",
-   "off": "en:chives"
+   "off": "en:chives",
+   "icon": "leaf"
   },
   {
    "slug": "salad-mix",
@@ -692,7 +992,8 @@
    "nl": "Slamix",
    "fr": "Mélange de salades",
    "el": "Μείγμα σαλάτας",
-   "off": "en:salad-mixes"
+   "off": "en:salad-mixes",
+   "icon": "salad"
   },
   {
    "slug": "soup-vegetables",
@@ -702,7 +1003,8 @@
    "nl": "Soepgroenten",
    "fr": "Légumes pour soupe",
    "el": "Λαχανικά για σούπα",
-   "off": "en:soup-vegetables"
+   "off": "en:soup-vegetables",
+   "icon": "salad"
   },
   {
    "slug": "nuts",
@@ -712,7 +1014,8 @@
    "nl": "Noten",
    "fr": "Noix",
    "el": "Ξηροί καρποί",
-   "off": "en:nuts"
+   "off": "en:nuts",
+   "icon": "nut"
   },
   {
    "slug": "raisins",
@@ -722,7 +1025,8 @@
    "nl": "Rozijnen",
    "fr": "Raisins secs",
    "el": "Σταφίδες",
-   "off": "en:raisins"
+   "off": "en:raisins",
+   "icon": "grape"
   },
   {
    "slug": "bread",
@@ -733,7 +1037,8 @@
    "fr": "Pain",
    "el": "Ψωμί",
    "aliases": "boterhammen",
-   "off": "en:breads"
+   "off": "en:breads",
+   "icon": "sandwich"
   },
   {
    "slug": "wholemeal-bread",
@@ -744,7 +1049,8 @@
    "fr": "Pain complet",
    "el": "Ψωμί ολικής άλεσης",
    "aliases": "bruin brood",
-   "off": "en:wholemeal-breads"
+   "off": "en:wholemeal-breads",
+   "icon": "sandwich"
   },
   {
    "slug": "baguette",
@@ -754,7 +1060,8 @@
    "nl": "Stokbrood",
    "fr": "Baguette",
    "el": "Μπαγκέτα",
-   "off": "en:baguettes"
+   "off": "en:baguettes",
+   "icon": "croissant"
   },
   {
    "slug": "bread-rolls",
@@ -765,7 +1072,8 @@
    "fr": "Pistolets",
    "el": "Ψωμάκια",
    "aliases": "broodjes; sandwiches",
-   "off": "en:bread-rolls"
+   "off": "en:bread-rolls",
+   "icon": "donut"
   },
   {
    "slug": "croissants",
@@ -775,7 +1083,8 @@
    "nl": "Croissants",
    "fr": "Croissants",
    "el": "Κρουασάν",
-   "off": "en:croissants"
+   "off": "en:croissants",
+   "icon": "croissant"
   },
   {
    "slug": "pastries",
@@ -785,7 +1094,8 @@
    "nl": "Koffiekoeken",
    "fr": "Viennoiseries",
    "el": "Αρτοσκευάσματα",
-   "off": "en:viennoiseries"
+   "off": "en:viennoiseries",
+   "icon": "croissant"
   },
   {
    "slug": "waffles",
@@ -795,7 +1105,8 @@
    "nl": "Wafels",
    "fr": "Gaufres",
    "el": "Βάφλες",
-   "off": "en:waffles"
+   "off": "en:waffles",
+   "icon": "cookie"
   },
   {
    "slug": "wraps",
@@ -806,7 +1117,8 @@
    "fr": "Wraps",
    "el": "Τορτίγιες",
    "aliases": "tortilla",
-   "off": "en:tortillas"
+   "off": "en:tortillas",
+   "icon": "sandwich"
   },
   {
    "slug": "rusks",
@@ -816,7 +1128,8 @@
    "nl": "Beschuit",
    "fr": "Biscottes",
    "el": "Φρυγανιές",
-   "off": "en:rusks"
+   "off": "en:rusks",
+   "icon": "sandwich"
   },
   {
    "slug": "toast-bread",
@@ -826,7 +1139,8 @@
    "nl": "Toastbrood",
    "fr": "Pain de mie",
    "el": "Ψωμί του τοστ",
-   "off": "en:sandwich-breads"
+   "off": "en:sandwich-breads",
+   "icon": "sandwich"
   },
   {
    "slug": "cake",
@@ -837,7 +1151,8 @@
    "fr": "Cake",
    "el": "Κέικ",
    "aliases": "taart",
-   "off": "en:cakes"
+   "off": "en:cakes",
+   "icon": "cake-slice"
   },
   {
    "slug": "pancakes",
@@ -847,7 +1162,8 @@
    "nl": "Pannenkoeken",
    "fr": "Crêpes",
    "el": "Κρέπες",
-   "off": "en:pancakes"
+   "off": "en:pancakes",
+   "icon": "cake"
   },
   {
    "slug": "pita-bread",
@@ -857,7 +1173,8 @@
    "nl": "Pitabroodjes",
    "fr": "Pains pita",
    "el": "Πίτες",
-   "off": "en:pita"
+   "off": "en:pita",
+   "icon": "sandwich"
   },
   {
    "slug": "milk",
@@ -868,7 +1185,8 @@
    "fr": "Lait",
    "el": "Γάλα",
    "aliases": "halfvolle melk",
-   "off": "en:milks"
+   "off": "en:milks",
+   "icon": "milk"
   },
   {
    "slug": "whole-milk",
@@ -878,7 +1196,8 @@
    "nl": "Volle melk",
    "fr": "Lait entier",
    "el": "Γάλα πλήρες",
-   "off": "en:whole-milks"
+   "off": "en:whole-milks",
+   "icon": "milk"
   },
   {
    "slug": "skimmed-milk",
@@ -888,7 +1207,8 @@
    "nl": "Magere melk",
    "fr": "Lait écrémé",
    "el": "Γάλα άπαχο",
-   "off": "en:skimmed-milks"
+   "off": "en:skimmed-milks",
+   "icon": "milk"
   },
   {
    "slug": "buttermilk",
@@ -898,7 +1218,8 @@
    "nl": "Karnemelk",
    "fr": "Babeurre",
    "el": "Ξινόγαλο",
-   "off": "en:buttermilks"
+   "off": "en:buttermilks",
+   "icon": "milk"
   },
   {
    "slug": "chocolate-milk",
@@ -909,7 +1230,8 @@
    "fr": "Lait chocolaté",
    "el": "Κακάο ρόφημα",
    "aliases": "cécémel",
-   "off": "en:chocolate-milks"
+   "off": "en:chocolate-milks",
+   "icon": "milk"
   },
   {
    "slug": "oat-milk",
@@ -919,7 +1241,8 @@
    "nl": "Havermelk",
    "fr": "Lait d'avoine",
    "el": "Ρόφημα βρώμης",
-   "off": "en:oat-based-drinks"
+   "off": "en:oat-based-drinks",
+   "icon": "milk"
   },
   {
    "slug": "soy-milk",
@@ -929,7 +1252,8 @@
    "nl": "Sojamelk",
    "fr": "Lait de soja",
    "el": "Ρόφημα σόγιας",
-   "off": "en:soy-milks"
+   "off": "en:soy-milks",
+   "icon": "milk"
   },
   {
    "slug": "eggs",
@@ -940,7 +1264,8 @@
    "fr": "Œufs",
    "el": "Αυγά",
    "aliases": "eitjes",
-   "off": "en:eggs"
+   "off": "en:eggs",
+   "icon": "egg"
   },
   {
    "slug": "butter",
@@ -950,7 +1275,8 @@
    "nl": "Boter",
    "fr": "Beurre",
    "el": "Βούτυρο",
-   "off": "en:butters"
+   "off": "en:butters",
+   "icon": "milk"
   },
   {
    "slug": "margarine",
@@ -960,7 +1286,8 @@
    "nl": "Margarine",
    "fr": "Margarine",
    "el": "Μαργαρίνη",
-   "off": "en:margarines"
+   "off": "en:margarines",
+   "icon": "milk"
   },
   {
    "slug": "yoghurt",
@@ -971,7 +1298,8 @@
    "fr": "Yaourt",
    "el": "Γιαούρτι",
    "aliases": "yogurt",
-   "off": "en:yogurts"
+   "off": "en:yogurts",
+   "icon": "ice-cream-bowl"
   },
   {
    "slug": "greek-yoghurt",
@@ -982,7 +1310,8 @@
    "fr": "Yaourt grec",
    "el": "Στραγγιστό γιαούρτι",
    "off": "en:greek-style-yogurts",
-   "aliases": "γιαούρτι στραγγιστό"
+   "aliases": "γιαούρτι στραγγιστό",
+   "icon": "ice-cream-bowl"
   },
   {
    "slug": "fromage-frais",
@@ -993,7 +1322,8 @@
    "fr": "Fromage blanc",
    "el": "Τυρί κρέμα λευκό",
    "aliases": "platte kaas; skyr",
-   "off": "en:fromages-blancs"
+   "off": "en:fromages-blancs",
+   "icon": "ice-cream-bowl"
   },
   {
    "slug": "pudding",
@@ -1003,7 +1333,8 @@
    "nl": "Pudding",
    "fr": "Pudding",
    "el": "Πουτίγκα",
-   "off": "en:puddings"
+   "off": "en:puddings",
+   "icon": "dessert"
   },
   {
    "slug": "dessert",
@@ -1014,7 +1345,8 @@
    "fr": "Dessert",
    "el": "Επιδόρπιο",
    "aliases": "chocolademousse",
-   "off": "en:dairy-desserts"
+   "off": "en:dairy-desserts",
+   "icon": "dessert"
   },
   {
    "slug": "cream",
@@ -1025,7 +1357,8 @@
    "fr": "Crème",
    "el": "Κρέμα γάλακτος",
    "aliases": "slagroom; kookroom",
-   "off": "en:creams"
+   "off": "en:creams",
+   "icon": "milk"
   },
   {
    "slug": "sour-cream",
@@ -1035,7 +1368,8 @@
    "nl": "Zure room",
    "fr": "Crème aigre",
    "el": "Ξινή κρέμα",
-   "off": "en:sour-creams"
+   "off": "en:sour-creams",
+   "icon": "milk"
   },
   {
    "slug": "cheese",
@@ -1045,7 +1379,8 @@
    "nl": "Kaas",
    "fr": "Fromage",
    "el": "Τυρί",
-   "off": "en:cheeses"
+   "off": "en:cheeses",
+   "icon": "cheese"
   },
   {
    "slug": "sliced-cheese",
@@ -1056,7 +1391,8 @@
    "fr": "Fromage en tranches",
    "el": "Τυρί σε φέτες",
    "aliases": "plakjes kaas",
-   "off": "en:sliced-cheeses"
+   "off": "en:sliced-cheeses",
+   "icon": "cheese"
   },
   {
    "slug": "grated-cheese",
@@ -1066,7 +1402,8 @@
    "nl": "Geraspte kaas",
    "fr": "Fromage râpé",
    "el": "Τριμμένο τυρί",
-   "off": "en:grated-cheese"
+   "off": "en:grated-cheese",
+   "icon": "cheese"
   },
   {
    "slug": "mozzarella",
@@ -1076,7 +1413,8 @@
    "nl": "Mozzarella",
    "fr": "Mozzarella",
    "el": "Μοτσαρέλα",
-   "off": "en:mozzarella"
+   "off": "en:mozzarella",
+   "icon": "cheese"
   },
   {
    "slug": "parmesan",
@@ -1086,7 +1424,8 @@
    "nl": "Parmezaan",
    "fr": "Parmesan",
    "el": "Παρμεζάνα",
-   "off": "en:parmigiano-reggiano"
+   "off": "en:parmigiano-reggiano",
+   "icon": "cheese"
   },
   {
    "slug": "feta",
@@ -1097,7 +1436,8 @@
    "fr": "Feta",
    "el": "Φέτα",
    "off": "en:feta",
-   "aliases": "τυρί φέτα"
+   "aliases": "τυρί φέτα",
+   "icon": "cheese"
   },
   {
    "slug": "brie",
@@ -1108,7 +1448,8 @@
    "fr": "Brie",
    "el": "Μπρι",
    "aliases": "camembert",
-   "off": "en:bries"
+   "off": "en:bries",
+   "icon": "cheese"
   },
   {
    "slug": "cream-cheese",
@@ -1119,7 +1460,8 @@
    "fr": "Fromage à tartiner",
    "el": "Τυρί κρέμα",
    "aliases": "philadelphia",
-   "off": "en:cream-cheeses"
+   "off": "en:cream-cheeses",
+   "icon": "cheese"
   },
   {
    "slug": "ham",
@@ -1130,7 +1472,8 @@
    "fr": "Jambon",
    "el": "Ζαμπόν",
    "aliases": "ham",
-   "off": "en:hams"
+   "off": "en:hams",
+   "icon": "ham"
   },
   {
    "slug": "bacon",
@@ -1141,7 +1484,8 @@
    "fr": "Lard",
    "el": "Μπέικον",
    "aliases": "spekblokjes; lardons",
-   "off": "en:bacon"
+   "off": "en:bacon",
+   "icon": "ham"
   },
   {
    "slug": "salami",
@@ -1151,7 +1495,8 @@
    "nl": "Salami",
    "fr": "Salami",
    "el": "Σαλάμι",
-   "off": "en:salami"
+   "off": "en:salami",
+   "icon": "ham"
   },
   {
    "slug": "cold-cuts",
@@ -1162,7 +1507,8 @@
    "fr": "Charcuterie",
    "el": "Αλλαντικά",
    "aliases": "beleg; γαλοπούλα φέτες",
-   "off": "en:cold-cuts"
+   "off": "en:cold-cuts",
+   "icon": "ham"
   },
   {
    "slug": "pate",
@@ -1172,7 +1518,8 @@
    "nl": "Paté",
    "fr": "Pâté",
    "el": "Πατέ",
-   "off": "en:pates"
+   "off": "en:pates",
+   "icon": "ham"
   },
   {
    "slug": "chicken-slices",
@@ -1182,7 +1529,8 @@
    "nl": "Kipfilet",
    "fr": "Filet de poulet",
    "el": "Φιλέτο κοτόπουλο σε φέτες",
-   "off": "en:chicken-breast-slices"
+   "off": "en:chicken-breast-slices",
+   "icon": "drumstick"
   },
   {
    "slug": "salads",
@@ -1193,7 +1541,8 @@
    "fr": "Salades",
    "el": "Έτοιμες σαλάτες",
    "aliases": "préparé; kipcurry",
-   "off": "en:prepared-salads"
+   "off": "en:prepared-salads",
+   "icon": "salad"
   },
   {
    "slug": "olives",
@@ -1203,7 +1552,8 @@
    "nl": "Olijven",
    "fr": "Olives",
    "el": "Ελιές",
-   "off": "en:olives"
+   "off": "en:olives",
+   "icon": "amphora"
   },
   {
    "slug": "hummus",
@@ -1213,7 +1563,8 @@
    "nl": "Hummus",
    "fr": "Houmous",
    "el": "Χούμους",
-   "off": "en:hummus"
+   "off": "en:hummus",
+   "icon": "salad"
   },
   {
    "slug": "tofu",
@@ -1223,7 +1574,8 @@
    "nl": "Tofu",
    "fr": "Tofu",
    "el": "Τόφου",
-   "off": "en:tofu"
+   "off": "en:tofu",
+   "icon": "cooking-pot"
   },
   {
    "slug": "minced-meat",
@@ -1234,7 +1586,8 @@
    "fr": "Haché",
    "el": "Κιμάς",
    "aliases": "hachis",
-   "off": "en:minced-meats"
+   "off": "en:minced-meats",
+   "icon": "beef"
   },
   {
    "slug": "chicken",
@@ -1244,7 +1597,8 @@
    "nl": "Kip",
    "fr": "Poulet",
    "el": "Κοτόπουλο",
-   "off": "en:chickens"
+   "off": "en:chickens",
+   "icon": "drumstick"
   },
   {
    "slug": "chicken-breast",
@@ -1254,7 +1608,8 @@
    "nl": "Kipfilet (vers)",
    "fr": "Blanc de poulet",
    "el": "Στήθος κοτόπουλο",
-   "off": "en:chicken-breasts"
+   "off": "en:chicken-breasts",
+   "icon": "drumstick"
   },
   {
    "slug": "chicken-thighs",
@@ -1264,7 +1619,8 @@
    "nl": "Kippendijen",
    "fr": "Cuisses de poulet",
    "el": "Μπούτια κοτόπουλο",
-   "off": "en:chicken-thighs"
+   "off": "en:chicken-thighs",
+   "icon": "drumstick"
   },
   {
    "slug": "steak",
@@ -1275,7 +1631,8 @@
    "fr": "Steak",
    "el": "Μπριζόλα",
    "aliases": "biefstuk",
-   "off": "en:beef-steaks"
+   "off": "en:beef-steaks",
+   "icon": "beef"
   },
   {
    "slug": "beef-stew",
@@ -1285,7 +1642,8 @@
    "nl": "Stoofvlees",
    "fr": "Carbonnades",
    "el": "Μοσχάρι κοκκινιστό",
-   "off": "en:beef-stew"
+   "off": "en:beef-stew",
+   "icon": "beef"
   },
   {
    "slug": "pork-chops",
@@ -1296,7 +1654,8 @@
    "fr": "Côtes de porc",
    "el": "Χοιρινές μπριζόλες",
    "aliases": "koteletten",
-   "off": "en:pork-chops"
+   "off": "en:pork-chops",
+   "icon": "beef"
   },
   {
    "slug": "sausages",
@@ -1307,7 +1666,8 @@
    "fr": "Saucisses",
    "el": "Λουκάνικα",
    "aliases": "worstjes; chipolata",
-   "off": "en:sausages"
+   "off": "en:sausages",
+   "icon": "beef"
   },
   {
    "slug": "burgers",
@@ -1317,7 +1677,8 @@
    "nl": "Hamburgers",
    "fr": "Hamburgers",
    "el": "Μπιφτέκια",
-   "off": "en:burgers"
+   "off": "en:burgers",
+   "icon": "hamburger"
   },
   {
    "slug": "meatballs",
@@ -1327,7 +1688,8 @@
    "nl": "Balletjes",
    "fr": "Boulettes",
    "el": "Κεφτεδάκια",
-   "off": "en:meatballs"
+   "off": "en:meatballs",
+   "icon": "ham"
   },
   {
    "slug": "turkey",
@@ -1337,7 +1699,8 @@
    "nl": "Kalkoen",
    "fr": "Dinde",
    "el": "Γαλοπούλα",
-   "off": "en:turkey"
+   "off": "en:turkey",
+   "icon": "drumstick"
   },
   {
    "slug": "salmon",
@@ -1347,7 +1710,8 @@
    "nl": "Zalm",
    "fr": "Saumon",
    "el": "Σολομός",
-   "off": "en:salmons"
+   "off": "en:salmons",
+   "icon": "fish"
   },
   {
    "slug": "smoked-salmon",
@@ -1357,7 +1721,8 @@
    "nl": "Gerookte zalm",
    "fr": "Saumon fumé",
    "el": "Καπνιστός σολομός",
-   "off": "en:smoked-salmons"
+   "off": "en:smoked-salmons",
+   "icon": "fish"
   },
   {
    "slug": "white-fish",
@@ -1368,7 +1733,8 @@
    "fr": "Poisson blanc",
    "el": "Λευκό ψάρι",
    "aliases": "kabeljauw; cabillaud",
-   "off": "en:white-fish"
+   "off": "en:white-fish",
+   "icon": "fish"
   },
   {
    "slug": "tuna-steak",
@@ -1378,7 +1744,8 @@
    "nl": "Tonijn (vers)",
    "fr": "Thon frais",
    "el": "Φρέσκος τόνος",
-   "off": "en:tunas"
+   "off": "en:tunas",
+   "icon": "fish"
   },
   {
    "slug": "shrimps",
@@ -1389,7 +1756,8 @@
    "fr": "Crevettes",
    "el": "Γαρίδες",
    "aliases": "grijze garnalen",
-   "off": "en:shrimps"
+   "off": "en:shrimps",
+   "icon": "shrimp"
   },
   {
    "slug": "mussels",
@@ -1399,7 +1767,8 @@
    "nl": "Mosselen",
    "fr": "Moules",
    "el": "Μύδια",
-   "off": "en:mussels"
+   "off": "en:mussels",
+   "icon": "shell"
   },
   {
    "slug": "meat-substitute",
@@ -1410,7 +1779,8 @@
    "fr": "Substitut de viande",
    "el": "Υποκατάστατο κρέατος",
    "aliases": "vegetarisch",
-   "off": "en:meat-analogues"
+   "off": "en:meat-analogues",
+   "icon": "vegan"
   },
   {
    "slug": "fries",
@@ -1421,7 +1791,8 @@
    "fr": "Frites",
    "el": "Πατάτες τηγανητές",
    "aliases": "diepvriesfrieten; τηγανητές",
-   "off": "en:frozen-fries"
+   "off": "en:frozen-fries",
+   "icon": "snowflake"
   },
   {
    "slug": "pizza",
@@ -1431,7 +1802,8 @@
    "nl": "Pizza",
    "fr": "Pizza",
    "el": "Πίτσα",
-   "off": "en:pizzas"
+   "off": "en:pizzas",
+   "icon": "pizza"
   },
   {
    "slug": "frozen-vegetables",
@@ -1441,7 +1813,8 @@
    "nl": "Diepvriesgroenten",
    "fr": "Légumes surgelés",
    "el": "Κατεψυγμένα λαχανικά",
-   "off": "en:frozen-vegetables"
+   "off": "en:frozen-vegetables",
+   "icon": "bean"
   },
   {
    "slug": "frozen-fruit",
@@ -1451,7 +1824,8 @@
    "nl": "Diepvriesfruit",
    "fr": "Fruits surgelés",
    "el": "Κατεψυγμένα φρούτα",
-   "off": "en:frozen-fruits"
+   "off": "en:frozen-fruits",
+   "icon": "cherry"
   },
   {
    "slug": "fish-fingers",
@@ -1461,7 +1835,8 @@
    "nl": "Vissticks",
    "fr": "Bâtonnets de poisson",
    "el": "Ψαροκροκέτες",
-   "off": "en:fish-fingers"
+   "off": "en:fish-fingers",
+   "icon": "fish"
   },
   {
    "slug": "ice-cream",
@@ -1472,7 +1847,8 @@
    "fr": "Glace",
    "el": "Παγωτό",
    "aliases": "roomijs",
-   "off": "en:ice-creams"
+   "off": "en:ice-creams",
+   "icon": "ice-cream-cone"
   },
   {
    "slug": "ready-meals",
@@ -1482,7 +1858,8 @@
    "nl": "Kant-en-klare maaltijd",
    "fr": "Plats préparés",
    "el": "Έτοιμα γεύματα",
-   "off": "en:meals"
+   "off": "en:meals",
+   "icon": "soup"
   },
   {
    "slug": "croquettes",
@@ -1492,7 +1869,8 @@
    "nl": "Kroketten",
    "fr": "Croquettes",
    "el": "Κροκέτες",
-   "off": "en:croquettes"
+   "off": "en:croquettes",
+   "icon": "cooking-pot"
   },
   {
    "slug": "ice-cubes",
@@ -1502,7 +1880,8 @@
    "nl": "IJsblokjes",
    "fr": "Glaçons",
    "el": "Παγάκια",
-   "off": "en:ice-cubes"
+   "off": "en:ice-cubes",
+   "icon": "snowflake"
   },
   {
    "slug": "pasta",
@@ -1513,7 +1892,8 @@
    "fr": "Pâtes",
    "el": "Ζυμαρικά",
    "aliases": "penne; macaroni; fusilli",
-   "off": "en:pastas"
+   "off": "en:pastas",
+   "icon": "cooking-pot"
   },
   {
    "slug": "spaghetti",
@@ -1523,7 +1903,8 @@
    "nl": "Spaghetti",
    "fr": "Spaghetti",
    "el": "Μακαρόνια σπαγγέτι",
-   "off": "en:spaghetti"
+   "off": "en:spaghetti",
+   "icon": "cooking-pot"
   },
   {
    "slug": "rice",
@@ -1533,7 +1914,8 @@
    "nl": "Rijst",
    "fr": "Riz",
    "el": "Ρύζι",
-   "off": "en:rices"
+   "off": "en:rices",
+   "icon": "wheat"
   },
   {
    "slug": "basmati-rice",
@@ -1543,7 +1925,8 @@
    "nl": "Basmatirijst",
    "fr": "Riz basmati",
    "el": "Ρύζι μπασμάτι",
-   "off": "en:basmati-rices"
+   "off": "en:basmati-rices",
+   "icon": "wheat"
   },
   {
    "slug": "noodles",
@@ -1553,7 +1936,8 @@
    "nl": "Noedels",
    "fr": "Nouilles",
    "el": "Νουντλς",
-   "off": "en:noodles"
+   "off": "en:noodles",
+   "icon": "soup"
   },
   {
    "slug": "couscous",
@@ -1564,7 +1948,8 @@
    "fr": "Couscous",
    "el": "Κουσκούς",
    "aliases": "bulgur",
-   "off": "en:couscous"
+   "off": "en:couscous",
+   "icon": "wheat"
   },
   {
    "slug": "quinoa",
@@ -1574,7 +1959,8 @@
    "nl": "Quinoa",
    "fr": "Quinoa",
    "el": "Κινόα",
-   "off": "en:quinoa"
+   "off": "en:quinoa",
+   "icon": "wheat"
   },
   {
    "slug": "tinned-tomatoes",
@@ -1585,7 +1971,8 @@
    "fr": "Tomates en conserve",
    "el": "Ντομάτα κονκασέ",
    "aliases": "gepelde tomaten; τοματάκια κονσέρβα",
-   "off": "en:canned-tomatoes"
+   "off": "en:canned-tomatoes",
+   "icon": "can"
   },
   {
    "slug": "passata",
@@ -1596,7 +1983,8 @@
    "fr": "Passata",
    "el": "Πασάτα",
    "aliases": "tomatenpuree; coulis",
-   "off": "en:tomato-purees"
+   "off": "en:tomato-purees",
+   "icon": "can"
   },
   {
    "slug": "tomato-paste",
@@ -1606,7 +1994,8 @@
    "nl": "Tomatenconcentraat",
    "fr": "Concentré de tomates",
    "el": "Πελτές ντομάτας",
-   "off": "en:tomato-pastes"
+   "off": "en:tomato-pastes",
+   "icon": "can"
   },
   {
    "slug": "beans",
@@ -1617,7 +2006,8 @@
    "fr": "Haricots",
    "el": "Φασόλια",
    "aliases": "witte bonen; kidneybonen",
-   "off": "en:canned-beans"
+   "off": "en:canned-beans",
+   "icon": "bean"
   },
   {
    "slug": "chickpeas",
@@ -1627,7 +2017,8 @@
    "nl": "Kikkererwten",
    "fr": "Pois chiches",
    "el": "Ρεβίθια",
-   "off": "en:chickpeas"
+   "off": "en:chickpeas",
+   "icon": "bean"
   },
   {
    "slug": "lentils",
@@ -1637,7 +2028,8 @@
    "nl": "Linzen",
    "fr": "Lentilles",
    "el": "Φακές",
-   "off": "en:lentils"
+   "off": "en:lentils",
+   "icon": "bean"
   },
   {
    "slug": "tinned-tuna",
@@ -1648,7 +2040,8 @@
    "fr": "Thon en boîte",
    "el": "Τόνος σε κονσέρβα",
    "aliases": "tonijn",
-   "off": "en:canned-tunas"
+   "off": "en:canned-tunas",
+   "icon": "can"
   },
   {
    "slug": "soup",
@@ -1658,7 +2051,8 @@
    "nl": "Soep",
    "fr": "Soupe",
    "el": "Σούπα",
-   "off": "en:soups"
+   "off": "en:soups",
+   "icon": "can"
   },
   {
    "slug": "stock-cubes",
@@ -1669,7 +2063,8 @@
    "fr": "Bouillon cubes",
    "el": "Κύβοι ζωμού",
    "aliases": "bouillon",
-   "off": "en:stock-cubes"
+   "off": "en:stock-cubes",
+   "icon": "can"
   },
   {
    "slug": "tinned-sweetcorn",
@@ -1679,7 +2074,8 @@
    "nl": "Maïs in blik",
    "fr": "Maïs en boîte",
    "el": "Καλαμπόκι σε κονσέρβα",
-   "off": "en:canned-corn"
+   "off": "en:canned-corn",
+   "icon": "can"
   },
   {
    "slug": "pickles",
@@ -1689,7 +2085,8 @@
    "nl": "Augurken",
    "fr": "Cornichons",
    "el": "Αγγουράκια τουρσί",
-   "off": "en:pickled-cucumbers"
+   "off": "en:pickled-cucumbers",
+   "icon": "amphora"
   },
   {
    "slug": "pasta-sauce",
@@ -1700,7 +2097,8 @@
    "fr": "Sauce pour pâtes",
    "el": "Σάλτσα για ζυμαρικά",
    "aliases": "bolognaisesaus",
-   "off": "en:pasta-sauces"
+   "off": "en:pasta-sauces",
+   "icon": "amphora"
   },
   {
    "slug": "pesto",
@@ -1710,7 +2108,8 @@
    "nl": "Pesto",
    "fr": "Pesto",
    "el": "Πέστο",
-   "off": "en:pestos"
+   "off": "en:pestos",
+   "icon": "amphora"
   },
   {
    "slug": "coconut-milk",
@@ -1720,7 +2119,8 @@
    "nl": "Kokosmelk",
    "fr": "Lait de coco",
    "el": "Γάλα καρύδας",
-   "off": "en:coconut-milks"
+   "off": "en:coconut-milks",
+   "icon": "can"
   },
   {
    "slug": "curry-paste",
@@ -1730,7 +2130,8 @@
    "nl": "Currypasta",
    "fr": "Pâte de curry",
    "el": "Πάστα κάρι",
-   "off": "en:curry-pastes"
+   "off": "en:curry-pastes",
+   "icon": "flame"
   },
   {
    "slug": "olive-oil",
@@ -1740,7 +2141,8 @@
    "nl": "Olijfolie",
    "fr": "Huile d'olive",
    "el": "Ελαιόλαδο",
-   "off": "en:olive-oils"
+   "off": "en:olive-oils",
+   "icon": "amphora"
   },
   {
    "slug": "sunflower-oil",
@@ -1751,7 +2153,8 @@
    "fr": "Huile de tournesol",
    "el": "Ηλιέλαιο",
    "aliases": "olie",
-   "off": "en:sunflower-oils"
+   "off": "en:sunflower-oils",
+   "icon": "amphora"
   },
   {
    "slug": "cooking-butter",
@@ -1761,7 +2164,8 @@
    "nl": "Bak- en braadboter",
    "fr": "Beurre de cuisson",
    "el": "Βούτυρο μαγειρικής",
-   "off": "en:cooking-fats"
+   "off": "en:cooking-fats",
+   "icon": "milk"
   },
   {
    "slug": "salt",
@@ -1771,7 +2175,8 @@
    "nl": "Zout",
    "fr": "Sel",
    "el": "Αλάτι",
-   "off": "en:salts"
+   "off": "en:salts",
+   "icon": "chef-hat"
   },
   {
    "slug": "pepper",
@@ -1781,7 +2186,8 @@
    "nl": "Peper",
    "fr": "Poivre",
    "el": "Πιπέρι",
-   "off": "en:black-peppers"
+   "off": "en:black-peppers",
+   "icon": "chef-hat"
   },
   {
    "slug": "spices",
@@ -1791,7 +2197,8 @@
    "nl": "Kruiden",
    "fr": "Épices",
    "el": "Μπαχαρικά",
-   "off": "en:spices"
+   "off": "en:spices",
+   "icon": "chef-hat"
   },
   {
    "slug": "paprika-powder",
@@ -1801,7 +2208,8 @@
    "nl": "Paprikapoeder",
    "fr": "Paprika en poudre",
    "el": "Πάπρικα",
-   "off": "en:paprika-powder"
+   "off": "en:paprika-powder",
+   "icon": "chef-hat"
   },
   {
    "slug": "curry-powder",
@@ -1811,7 +2219,8 @@
    "nl": "Kerriepoeder",
    "fr": "Curry en poudre",
    "el": "Κάρι",
-   "off": "en:curry-powders"
+   "off": "en:curry-powders",
+   "icon": "chef-hat"
   },
   {
    "slug": "mustard",
@@ -1821,7 +2230,8 @@
    "nl": "Mosterd",
    "fr": "Moutarde",
    "el": "Μουστάρδα",
-   "off": "en:mustards"
+   "off": "en:mustards",
+   "icon": "amphora"
   },
   {
    "slug": "mayonnaise",
@@ -1832,7 +2242,8 @@
    "fr": "Mayonnaise",
    "el": "Μαγιονέζα",
    "aliases": "mayo",
-   "off": "en:mayonnaises"
+   "off": "en:mayonnaises",
+   "icon": "amphora"
   },
   {
    "slug": "ketchup",
@@ -1842,7 +2253,8 @@
    "nl": "Ketchup",
    "fr": "Ketchup",
    "el": "Κέτσαπ",
-   "off": "en:ketchup"
+   "off": "en:ketchup",
+   "icon": "apple"
   },
   {
    "slug": "andalouse-sauce",
@@ -1853,7 +2265,8 @@
    "fr": "Sauce andalouse",
    "el": "Σάλτσα αντάλους",
    "aliases": "andalouse",
-   "off": "en:sauces"
+   "off": "en:sauces",
+   "icon": "amphora"
   },
   {
    "slug": "soy-sauce",
@@ -1863,7 +2276,8 @@
    "nl": "Sojasaus",
    "fr": "Sauce soja",
    "el": "Σάλτσα σόγιας",
-   "off": "en:soy-sauces"
+   "off": "en:soy-sauces",
+   "icon": "amphora"
   },
   {
    "slug": "vinegar",
@@ -1873,7 +2287,8 @@
    "nl": "Azijn",
    "fr": "Vinaigre",
    "el": "Ξίδι",
-   "off": "en:vinegars"
+   "off": "en:vinegars",
+   "icon": "amphora"
   },
   {
    "slug": "salad-dressing",
@@ -1884,7 +2299,8 @@
    "fr": "Vinaigrette",
    "el": "Σάλτσα για σαλάτα",
    "aliases": "dressing",
-   "off": "en:salad-dressings"
+   "off": "en:salad-dressings",
+   "icon": "amphora"
   },
   {
    "slug": "flour",
@@ -1894,7 +2310,8 @@
    "nl": "Bloem",
    "fr": "Farine",
    "el": "Αλεύρι",
-   "off": "en:flours"
+   "off": "en:flours",
+   "icon": "wheat"
   },
   {
    "slug": "sugar",
@@ -1904,7 +2321,8 @@
    "nl": "Suiker",
    "fr": "Sucre",
    "el": "Ζάχαρη",
-   "off": "en:sugars"
+   "off": "en:sugars",
+   "icon": "candy"
   },
   {
    "slug": "brown-sugar",
@@ -1915,7 +2333,8 @@
    "fr": "Cassonade",
    "el": "Καστανή ζάχαρη",
    "aliases": "kandijsuiker",
-   "off": "en:brown-sugars"
+   "off": "en:brown-sugars",
+   "icon": "candy"
   },
   {
    "slug": "baking-powder",
@@ -1925,7 +2344,8 @@
    "nl": "Bakpoeder",
    "fr": "Levure chimique",
    "el": "Μπέικιν πάουντερ",
-   "off": "en:baking-powders"
+   "off": "en:baking-powders",
+   "icon": "cupcake"
   },
   {
    "slug": "yeast",
@@ -1935,7 +2355,8 @@
    "nl": "Gist",
    "fr": "Levure",
    "el": "Μαγιά",
-   "off": "en:yeasts"
+   "off": "en:yeasts",
+   "icon": "sandwich"
   },
   {
    "slug": "baking-chocolate",
@@ -1945,7 +2366,8 @@
    "nl": "Kookchocolade",
    "fr": "Chocolat pâtissier",
    "el": "Κουβερτούρα",
-   "off": "en:cooking-chocolates"
+   "off": "en:cooking-chocolates",
+   "icon": "candy"
   },
   {
    "slug": "vanilla-sugar",
@@ -1955,7 +2377,8 @@
    "nl": "Vanillesuiker",
    "fr": "Sucre vanillé",
    "el": "Ζάχαρη βανίλιας",
-   "off": "en:vanilla-sugars"
+   "off": "en:vanilla-sugars",
+   "icon": "candy"
   },
   {
    "slug": "breadcrumbs",
@@ -1965,7 +2388,8 @@
    "nl": "Paneermeel",
    "fr": "Chapelure",
    "el": "Φρυγανιά τριμμένη",
-   "off": "en:breadcrumbs"
+   "off": "en:breadcrumbs",
+   "icon": "sandwich"
   },
   {
    "slug": "cereal",
@@ -1976,7 +2400,8 @@
    "fr": "Céréales",
    "el": "Δημητριακά",
    "aliases": "cornflakes",
-   "off": "en:breakfast-cereals"
+   "off": "en:breakfast-cereals",
+   "icon": "wheat"
   },
   {
    "slug": "muesli",
@@ -1987,7 +2412,8 @@
    "fr": "Muesli",
    "el": "Μούσλι",
    "aliases": "granola",
-   "off": "en:mueslis"
+   "off": "en:mueslis",
+   "icon": "wheat"
   },
   {
    "slug": "oats",
@@ -1997,7 +2423,8 @@
    "nl": "Havermout",
    "fr": "Flocons d'avoine",
    "el": "Νιφάδες βρώμης",
-   "off": "en:oat-flakes"
+   "off": "en:oat-flakes",
+   "icon": "wheat"
   },
   {
    "slug": "chocolate-spread",
@@ -2008,7 +2435,8 @@
    "fr": "Pâte à tartiner",
    "el": "Πραλίνα",
    "aliases": "chocopasta; nutella; nutella",
-   "off": "en:cocoa-and-hazelnuts-spreads"
+   "off": "en:cocoa-and-hazelnuts-spreads",
+   "icon": "candy"
   },
   {
    "slug": "speculoos-spread",
@@ -2018,7 +2446,8 @@
    "nl": "Speculoospasta",
    "fr": "Pâte de spéculoos",
    "el": "Άλειμμα speculoos",
-   "off": "en:speculoos-spreads"
+   "off": "en:speculoos-spreads",
+   "icon": "cookie"
   },
   {
    "slug": "jam",
@@ -2029,7 +2458,8 @@
    "fr": "Confiture",
    "el": "Μαρμελάδα",
    "aliases": "jam",
-   "off": "en:jams"
+   "off": "en:jams",
+   "icon": "cherry"
   },
   {
    "slug": "honey",
@@ -2039,7 +2469,8 @@
    "nl": "Honing",
    "fr": "Miel",
    "el": "Μέλι",
-   "off": "en:honeys"
+   "off": "en:honeys",
+   "icon": "amphora"
   },
   {
    "slug": "peanut-butter",
@@ -2049,7 +2480,8 @@
    "nl": "Pindakaas",
    "fr": "Beurre de cacahuète",
    "el": "Φυστικοβούτυρο",
-   "off": "en:peanut-butters"
+   "off": "en:peanut-butters",
+   "icon": "nut"
   },
   {
    "slug": "chocolate-sprinkles",
@@ -2060,7 +2492,8 @@
    "fr": "Vermicelles en chocolat",
    "el": "Τρούφα σοκολάτας",
    "aliases": "muisjes",
-   "off": "en:chocolate-sprinkles"
+   "off": "en:chocolate-sprinkles",
+   "icon": "candy"
   },
   {
    "slug": "chocolate-flakes",
@@ -2070,7 +2503,8 @@
    "nl": "Chocoladevlokken",
    "fr": "Flocons de chocolat",
    "el": "Νιφάδες σοκολάτας",
-   "off": "en:chocolate-flakes"
+   "off": "en:chocolate-flakes",
+   "icon": "candy"
   },
   {
    "slug": "syrup",
@@ -2081,7 +2515,8 @@
    "fr": "Sirop de Liège",
    "el": "Σιρόπι",
    "aliases": "appelstroop",
-   "off": "en:syrups"
+   "off": "en:syrups",
+   "icon": "amphora"
   },
   {
    "slug": "coffee",
@@ -2092,7 +2527,8 @@
    "fr": "Café",
    "el": "Καφές",
    "aliases": "gemalen koffie",
-   "off": "en:coffees"
+   "off": "en:coffees",
+   "icon": "coffee"
   },
   {
    "slug": "coffee-beans",
@@ -2102,7 +2538,8 @@
    "nl": "Koffiebonen",
    "fr": "Café en grains",
    "el": "Καφές σε κόκκους",
-   "off": "en:coffee-beans"
+   "off": "en:coffee-beans",
+   "icon": "coffee"
   },
   {
    "slug": "coffee-pods",
@@ -2113,7 +2550,8 @@
    "fr": "Dosettes de café",
    "el": "Κάψουλες καφέ",
    "aliases": "capsules; cups",
-   "off": "en:coffee-capsules"
+   "off": "en:coffee-capsules",
+   "icon": "coffee"
   },
   {
    "slug": "tea",
@@ -2123,7 +2561,8 @@
    "nl": "Thee",
    "fr": "Thé",
    "el": "Τσάι",
-   "off": "en:teas"
+   "off": "en:teas",
+   "icon": "coffee"
   },
   {
    "slug": "cocoa",
@@ -2133,7 +2572,8 @@
    "nl": "Cacao",
    "fr": "Cacao",
    "el": "Κακάο",
-   "off": "en:cocoa-powders"
+   "off": "en:cocoa-powders",
+   "icon": "coffee"
   },
   {
    "slug": "chocolate",
@@ -2143,7 +2583,8 @@
    "nl": "Chocolade",
    "fr": "Chocolat",
    "el": "Σοκολάτα",
-   "off": "en:chocolates"
+   "off": "en:chocolates",
+   "icon": "candy"
   },
   {
    "slug": "biscuits",
@@ -2153,7 +2594,8 @@
    "nl": "Koekjes",
    "fr": "Biscuits",
    "el": "Μπισκότα",
-   "off": "en:biscuits"
+   "off": "en:biscuits",
+   "icon": "cookie"
   },
   {
    "slug": "speculoos",
@@ -2163,7 +2605,8 @@
    "nl": "Speculoos",
    "fr": "Spéculoos",
    "el": "Μπισκότα speculoos",
-   "off": "en:speculoos"
+   "off": "en:speculoos",
+   "icon": "cookie"
   },
   {
    "slug": "crisps",
@@ -2173,7 +2616,8 @@
    "nl": "Chips",
    "fr": "Chips",
    "el": "Πατατάκια",
-   "off": "en:crisps"
+   "off": "en:crisps",
+   "icon": "popcorn"
   },
   {
    "slug": "popcorn",
@@ -2183,7 +2627,8 @@
    "nl": "Popcorn",
    "fr": "Pop-corn",
    "el": "Ποπκόρν",
-   "off": "en:popcorn"
+   "off": "en:popcorn",
+   "icon": "popcorn"
   },
   {
    "slug": "peanuts",
@@ -2194,7 +2639,8 @@
    "fr": "Cacahuètes",
    "el": "Φιστίκια",
    "aliases": "borrelnootjes",
-   "off": "en:peanuts"
+   "off": "en:peanuts",
+   "icon": "nut"
   },
   {
    "slug": "sweets",
@@ -2204,7 +2650,8 @@
    "nl": "Snoep",
    "fr": "Bonbons",
    "el": "Καραμέλες",
-   "off": "en:candies"
+   "off": "en:candies",
+   "icon": "candy"
   },
   {
    "slug": "gummies",
@@ -2215,7 +2662,8 @@
    "fr": "Bonbons gélifiés",
    "el": "Ζελεδάκια",
    "aliases": "winegums",
-   "off": "en:gummies"
+   "off": "en:gummies",
+   "icon": "candy"
   },
   {
    "slug": "lollipops",
@@ -2225,7 +2673,8 @@
    "nl": "Lolly's",
    "fr": "Sucettes",
    "el": "Γλειφιτζούρια",
-   "off": "en:lollipops"
+   "off": "en:lollipops",
+   "icon": "lollipop"
   },
   {
    "slug": "crackers",
@@ -2236,7 +2685,8 @@
    "fr": "Crackers",
    "el": "Κράκερ",
    "aliases": "toastjes",
-   "off": "en:crackers"
+   "off": "en:crackers",
+   "icon": "cookie"
   },
   {
    "slug": "cereal-bars",
@@ -2246,7 +2696,8 @@
    "nl": "Mueslirepen",
    "fr": "Barres de céréales",
    "el": "Μπάρες δημητριακών",
-   "off": "en:cereal-bars"
+   "off": "en:cereal-bars",
+   "icon": "candy"
   },
   {
    "slug": "gingerbread",
@@ -2256,7 +2707,8 @@
    "nl": "Peperkoek",
    "fr": "Pain d'épices",
    "el": "Μελόψωμο",
-   "off": "en:gingerbreads"
+   "off": "en:gingerbreads",
+   "icon": "cookie"
   },
   {
    "slug": "dessert-cups",
@@ -2266,7 +2718,8 @@
    "nl": "Desserts",
    "fr": "Desserts",
    "el": "Γλυκά κυπελάκια",
-   "off": "en:desserts"
+   "off": "en:desserts",
+   "icon": "ice-cream-cone"
   },
   {
    "slug": "water",
@@ -2277,7 +2730,8 @@
    "fr": "Eau",
    "el": "Νερό",
    "aliases": "plat water",
-   "off": "en:waters"
+   "off": "en:waters",
+   "icon": "glass-water"
   },
   {
    "slug": "sparkling-water",
@@ -2288,7 +2742,8 @@
    "fr": "Eau pétillante",
    "el": "Ανθρακούχο νερό",
    "aliases": "spuitwater",
-   "off": "en:carbonated-waters"
+   "off": "en:carbonated-waters",
+   "icon": "glass-water"
   },
   {
    "slug": "orange-juice",
@@ -2299,7 +2754,8 @@
    "fr": "Jus d'orange",
    "el": "Χυμός πορτοκάλι",
    "aliases": "appelsiensap",
-   "off": "en:orange-juices"
+   "off": "en:orange-juices",
+   "icon": "carton"
   },
   {
    "slug": "apple-juice",
@@ -2309,7 +2765,8 @@
    "nl": "Appelsap",
    "fr": "Jus de pomme",
    "el": "Χυμός μήλο",
-   "off": "en:apple-juices"
+   "off": "en:apple-juices",
+   "icon": "carton"
   },
   {
    "slug": "juice",
@@ -2319,7 +2776,8 @@
    "nl": "Fruitsap",
    "fr": "Jus de fruits",
    "el": "Χυμός",
-   "off": "en:fruit-juices"
+   "off": "en:fruit-juices",
+   "icon": "carton"
   },
   {
    "slug": "cola",
@@ -2330,7 +2788,8 @@
    "fr": "Cola",
    "el": "Κόλα",
    "aliases": "coca-cola",
-   "off": "en:colas"
+   "off": "en:colas",
+   "icon": "cup-soda"
   },
   {
    "slug": "soft-drinks",
@@ -2341,7 +2800,8 @@
    "fr": "Boissons gazeuses",
    "el": "Αναψυκτικά",
    "aliases": "limonade; σόδα",
-   "off": "en:sodas"
+   "off": "en:sodas",
+   "icon": "cup-soda"
   },
   {
    "slug": "iced-tea",
@@ -2351,7 +2811,8 @@
    "nl": "Ice tea",
    "fr": "Thé glacé",
    "el": "Παγωμένο τσάι",
-   "off": "en:iced-teas"
+   "off": "en:iced-teas",
+   "icon": "cup-soda"
   },
   {
    "slug": "beer",
@@ -2362,7 +2823,8 @@
    "fr": "Bière",
    "el": "Μπίρα",
    "aliases": "pils",
-   "off": "en:beers"
+   "off": "en:beers",
+   "icon": "beer"
   },
   {
    "slug": "trappist-beer",
@@ -2373,7 +2835,8 @@
    "fr": "Trappiste",
    "el": "Μπίρα Τραπιστών",
    "aliases": "abdijbier",
-   "off": "en:trappist-beers"
+   "off": "en:trappist-beers",
+   "icon": "beer"
   },
   {
    "slug": "red-wine",
@@ -2384,7 +2847,8 @@
    "fr": "Vin rouge",
    "el": "Κόκκινο κρασί",
    "aliases": "wijn",
-   "off": "en:red-wines"
+   "off": "en:red-wines",
+   "icon": "wine"
   },
   {
    "slug": "white-wine",
@@ -2394,7 +2858,8 @@
    "nl": "Witte wijn",
    "fr": "Vin blanc",
    "el": "Λευκό κρασί",
-   "off": "en:white-wines"
+   "off": "en:white-wines",
+   "icon": "wine"
   },
   {
    "slug": "cava",
@@ -2405,7 +2870,8 @@
    "fr": "Cava",
    "el": "Αφρώδες κρασί",
    "aliases": "champagne; prosecco",
-   "off": "en:sparkling-wines"
+   "off": "en:sparkling-wines",
+   "icon": "bottle-wine"
   },
   {
    "slug": "syrup-for-drinks",
@@ -2416,7 +2882,8 @@
    "fr": "Sirop",
    "el": "Σιρόπι για ποτά",
    "aliases": "grenadine",
-   "off": "en:syrups-for-drinks"
+   "off": "en:syrups-for-drinks",
+   "icon": "martini"
   },
   {
    "slug": "sports-drinks",
@@ -2426,7 +2893,8 @@
    "nl": "Sportdrank",
    "fr": "Boisson isotonique",
    "el": "Ισοτονικά ποτά",
-   "off": "en:energy-drinks"
+   "off": "en:energy-drinks",
+   "icon": "cup-soda"
   },
   {
    "slug": "nappies",
@@ -2437,7 +2905,8 @@
    "fr": "Langes",
    "el": "Πάνες",
    "aliases": "pampers",
-   "off": "en:diapers"
+   "off": "en:diapers",
+   "icon": "baby"
   },
   {
    "slug": "baby-wipes",
@@ -2448,7 +2917,8 @@
    "fr": "Lingettes bébé",
    "el": "Μωρομάντηλα",
    "aliases": "vochtige doekjes",
-   "off": "en:baby-wipes"
+   "off": "en:baby-wipes",
+   "icon": "baby"
   },
   {
    "slug": "baby-milk",
@@ -2459,7 +2929,8 @@
    "fr": "Lait bébé",
    "el": "Βρεφικό γάλα",
    "aliases": "flesvoeding",
-   "off": "en:infant-formulas"
+   "off": "en:infant-formulas",
+   "icon": "milk"
   },
   {
    "slug": "baby-food",
@@ -2470,7 +2941,8 @@
    "fr": "Petits pots",
    "el": "Βρεφικές τροφές",
    "aliases": "potjes",
-   "off": "en:baby-foods"
+   "off": "en:baby-foods",
+   "icon": "ice-cream-bowl"
   },
   {
    "slug": "toothpaste",
@@ -2480,7 +2952,8 @@
    "nl": "Tandpasta",
    "fr": "Dentifrice",
    "el": "Οδοντόκρεμα",
-   "off": "en:toothpastes"
+   "off": "en:toothpastes",
+   "icon": "toothbrush"
   },
   {
    "slug": "toothbrushes",
@@ -2490,7 +2963,8 @@
    "nl": "Tandenborstels",
    "fr": "Brosses à dents",
    "el": "Οδοντόβουρτσες",
-   "off": "en:toothbrushes"
+   "off": "en:toothbrushes",
+   "icon": "toothbrush"
   },
   {
    "slug": "shampoo",
@@ -2500,7 +2974,8 @@
    "nl": "Shampoo",
    "fr": "Shampooing",
    "el": "Σαμπουάν",
-   "off": "en:shampoos"
+   "off": "en:shampoos",
+   "icon": "tube-lotion"
   },
   {
    "slug": "conditioner",
@@ -2510,7 +2985,8 @@
    "nl": "Conditioner",
    "fr": "Après-shampooing",
    "el": "Μαλακτική κρέμα μαλλιών",
-   "off": "en:hair-conditioners"
+   "off": "en:hair-conditioners",
+   "icon": "tube-lotion"
   },
   {
    "slug": "shower-gel",
@@ -2520,7 +2996,8 @@
    "nl": "Douchegel",
    "fr": "Gel douche",
    "el": "Αφρόλουτρο",
-   "off": "en:shower-gels"
+   "off": "en:shower-gels",
+   "icon": "tube-lotion"
   },
   {
    "slug": "soap",
@@ -2531,7 +3008,8 @@
    "fr": "Savon",
    "el": "Σαπούνι",
    "aliases": "handzeep",
-   "off": "en:soaps"
+   "off": "en:soaps",
+   "icon": "soap-dispenser-droplet"
   },
   {
    "slug": "deodorant",
@@ -2542,7 +3020,8 @@
    "fr": "Déodorant",
    "el": "Αποσμητικό",
    "aliases": "deo",
-   "off": "en:deodorants"
+   "off": "en:deodorants",
+   "icon": "tube-lotion"
   },
   {
    "slug": "sun-cream",
@@ -2552,7 +3031,8 @@
    "nl": "Zonnecrème",
    "fr": "Crème solaire",
    "el": "Αντηλιακό",
-   "off": "en:sunscreens"
+   "off": "en:sunscreens",
+   "icon": "sun"
   },
   {
    "slug": "body-lotion",
@@ -2562,7 +3042,8 @@
    "nl": "Bodylotion",
    "fr": "Lait pour le corps",
    "el": "Γαλάκτωμα σώματος",
-   "off": "en:body-lotions"
+   "off": "en:body-lotions",
+   "icon": "tube-lotion"
   },
   {
    "slug": "razors",
@@ -2572,7 +3053,8 @@
    "nl": "Scheermesjes",
    "fr": "Rasoirs",
    "el": "Ξυραφάκια",
-   "off": "en:razors"
+   "off": "en:razors",
+   "icon": "scissors"
   },
   {
    "slug": "plasters",
@@ -2582,7 +3064,8 @@
    "nl": "Pleisters",
    "fr": "Pansements",
    "el": "Τσιρότα",
-   "off": "en:plasters"
+   "off": "en:plasters",
+   "icon": "bandage"
   },
   {
    "slug": "paracetamol",
@@ -2593,7 +3076,8 @@
    "fr": "Paracétamol",
    "el": "Παρακεταμόλη",
    "aliases": "dafalgan",
-   "off": "en:painkillers"
+   "off": "en:painkillers",
+   "icon": "pill"
   },
   {
    "slug": "cotton-pads",
@@ -2604,7 +3088,8 @@
    "fr": "Disques de coton",
    "el": "Δίσκοι ντεμακιγιάζ",
    "aliases": "wattenstaafjes",
-   "off": "en:cotton-pads"
+   "off": "en:cotton-pads",
+   "icon": "droplet"
   },
   {
    "slug": "sanitary-pads",
@@ -2615,7 +3100,8 @@
    "fr": "Serviettes hygiéniques",
    "el": "Σερβιέτες",
    "aliases": "tampons",
-   "off": "en:sanitary-pads"
+   "off": "en:sanitary-pads",
+   "icon": "droplet"
   },
   {
    "slug": "tissues",
@@ -2625,7 +3111,8 @@
    "nl": "Zakdoekjes",
    "fr": "Mouchoirs",
    "el": "Χαρτομάντηλα",
-   "off": "en:tissues"
+   "off": "en:tissues",
+   "icon": "toilet"
   },
   {
    "slug": "toilet-paper",
@@ -2636,7 +3123,8 @@
    "fr": "Papier toilette",
    "el": "Χαρτί υγείας",
    "aliases": "toiletpapier; χαρτί τουαλέτας",
-   "off": "en:toilet-papers"
+   "off": "en:toilet-papers",
+   "icon": "toilet"
   },
   {
    "slug": "kitchen-roll",
@@ -2647,7 +3135,8 @@
    "fr": "Essuie-tout",
    "el": "Χαρτί κουζίνας",
    "aliases": "keukenpapier",
-   "off": "en:kitchen-rolls"
+   "off": "en:kitchen-rolls",
+   "icon": "toilet"
   },
   {
    "slug": "washing-up-liquid",
@@ -2657,7 +3146,8 @@
    "nl": "Afwasmiddel",
    "fr": "Liquide vaisselle",
    "el": "Υγρό πιάτων",
-   "off": "en:dishwashing-liquids"
+   "off": "en:dishwashing-liquids",
+   "icon": "spray-can"
   },
   {
    "slug": "dishwasher-tablets",
@@ -2667,7 +3157,8 @@
    "nl": "Vaatwastabletten",
    "fr": "Tablettes lave-vaisselle",
    "el": "Ταμπλέτες πλυντηρίου πιάτων",
-   "off": "en:dishwasher-tablets"
+   "off": "en:dishwasher-tablets",
+   "icon": "spray-can"
   },
   {
    "slug": "laundry-detergent",
@@ -2678,7 +3169,8 @@
    "fr": "Lessive",
    "el": "Απορρυπαντικό ρούχων",
    "aliases": "waspoeder",
-   "off": "en:laundry-detergents"
+   "off": "en:laundry-detergents",
+   "icon": "washing-machine"
   },
   {
    "slug": "fabric-softener",
@@ -2688,7 +3180,8 @@
    "nl": "Wasverzachter",
    "fr": "Adoucissant",
    "el": "Μαλακτικό ρούχων",
-   "off": "en:fabric-softeners"
+   "off": "en:fabric-softeners",
+   "icon": "washing-machine"
   },
   {
    "slug": "all-purpose-cleaner",
@@ -2698,7 +3191,8 @@
    "nl": "Allesreiniger",
    "fr": "Nettoyant multi-usage",
    "el": "Καθαριστικό γενικής χρήσης",
-   "off": "en:all-purpose-cleaners"
+   "off": "en:all-purpose-cleaners",
+   "icon": "tube-lotion"
   },
   {
    "slug": "bleach",
@@ -2709,7 +3203,8 @@
    "fr": "Eau de Javel",
    "el": "Χλωρίνη",
    "aliases": "javel",
-   "off": "en:bleaches"
+   "off": "en:bleaches",
+   "icon": "tube-lotion"
   },
   {
    "slug": "sponges",
@@ -2719,7 +3214,8 @@
    "nl": "Sponzen",
    "fr": "Éponges",
    "el": "Σφουγγάρια",
-   "off": "en:sponges"
+   "off": "en:sponges",
+   "icon": "spray-can"
   },
   {
    "slug": "bin-bags",
@@ -2730,7 +3226,8 @@
    "fr": "Sacs poubelle",
    "el": "Σακούλες σκουπιδιών",
    "aliases": "pmd-zakken; restafvalzakken",
-   "off": "en:garbage-bags"
+   "off": "en:garbage-bags",
+   "icon": "trash"
   },
   {
    "slug": "cling-film",
@@ -2740,7 +3237,8 @@
    "nl": "Huishoudfolie",
    "fr": "Film alimentaire",
    "el": "Μεμβράνη",
-   "off": "en:cling-films"
+   "off": "en:cling-films",
+   "icon": "amphora"
   },
   {
    "slug": "aluminium-foil",
@@ -2751,7 +3249,8 @@
    "fr": "Papier aluminium",
    "el": "Αλουμινόχαρτο",
    "aliases": "zilverpapier",
-   "off": "en:aluminium-foils"
+   "off": "en:aluminium-foils",
+   "icon": "amphora"
   },
   {
    "slug": "baking-paper",
@@ -2761,7 +3260,8 @@
    "nl": "Bakpapier",
    "fr": "Papier cuisson",
    "el": "Λαδόχαρτο",
-   "off": "en:baking-papers"
+   "off": "en:baking-papers",
+   "icon": "cupcake"
   },
   {
    "slug": "freezer-bags",
@@ -2771,7 +3271,8 @@
    "nl": "Diepvrieszakjes",
    "fr": "Sacs congélation",
    "el": "Σακουλάκια καταψύκτη",
-   "off": "en:freezer-bags"
+   "off": "en:freezer-bags",
+   "icon": "paper-bag"
   },
   {
    "slug": "candles",
@@ -2782,7 +3283,8 @@
    "fr": "Bougies",
    "el": "Κεριά",
    "aliases": "waxinelichtjes",
-   "off": "en:candles"
+   "off": "en:candles",
+   "icon": "flame"
   },
   {
    "slug": "light-bulbs",
@@ -2792,7 +3294,8 @@
    "nl": "Lampen",
    "fr": "Ampoules",
    "el": "Λάμπες",
-   "off": "en:light-bulbs"
+   "off": "en:light-bulbs",
+   "icon": "lightbulb"
   },
   {
    "slug": "batteries",
@@ -2802,7 +3305,8 @@
    "nl": "Batterijen",
    "fr": "Piles",
    "el": "Μπαταρίες",
-   "off": "en:batteries"
+   "off": "en:batteries",
+   "icon": "battery-full"
   },
   {
    "slug": "rubber-gloves",
@@ -2812,7 +3316,8 @@
    "nl": "Huishoudhandschoenen",
    "fr": "Gants de ménage",
    "el": "Γάντια κουζίνας",
-   "off": "en:gloves"
+   "off": "en:gloves",
+   "icon": "hand"
   },
   {
    "slug": "matches",
@@ -2823,7 +3328,8 @@
    "fr": "Allumettes",
    "el": "Σπίρτα",
    "aliases": "aansteker",
-   "off": "en:matches"
+   "off": "en:matches",
+   "icon": "flame"
   },
   {
    "slug": "cat-food",
@@ -2834,7 +3340,8 @@
    "fr": "Nourriture pour chats",
    "el": "Γατοτροφή",
    "aliases": "kattenbrokken",
-   "off": "en:cat-foods"
+   "off": "en:cat-foods",
+   "icon": "cat"
   },
   {
    "slug": "cat-litter",
@@ -2845,7 +3352,8 @@
    "fr": "Litière pour chats",
    "el": "Άμμος γάτας",
    "aliases": "kattenbak",
-   "off": "en:cat-litters"
+   "off": "en:cat-litters",
+   "icon": "cat"
   },
   {
    "slug": "dog-food",
@@ -2855,7 +3363,8 @@
    "nl": "Hondenvoer",
    "fr": "Nourriture pour chiens",
    "el": "Σκυλοτροφή",
-   "off": "en:dog-foods"
+   "off": "en:dog-foods",
+   "icon": "dog"
   },
   {
    "slug": "dog-treats",
@@ -2865,7 +3374,2139 @@
    "nl": "Hondensnacks",
    "fr": "Friandises pour chiens",
    "el": "Λιχουδιές σκύλου",
-   "off": "en:dog-treats"
+   "off": "en:dog-treats",
+   "icon": "bone"
+  },
+  {
+   "slug": "home-furniture",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "sofa",
+   "en": "Furniture",
+   "nl": "Meubel",
+   "fr": "Meuble",
+   "el": "Έπιπλο",
+   "aliases": "furniture piece;meubels;meubles;έπιπλα"
+  },
+  {
+   "slug": "home-sofa",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "sofa",
+   "en": "Sofa",
+   "nl": "Zetel",
+   "fr": "Canapé",
+   "el": "Καναπές",
+   "aliases": "couch;bank;sofa;divan;καναπέδες"
+  },
+  {
+   "slug": "home-armchair",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "armchair",
+   "en": "Armchair",
+   "nl": "Fauteuil",
+   "fr": "Fauteuil",
+   "el": "Πολυθρόνα",
+   "aliases": "armchairs;fauteuils;πολυθρόνες"
+  },
+  {
+   "slug": "home-chairs",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "rocking-chair",
+   "en": "Chairs",
+   "nl": "Stoelen",
+   "fr": "Chaises",
+   "el": "Καρέκλες",
+   "aliases": "chair;stoel;chaise;καρέκλα"
+  },
+  {
+   "slug": "home-table",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "dining-table",
+   "en": "Table",
+   "nl": "Tafel",
+   "fr": "Table",
+   "el": "Τραπέζι",
+   "aliases": "dining table;eettafel;table à manger;τραπέζια;τραπεζαρία"
+  },
+  {
+   "slug": "home-coffee-table",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "dining-table",
+   "en": "Coffee table",
+   "nl": "Salontafel",
+   "fr": "Table basse",
+   "el": "Τραπεζάκι σαλονιού",
+   "aliases": "τραπεζάκι;bijzettafel"
+  },
+  {
+   "slug": "home-desk",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "lamp-desk",
+   "en": "Desk",
+   "nl": "Bureau",
+   "fr": "Bureau",
+   "el": "Γραφείο",
+   "aliases": "writing desk;schrijftafel"
+  },
+  {
+   "slug": "home-wardrobe",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "wardrobe",
+   "en": "Wardrobe",
+   "nl": "Kleerkast",
+   "fr": "Armoire",
+   "el": "Ντουλάπα",
+   "aliases": "closet;kast;garde-robe;ντουλάπες"
+  },
+  {
+   "slug": "home-chest-of-drawers",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "drawers",
+   "en": "Chest of drawers",
+   "nl": "Ladekast",
+   "fr": "Commode",
+   "el": "Συρταριέρα",
+   "aliases": "dresser;commode;συρταριέρες"
+  },
+  {
+   "slug": "home-bookcase",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "shelving-unit",
+   "en": "Bookcase",
+   "nl": "Boekenkast",
+   "fr": "Bibliothèque",
+   "el": "Βιβλιοθήκη",
+   "aliases": "shelves;shelf;rek;boekenrek;étagère;étagères;ράφια;ράφι"
+  },
+  {
+   "slug": "home-storage-cabinet",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "drawers",
+   "en": "Storage cabinet",
+   "nl": "Opbergkast",
+   "fr": "Meuble de rangement",
+   "el": "Αποθηκευτικό έπιπλο",
+   "aliases": "cabinet;opbergmeubel;placard;ντουλάπι;ντουλάπια"
+  },
+  {
+   "slug": "home-shoe-cabinet",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "drawers",
+   "en": "Shoe cabinet",
+   "nl": "Schoenenkast",
+   "fr": "Meuble à chaussures",
+   "el": "Παπουτσοθήκη",
+   "aliases": "shoe rack;schoenenrek;range-chaussures;παπουτσοθήκες"
+  },
+  {
+   "slug": "home-hallway-furniture",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "drawers",
+   "en": "Hallway furniture",
+   "nl": "Halmeubel",
+   "fr": "Meuble d’entrée",
+   "el": "Έπιπλο εισόδου",
+   "aliases": "entrance furniture;console;έπιπλο για είσοδο;έπιπλο για την είσοδο"
+  },
+  {
+   "slug": "home-tv-stand",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "tv",
+   "en": "TV stand",
+   "nl": "Tv-meubel",
+   "fr": "Meuble TV",
+   "el": "Έπιπλο τηλεόρασης",
+   "aliases": "tv unit;tv kast;έπιπλο tv"
+  },
+  {
+   "slug": "home-coat-rack",
+   "kind": "home",
+   "section": "home-furniture",
+   "icon": "shirt",
+   "en": "Coat rack",
+   "nl": "Kapstok",
+   "fr": "Porte-manteau",
+   "el": "Καλόγερος",
+   "aliases": "coat hooks;portemanteau;κρεμάστρα τοίχου"
+  },
+  {
+   "slug": "home-bed",
+   "kind": "home",
+   "section": "home-beds",
+   "icon": "bed-double",
+   "en": "Bed",
+   "nl": "Bed",
+   "fr": "Lit",
+   "el": "Κρεβάτι",
+   "aliases": "beds;bedden;lits;κρεβάτια"
+  },
+  {
+   "slug": "home-mattress",
+   "kind": "home",
+   "section": "home-beds",
+   "icon": "bed-single",
+   "en": "Mattress",
+   "nl": "Matras",
+   "fr": "Matelas",
+   "el": "Στρώμα",
+   "aliases": "mattresses;matrassen;στρώματα"
+  },
+  {
+   "slug": "home-pillows",
+   "kind": "home",
+   "section": "home-beds",
+   "icon": "bed",
+   "en": "Pillows",
+   "nl": "Hoofdkussens",
+   "fr": "Oreillers",
+   "el": "Μαξιλάρια ύπνου",
+   "aliases": "pillow;hoofdkussen;oreiller;μαξιλάρι ύπνου"
+  },
+  {
+   "slug": "home-duvet",
+   "kind": "home",
+   "section": "home-beds",
+   "icon": "bed",
+   "en": "Duvet",
+   "nl": "Dekbed",
+   "fr": "Couette",
+   "el": "Πάπλωμα",
+   "aliases": "quilt;comforter;dekbedden;παπλώματα"
+  },
+  {
+   "slug": "home-bed-linen",
+   "kind": "home",
+   "section": "home-beds",
+   "icon": "bed",
+   "en": "Bed linen",
+   "nl": "Beddengoed",
+   "fr": "Linge de lit",
+   "el": "Σεντόνια",
+   "aliases": "sheets;lakens;draps;housse de couette;σεντόνι;παπλωματοθήκη"
+  },
+  {
+   "slug": "home-bedside-table",
+   "kind": "home",
+   "section": "home-beds",
+   "icon": "drawers",
+   "en": "Bedside table",
+   "nl": "Nachtkastje",
+   "fr": "Table de chevet",
+   "el": "Κομοδίνο",
+   "aliases": "nightstand;nachtkastjes;κομοδίνα"
+  },
+  {
+   "slug": "home-rug",
+   "kind": "home",
+   "section": "home-textiles",
+   "icon": "rug",
+   "en": "Rug",
+   "nl": "Tapijt",
+   "fr": "Tapis",
+   "el": "Χαλί",
+   "aliases": "carpet;rugs;vloerkleed;tapijten;tapis;χαλιά"
+  },
+  {
+   "slug": "home-runner-rug",
+   "kind": "home",
+   "section": "home-textiles",
+   "icon": "rug",
+   "en": "Runner rug",
+   "nl": "Loper",
+   "fr": "Tapis de couloir",
+   "el": "Χαλί διάδρομος",
+   "aliases": "hallway runner;gangloper;διαδρομάκι;χαλί διαδρόμου"
+  },
+  {
+   "slug": "home-doormat",
+   "kind": "home",
+   "section": "home-textiles",
+   "icon": "rug",
+   "en": "Doormat",
+   "nl": "Deurmat",
+   "fr": "Paillasson",
+   "el": "Πατάκι εισόδου",
+   "aliases": "mat;mat;πατάκι;ποδόμακτρο"
+  },
+  {
+   "slug": "home-curtains",
+   "kind": "home",
+   "section": "home-textiles",
+   "icon": "curtains",
+   "en": "Curtains",
+   "nl": "Gordijnen",
+   "fr": "Rideaux",
+   "el": "Κουρτίνες",
+   "aliases": "curtain;drapes;gordijn;overgordijnen;rideau;κουρτίνα"
+  },
+  {
+   "slug": "home-blinds",
+   "kind": "home",
+   "section": "home-textiles",
+   "icon": "blinds",
+   "en": "Blinds",
+   "nl": "Rolgordijn",
+   "fr": "Store",
+   "el": "Στόρια",
+   "aliases": "roller blind;jaloezie;rolgordijnen;stores;στόρι"
+  },
+  {
+   "slug": "home-cushions",
+   "kind": "home",
+   "section": "home-textiles",
+   "icon": "sofa",
+   "en": "Cushions",
+   "nl": "Sierkussens",
+   "fr": "Coussins",
+   "el": "Διακοσμητικά μαξιλάρια",
+   "aliases": "cushion;kussens;sierkussen;coussin;μαξιλάρια καναπέ;μαξιλάρια"
+  },
+  {
+   "slug": "home-throw",
+   "kind": "home",
+   "section": "home-textiles",
+   "icon": "bed",
+   "en": "Throw blanket",
+   "nl": "Plaid",
+   "fr": "Plaid",
+   "el": "Ριχτάρι",
+   "aliases": "blanket;deken;couverture;κουβέρτα;ριχτάρια"
+  },
+  {
+   "slug": "home-pans",
+   "kind": "home",
+   "section": "home-kitchen",
+   "icon": "cooking-pot",
+   "en": "Pots & pans",
+   "nl": "Potten & pannen",
+   "fr": "Casseroles & poêles",
+   "el": "Κατσαρολικά",
+   "aliases": "pans;pots;pan;pannen;poêle;poêles;casserole;τηγάνι;τηγάνια;κατσαρόλα;κατσαρόλες"
+  },
+  {
+   "slug": "home-plates",
+   "kind": "home",
+   "section": "home-kitchen",
+   "icon": "utensils",
+   "en": "Plates",
+   "nl": "Borden",
+   "fr": "Assiettes",
+   "el": "Πιάτα",
+   "aliases": "plate;dishes;bord;servies;assiette;vaisselle;πιάτο"
+  },
+  {
+   "slug": "home-glasses",
+   "kind": "home",
+   "section": "home-kitchen",
+   "icon": "glass-water",
+   "en": "Glasses",
+   "nl": "Glazen",
+   "fr": "Verres",
+   "el": "Ποτήρια",
+   "aliases": "glass;glas;verre;ποτήρι"
+  },
+  {
+   "slug": "home-cutlery",
+   "kind": "home",
+   "section": "home-kitchen",
+   "icon": "utensils",
+   "en": "Cutlery",
+   "nl": "Bestek",
+   "fr": "Couverts",
+   "el": "Μαχαιροπίρουνα",
+   "aliases": "forks;knives;spoons;vorken;couteaux;πιρούνια;κουτάλια"
+  },
+  {
+   "slug": "home-mugs",
+   "kind": "home",
+   "section": "home-kitchen",
+   "icon": "coffee",
+   "en": "Mugs",
+   "nl": "Mokken",
+   "fr": "Tasses",
+   "el": "Κούπες",
+   "aliases": "mug;cups;mok;tas;tassen;tasse;κούπα;φλιτζάνια"
+  },
+  {
+   "slug": "home-kitchen-knives",
+   "kind": "home",
+   "section": "home-kitchen",
+   "icon": "slice",
+   "en": "Kitchen knives",
+   "nl": "Keukenmessen",
+   "fr": "Couteaux de cuisine",
+   "el": "Μαχαίρια κουζίνας",
+   "aliases": "knife;mes;messen;couteau;μαχαίρι;μαχαίρια"
+  },
+  {
+   "slug": "home-tablecloth",
+   "kind": "home",
+   "section": "home-kitchen",
+   "icon": "dining-table",
+   "en": "Tablecloth",
+   "nl": "Tafelkleed",
+   "fr": "Nappe",
+   "el": "Τραπεζομάντιλο",
+   "aliases": "tafellaken;τραπεζομάντηλο"
+  },
+  {
+   "slug": "home-kitchen-storage",
+   "kind": "home",
+   "section": "home-kitchen",
+   "icon": "archive",
+   "en": "Storage jars",
+   "nl": "Voorraadpotten",
+   "fr": "Bocaux",
+   "el": "Βάζα κουζίνας",
+   "aliases": "containers;bewaardozen;boîtes;δοχεία"
+  },
+  {
+   "slug": "home-bathroom-cabinet",
+   "kind": "home",
+   "section": "home-bathroom",
+   "icon": "drawers",
+   "en": "Bathroom cabinet",
+   "nl": "Badkamermeubel",
+   "fr": "Meuble de salle de bain",
+   "el": "Έπιπλο μπάνιου",
+   "aliases": "vanity unit;badkamerkast;meuble sous-lavabo;ντουλάπι μπάνιου;έπιπλο νιπτήρα"
+  },
+  {
+   "slug": "home-sink",
+   "kind": "home",
+   "section": "home-bathroom",
+   "icon": "faucet",
+   "en": "Sink",
+   "nl": "Wastafel",
+   "fr": "Lavabo",
+   "el": "Νιπτήρας",
+   "aliases": "washbasin;basin;lavabo;évier;νεροχύτης;νιπτήρες"
+  },
+  {
+   "slug": "home-towels",
+   "kind": "home",
+   "section": "home-bathroom",
+   "icon": "towel-rack",
+   "en": "Towels",
+   "nl": "Handdoeken",
+   "fr": "Serviettes de bain",
+   "el": "Πετσέτες",
+   "aliases": "towel;handdoek;serviette;πετσέτα"
+  },
+  {
+   "slug": "home-shower-curtain",
+   "kind": "home",
+   "section": "home-bathroom",
+   "icon": "shower-head",
+   "en": "Shower curtain",
+   "nl": "Douchegordijn",
+   "fr": "Rideau de douche",
+   "el": "Κουρτίνα μπάνιου",
+   "aliases": "κουρτίνα ντουζιέρας"
+  },
+  {
+   "slug": "home-bath-mat",
+   "kind": "home",
+   "section": "home-bathroom",
+   "icon": "rug",
+   "en": "Bath mat",
+   "nl": "Badmat",
+   "fr": "Tapis de bain",
+   "el": "Πατάκι μπάνιου",
+   "aliases": "badmatje;χαλάκι μπάνιου"
+  },
+  {
+   "slug": "home-laundry-basket",
+   "kind": "home",
+   "section": "home-bathroom",
+   "icon": "shopping-basket",
+   "en": "Laundry basket",
+   "nl": "Wasmand",
+   "fr": "Panier à linge",
+   "el": "Καλάθι άπλυτων",
+   "aliases": "wasmanden;καλάθι για τα άπλυτα"
+  },
+  {
+   "slug": "home-mirror",
+   "kind": "home",
+   "section": "home-decor",
+   "icon": "mirror-round",
+   "en": "Mirror",
+   "nl": "Spiegel",
+   "fr": "Miroir",
+   "el": "Καθρέφτης",
+   "aliases": "mirrors;spiegels;miroirs;καθρέπτης;καθρέφτες"
+  },
+  {
+   "slug": "home-plants",
+   "kind": "home",
+   "section": "home-decor",
+   "icon": "plant-pot",
+   "en": "Plants",
+   "nl": "Planten",
+   "fr": "Plantes",
+   "el": "Φυτά",
+   "aliases": "plant;houseplant;kamerplant;plante;φυτό"
+  },
+  {
+   "slug": "home-flower-pot",
+   "kind": "home",
+   "section": "home-decor",
+   "icon": "plant-pot",
+   "en": "Flower pot",
+   "nl": "Bloempot",
+   "fr": "Pot de fleurs",
+   "el": "Γλάστρα",
+   "aliases": "pot;bloempotten;cache-pot;γλάστρες"
+  },
+  {
+   "slug": "home-vase",
+   "kind": "home",
+   "section": "home-decor",
+   "icon": "amphora",
+   "en": "Vase",
+   "nl": "Vaas",
+   "fr": "Vase",
+   "el": "Βάζο λουλουδιών",
+   "aliases": "vases;vazen;βάζο"
+  },
+  {
+   "slug": "home-picture-frame",
+   "kind": "home",
+   "section": "home-decor",
+   "icon": "image",
+   "en": "Picture frame",
+   "nl": "Fotolijst",
+   "fr": "Cadre photo",
+   "el": "Κορνίζα",
+   "aliases": "frame;frames;kader;lijst;cadre;κορνίζες"
+  },
+  {
+   "slug": "home-wall-clock",
+   "kind": "home",
+   "section": "home-decor",
+   "icon": "clock",
+   "en": "Wall clock",
+   "nl": "Klok",
+   "fr": "Horloge murale",
+   "el": "Ρολόι τοίχου",
+   "aliases": "clock;wandklok;horloge;ρολόι"
+  },
+  {
+   "slug": "home-candles-home",
+   "kind": "home",
+   "section": "home-decor",
+   "icon": "flame",
+   "en": "Candles",
+   "nl": "Kaarsen",
+   "fr": "Bougies",
+   "el": "Κεριά",
+   "aliases": "candle;kaars;bougie;κερί"
+  },
+  {
+   "slug": "home-baskets",
+   "kind": "home",
+   "section": "home-decor",
+   "icon": "shopping-basket",
+   "en": "Baskets",
+   "nl": "Manden",
+   "fr": "Paniers",
+   "el": "Καλάθια",
+   "aliases": "basket;mand;panier;καλάθι"
+  },
+  {
+   "slug": "home-lamp",
+   "kind": "home",
+   "section": "home-lighting",
+   "icon": "lamp",
+   "en": "Lamp",
+   "nl": "Lamp",
+   "fr": "Lampe",
+   "el": "Φωτιστικό",
+   "aliases": "lamps;lampes;φωτιστικά;πορτατίφ"
+  },
+  {
+   "slug": "home-ceiling-light",
+   "kind": "home",
+   "section": "home-lighting",
+   "icon": "lamp-ceiling",
+   "en": "Ceiling light",
+   "nl": "Plafondlamp",
+   "fr": "Plafonnier",
+   "el": "Φωτιστικό οροφής",
+   "aliases": "pendant light;hanglamp;suspension;κρεμαστό φωτιστικό;πολυέλαιος"
+  },
+  {
+   "slug": "home-floor-lamp",
+   "kind": "home",
+   "section": "home-lighting",
+   "icon": "lamp-floor",
+   "en": "Floor lamp",
+   "nl": "Staande lamp",
+   "fr": "Lampadaire",
+   "el": "Φωτιστικό δαπέδου",
+   "aliases": "staanlamp;λαμπατέρ"
+  },
+  {
+   "slug": "home-desk-lamp",
+   "kind": "home",
+   "section": "home-lighting",
+   "icon": "lamp-desk",
+   "en": "Desk lamp",
+   "nl": "Bureaulamp",
+   "fr": "Lampe de bureau",
+   "el": "Φωτιστικό γραφείου",
+   "aliases": "leeslamp"
+  },
+  {
+   "slug": "home-wall-light",
+   "kind": "home",
+   "section": "home-lighting",
+   "icon": "lamp-wall-up",
+   "en": "Wall light",
+   "nl": "Wandlamp",
+   "fr": "Applique",
+   "el": "Απλίκα",
+   "aliases": "wall lamp;απλίκες"
+  },
+  {
+   "slug": "home-bulbs",
+   "kind": "home",
+   "section": "home-lighting",
+   "icon": "lightbulb",
+   "en": "Light bulbs",
+   "nl": "Gloeilampen",
+   "fr": "Ampoules",
+   "el": "Λάμπες",
+   "aliases": "bulb;light bulb;ledlamp;ampoule;λάμπα"
+  },
+  {
+   "slug": "home-string-lights",
+   "kind": "home",
+   "section": "home-lighting",
+   "icon": "sparkles",
+   "en": "String lights",
+   "nl": "Lichtsnoer",
+   "fr": "Guirlande lumineuse",
+   "el": "Λαμπάκια",
+   "aliases": "fairy lights;lichtslinger;λαμπιόνια"
+  },
+  {
+   "slug": "home-washing-machine",
+   "kind": "home",
+   "section": "home-appliances",
+   "icon": "washing-machine",
+   "en": "Washing machine",
+   "nl": "Wasmachine",
+   "fr": "Lave-linge",
+   "el": "Πλυντήριο ρούχων",
+   "aliases": "machine à laver;πλυντήριο"
+  },
+  {
+   "slug": "home-dishwasher",
+   "kind": "home",
+   "section": "home-appliances",
+   "icon": "washing-machine",
+   "en": "Dishwasher",
+   "nl": "Vaatwasser",
+   "fr": "Lave-vaisselle",
+   "el": "Πλυντήριο πιάτων",
+   "aliases": "vaatwasmachine"
+  },
+  {
+   "slug": "home-fridge",
+   "kind": "home",
+   "section": "home-appliances",
+   "icon": "refrigerator",
+   "en": "Fridge",
+   "nl": "Koelkast",
+   "fr": "Frigo",
+   "el": "Ψυγείο",
+   "aliases": "refrigerator;frigo;réfrigérateur"
+  },
+  {
+   "slug": "home-microwave",
+   "kind": "home",
+   "section": "home-appliances",
+   "icon": "microwave",
+   "en": "Microwave",
+   "nl": "Microgolfoven",
+   "fr": "Micro-ondes",
+   "el": "Φούρνος μικροκυμάτων",
+   "aliases": "magnetron;μικροκύματα"
+  },
+  {
+   "slug": "home-vacuum",
+   "kind": "home",
+   "section": "home-appliances",
+   "icon": "broom",
+   "en": "Vacuum cleaner",
+   "nl": "Stofzuiger",
+   "fr": "Aspirateur",
+   "el": "Ηλεκτρική σκούπα",
+   "aliases": "hoover;vacuum;σκούπα"
+  },
+  {
+   "slug": "home-kettle",
+   "kind": "home",
+   "section": "home-appliances",
+   "icon": "coffee",
+   "en": "Kettle",
+   "nl": "Waterkoker",
+   "fr": "Bouilloire",
+   "el": "Βραστήρας",
+   "aliases": "coffee machine;koffiemachine;cafetière;καφετιέρα"
+  },
+  {
+   "slug": "home-tv",
+   "kind": "home",
+   "section": "home-appliances",
+   "icon": "tv",
+   "en": "TV",
+   "nl": "Televisie",
+   "fr": "Télévision",
+   "el": "Τηλεόραση",
+   "aliases": "television;tv;télé"
+  },
+  {
+   "slug": "home-fan",
+   "kind": "home",
+   "section": "home-appliances",
+   "icon": "fan",
+   "en": "Fan",
+   "nl": "Ventilator",
+   "fr": "Ventilateur",
+   "el": "Ανεμιστήρας",
+   "aliases": "ανεμιστήρες"
+  },
+  {
+   "slug": "home-heater",
+   "kind": "home",
+   "section": "home-appliances",
+   "icon": "heater",
+   "en": "Heater",
+   "nl": "Verwarming",
+   "fr": "Radiateur",
+   "el": "Θερμάστρα",
+   "aliases": "kachel;chauffage;καλοριφέρ;σόμπα"
+  },
+  {
+   "slug": "home-paint",
+   "kind": "home",
+   "section": "home-diy",
+   "icon": "paint-roller",
+   "en": "Paint",
+   "nl": "Verf",
+   "fr": "Peinture",
+   "el": "Μπογιά",
+   "aliases": "muurverf;χρώμα;βαφή"
+  },
+  {
+   "slug": "home-screws",
+   "kind": "home",
+   "section": "home-diy",
+   "icon": "screw",
+   "en": "Screws",
+   "nl": "Schroeven",
+   "fr": "Vis",
+   "el": "Βίδες",
+   "aliases": "screw;nails;schroef;nagels;clous;βίδα;καρφιά"
+  },
+  {
+   "slug": "home-wall-plugs",
+   "kind": "home",
+   "section": "home-diy",
+   "icon": "screw",
+   "en": "Wall plugs",
+   "nl": "Pluggen",
+   "fr": "Chevilles",
+   "el": "Ούπα",
+   "aliases": "plugs;rawlplugs;plug"
+  },
+  {
+   "slug": "home-drill",
+   "kind": "home",
+   "section": "home-diy",
+   "icon": "drill",
+   "en": "Drill",
+   "nl": "Boormachine",
+   "fr": "Perceuse",
+   "el": "Δράπανο",
+   "aliases": "boor;κρουστικό"
+  },
+  {
+   "slug": "home-tools",
+   "kind": "home",
+   "section": "home-diy",
+   "icon": "toolbox",
+   "en": "Tools",
+   "nl": "Gereedschap",
+   "fr": "Outils",
+   "el": "Εργαλεία",
+   "aliases": "toolbox;gereedschapskist;boîte à outils;εργαλειοθήκη"
+  },
+  {
+   "slug": "home-extension-lead",
+   "kind": "home",
+   "section": "home-diy",
+   "icon": "plug",
+   "en": "Extension lead",
+   "nl": "Verlengkabel",
+   "fr": "Rallonge",
+   "el": "Πολύπριζο",
+   "aliases": "extension cord;power strip;stekkerdoos;multiprise;μπαλαντέζα;προέκταση"
+  },
+  {
+   "slug": "home-glue",
+   "kind": "home",
+   "section": "home-diy",
+   "icon": "droplet",
+   "en": "Glue",
+   "nl": "Lijm",
+   "fr": "Colle",
+   "el": "Κόλλα",
+   "aliases": "silicone;siliconen;σιλικόνη"
+  },
+  {
+   "slug": "home-wallpaper",
+   "kind": "home",
+   "section": "home-diy",
+   "icon": "wallpaper",
+   "en": "Wallpaper",
+   "nl": "Behang",
+   "fr": "Papier peint",
+   "el": "Ταπετσαρία",
+   "aliases": "ταπετσαρίες"
+  },
+  {
+   "slug": "home-batteries-home",
+   "kind": "home",
+   "section": "home-diy",
+   "icon": "battery-full",
+   "en": "Batteries",
+   "nl": "Batterijen",
+   "fr": "Piles",
+   "el": "Μπαταρίες",
+   "aliases": "battery;batterij;pile;μπαταρία"
+  },
+  {
+   "slug": "camp-tent",
+   "kind": "camping",
+   "section": "camp-sleep",
+   "icon": "tent",
+   "en": "Tent",
+   "nl": "Tent",
+   "fr": "Tente",
+   "el": "Σκηνή",
+   "aliases": "tents;tenten;tentes;σκηνές"
+  },
+  {
+   "slug": "camp-sleeping-bag",
+   "kind": "camping",
+   "section": "camp-sleep",
+   "icon": "bed-single",
+   "en": "Sleeping bag",
+   "nl": "Slaapzak",
+   "fr": "Sac de couchage",
+   "el": "Υπνόσακος",
+   "aliases": "sleeping bags;slaapzakken;duvet;υπνόσακοι;σλίπινγκ μπαγκ"
+  },
+  {
+   "slug": "camp-sleeping-mat",
+   "kind": "camping",
+   "section": "camp-sleep",
+   "icon": "bed-single",
+   "en": "Sleeping mat",
+   "nl": "Slaapmat",
+   "fr": "Matelas de sol",
+   "el": "Υπόστρωμα",
+   "aliases": "air mattress;camping mat;luchtmatras;matelas gonflable;φουσκωτό στρώμα;στρωματάκι"
+  },
+  {
+   "slug": "camp-camping-pillow",
+   "kind": "camping",
+   "section": "camp-sleep",
+   "icon": "bed",
+   "en": "Camping pillow",
+   "nl": "Kussen",
+   "fr": "Oreiller de camping",
+   "el": "Μαξιλάρι",
+   "aliases": "pillow;oreiller"
+  },
+  {
+   "slug": "camp-tarp",
+   "kind": "camping",
+   "section": "camp-sleep",
+   "icon": "tent-tree",
+   "en": "Tarp",
+   "nl": "Grondzeil",
+   "fr": "Bâche",
+   "el": "Μουσαμάς",
+   "aliases": "groundsheet;zeil;tapis de sol"
+  },
+  {
+   "slug": "camp-tent-pegs",
+   "kind": "camping",
+   "section": "camp-sleep",
+   "icon": "hammer",
+   "en": "Tent pegs & mallet",
+   "nl": "Haringen & hamer",
+   "fr": "Sardines & maillet",
+   "el": "Πασσαλάκια & σφυρί",
+   "aliases": "pegs;haringen;sardines;mallet;hamer;πασσαλάκια;σφυρί"
+  },
+  {
+   "slug": "camp-camping-chair",
+   "kind": "camping",
+   "section": "camp-sleep",
+   "icon": "armchair",
+   "en": "Camping chairs",
+   "nl": "Campingstoelen",
+   "fr": "Chaises de camping",
+   "el": "Καρέκλες κάμπινγκ",
+   "aliases": "camping chair;campingstoel;chaise pliante;καρέκλα παραλίας"
+  },
+  {
+   "slug": "camp-camping-table",
+   "kind": "camping",
+   "section": "camp-sleep",
+   "icon": "dining-table",
+   "en": "Camping table",
+   "nl": "Campingtafel",
+   "fr": "Table de camping",
+   "el": "Τραπέζι κάμπινγκ",
+   "aliases": "folding table;plooitafel;πτυσσόμενο τραπέζι"
+  },
+  {
+   "slug": "camp-stove",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "flame",
+   "en": "Camping stove",
+   "nl": "Kookvuur",
+   "fr": "Réchaud",
+   "el": "Γκαζάκι",
+   "aliases": "stove;gasbrander;réchaud à gaz;γκαζιέρα"
+  },
+  {
+   "slug": "camp-gas",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "fuel",
+   "en": "Gas canister",
+   "nl": "Gasbusje",
+   "fr": "Cartouche de gaz",
+   "el": "Φιάλη γκαζιού",
+   "aliases": "gas;gasfles;γκάζι;φιαλίδιο"
+  },
+  {
+   "slug": "camp-cooking-pot",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "cooking-pot",
+   "en": "Pot & pan",
+   "nl": "Kookpot & pan",
+   "fr": "Casserole & poêle",
+   "el": "Κατσαρόλα & τηγάνι",
+   "aliases": "pot;pan;kookpot;casserole;κατσαρόλα;τηγάνι"
+  },
+  {
+   "slug": "camp-camp-dishes",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "utensils",
+   "en": "Plates & cutlery",
+   "nl": "Borden & bestek",
+   "fr": "Assiettes & couverts",
+   "el": "Πιάτα & μαχαιροπίρουνα",
+   "aliases": "plates;cutlery;borden;bestek;assiettes;couverts;πιάτα;μαχαιροπίρουνα"
+  },
+  {
+   "slug": "camp-cool-box",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "snowflake",
+   "en": "Cool box",
+   "nl": "Koelbox",
+   "fr": "Glacière",
+   "el": "Ψυγειάκι",
+   "aliases": "cooler;koeltas;φορητό ψυγείο"
+  },
+  {
+   "slug": "camp-ice-packs",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "snowflake",
+   "en": "Ice packs",
+   "nl": "Koelelementen",
+   "fr": "Pains de glace",
+   "el": "Παγοκύστες",
+   "aliases": "koelelement;παγοκύστη"
+  },
+  {
+   "slug": "camp-water-container",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "droplet",
+   "en": "Water container",
+   "nl": "Jerrycan",
+   "fr": "Jerrican",
+   "el": "Δοχείο νερού",
+   "aliases": "jerrycan;bidon;μπιτόνι"
+  },
+  {
+   "slug": "camp-lighter",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "flame",
+   "en": "Lighter & matches",
+   "nl": "Aansteker & lucifers",
+   "fr": "Briquet & allumettes",
+   "el": "Αναπτήρας & σπίρτα",
+   "aliases": "lighter;matches;aansteker;lucifers;briquet;allumettes;αναπτήρας;σπίρτα"
+  },
+  {
+   "slug": "camp-firewood",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "flame-kindling",
+   "en": "Firewood",
+   "nl": "Brandhout",
+   "fr": "Bois",
+   "el": "Καυσόξυλα",
+   "aliases": "wood;hout;bois de chauffage;ξύλα"
+  },
+  {
+   "slug": "camp-barbecue",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "flame",
+   "en": "Barbecue",
+   "nl": "Barbecue",
+   "fr": "Barbecue",
+   "el": "Ψησταριά",
+   "aliases": "bbq;grill;charcoal;houtskool;charbon;κάρβουνα"
+  },
+  {
+   "slug": "camp-bin-bags-camp",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "trash",
+   "en": "Bin bags",
+   "nl": "Vuilniszakken",
+   "fr": "Sacs poubelle",
+   "el": "Σακούλες σκουπιδιών",
+   "aliases": "vuilzakken;σακούλες"
+  },
+  {
+   "slug": "camp-washing-up-camp",
+   "kind": "camping",
+   "section": "camp-kitchen",
+   "icon": "spray-can",
+   "en": "Washing-up kit",
+   "nl": "Afwasgerief",
+   "fr": "Vaisselle",
+   "el": "Υγρό πιάτων & σφουγγάρι",
+   "aliases": "dish soap;sponge;afwasmiddel;spons;liquide vaisselle;éponge"
+  },
+  {
+   "slug": "camp-torch",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "flashlight",
+   "en": "Torch",
+   "nl": "Zaklamp",
+   "fr": "Lampe de poche",
+   "el": "Φακός",
+   "aliases": "flashlight;torches;zaklampen;φακοί"
+  },
+  {
+   "slug": "camp-head-torch",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "flashlight",
+   "en": "Head torch",
+   "nl": "Hoofdlamp",
+   "fr": "Lampe frontale",
+   "el": "Φακός κεφαλής",
+   "aliases": "headlamp;frontale"
+  },
+  {
+   "slug": "camp-lantern",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "lamp",
+   "en": "Lantern",
+   "nl": "Lantaarn",
+   "fr": "Lanterne",
+   "el": "Φανάρι",
+   "aliases": "camping lamp;campinglamp;λάμπα κάμπινγκ"
+  },
+  {
+   "slug": "camp-batteries-camp",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "battery-full",
+   "en": "Batteries",
+   "nl": "Batterijen",
+   "fr": "Piles",
+   "el": "Μπαταρίες",
+   "aliases": "battery;batterij;pile;μπαταρία"
+  },
+  {
+   "slug": "camp-power-bank-camp",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "battery-charging",
+   "en": "Power bank",
+   "nl": "Powerbank",
+   "fr": "Batterie externe",
+   "el": "Power bank",
+   "aliases": "powerbank;φορητός φορτιστής"
+  },
+  {
+   "slug": "camp-pocket-knife",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "pocket-knife",
+   "en": "Pocket knife",
+   "nl": "Zakmes",
+   "fr": "Couteau suisse",
+   "el": "Σουγιάς",
+   "aliases": "knife;multitool;zakmes;canif;σουγιά"
+  },
+  {
+   "slug": "camp-rope",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "lasso",
+   "en": "Rope",
+   "nl": "Touw",
+   "fr": "Corde",
+   "el": "Σχοινί",
+   "aliases": "washing line;drooglijn;corde à linge;σκοινί"
+  },
+  {
+   "slug": "camp-duct-tape",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "toolbox",
+   "en": "Duct tape",
+   "nl": "Ducttape",
+   "fr": "Ruban adhésif",
+   "el": "Ταινία",
+   "aliases": "tape;plakband;scotch;σελοτέιπ"
+  },
+  {
+   "slug": "camp-map",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "map",
+   "en": "Map",
+   "nl": "Kaart",
+   "fr": "Carte",
+   "el": "Χάρτης",
+   "aliases": "maps;wandelkaart;carte routière;χάρτες"
+  },
+  {
+   "slug": "camp-compass",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "compass",
+   "en": "Compass",
+   "nl": "Kompas",
+   "fr": "Boussole",
+   "el": "Πυξίδα"
+  },
+  {
+   "slug": "camp-binoculars",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "binoculars",
+   "en": "Binoculars",
+   "nl": "Verrekijker",
+   "fr": "Jumelles",
+   "el": "Κιάλια"
+  },
+  {
+   "slug": "camp-backpack",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "backpack",
+   "en": "Backpack",
+   "nl": "Rugzak",
+   "fr": "Sac à dos",
+   "el": "Σακίδιο",
+   "aliases": "rucksack;rugzakken;σακίδια"
+  },
+  {
+   "slug": "camp-hiking-poles",
+   "kind": "camping",
+   "section": "camp-gear",
+   "icon": "hiking-stick",
+   "en": "Hiking poles",
+   "nl": "Wandelstokken",
+   "fr": "Bâtons de marche",
+   "el": "Μπατόν πεζοπορίας",
+   "aliases": "walking poles;trekking poles;μπατόν"
+  },
+  {
+   "slug": "camp-rain-jacket",
+   "kind": "camping",
+   "section": "camp-clothes",
+   "icon": "umbrella",
+   "en": "Rain jacket",
+   "nl": "Regenjas",
+   "fr": "Veste de pluie",
+   "el": "Αδιάβροχο",
+   "aliases": "raincoat;poncho;regenponcho;k-way;αδιάβροχο μπουφάν"
+  },
+  {
+   "slug": "camp-sweater",
+   "kind": "camping",
+   "section": "camp-clothes",
+   "icon": "shirt",
+   "en": "Warm sweater",
+   "nl": "Warme trui",
+   "fr": "Pull chaud",
+   "el": "Ζεστή ζακέτα",
+   "aliases": "fleece;trui;pull;polaire;ζακέτα;πουλόβερ"
+  },
+  {
+   "slug": "camp-hiking-boots",
+   "kind": "camping",
+   "section": "camp-clothes",
+   "icon": "footprints",
+   "en": "Hiking boots",
+   "nl": "Wandelschoenen",
+   "fr": "Chaussures de marche",
+   "el": "Ορειβατικά παπούτσια",
+   "aliases": "boots;bergschoenen;μποτάκια"
+  },
+  {
+   "slug": "camp-warm-socks",
+   "kind": "camping",
+   "section": "camp-clothes",
+   "icon": "footprints",
+   "en": "Warm socks",
+   "nl": "Warme sokken",
+   "fr": "Chaussettes chaudes",
+   "el": "Ζεστές κάλτσες",
+   "aliases": "socks;sokken;chaussettes;κάλτσες"
+  },
+  {
+   "slug": "camp-hat-camp",
+   "kind": "camping",
+   "section": "camp-clothes",
+   "icon": "hat",
+   "en": "Hat",
+   "nl": "Hoed",
+   "fr": "Chapeau",
+   "el": "Καπέλο",
+   "aliases": "cap;beanie;pet;muts;casquette;bonnet;σκουφί"
+  },
+  {
+   "slug": "camp-gloves-camp",
+   "kind": "camping",
+   "section": "camp-clothes",
+   "icon": "hand",
+   "en": "Gloves",
+   "nl": "Handschoenen",
+   "fr": "Gants",
+   "el": "Γάντια",
+   "aliases": "glove;handschoen;gant;γάντι"
+  },
+  {
+   "slug": "camp-toilet-paper-camp",
+   "kind": "camping",
+   "section": "camp-hygiene",
+   "icon": "toilet",
+   "en": "Toilet paper",
+   "nl": "Wc-papier",
+   "fr": "Papier toilette",
+   "el": "Χαρτί υγείας",
+   "aliases": "toiletpapier;pq"
+  },
+  {
+   "slug": "camp-toothbrush-camp",
+   "kind": "camping",
+   "section": "camp-hygiene",
+   "icon": "toothbrush",
+   "en": "Toothbrush & paste",
+   "nl": "Tandenborstel & tandpasta",
+   "fr": "Brosse à dents & dentifrice",
+   "el": "Οδοντόβουρτσα & οδοντόκρεμα",
+   "aliases": "toothbrush;toothpaste;tandenborstel;tandpasta;brosse à dents;dentifrice;οδοντόβουρτσα;οδοντόκρεμα"
+  },
+  {
+   "slug": "camp-soap-camp",
+   "kind": "camping",
+   "section": "camp-hygiene",
+   "icon": "soap-dispenser-droplet",
+   "en": "Soap",
+   "nl": "Zeep",
+   "fr": "Savon",
+   "el": "Σαπούνι",
+   "aliases": "shower gel;douchegel;gel douche;αφρόλουτρο"
+  },
+  {
+   "slug": "camp-quick-towel",
+   "kind": "camping",
+   "section": "camp-hygiene",
+   "icon": "towel-rack",
+   "en": "Towel",
+   "nl": "Handdoek",
+   "fr": "Serviette",
+   "el": "Πετσέτα",
+   "aliases": "towels;handdoeken;serviettes;πετσέτες"
+  },
+  {
+   "slug": "camp-wet-wipes",
+   "kind": "camping",
+   "section": "camp-hygiene",
+   "icon": "droplets",
+   "en": "Wet wipes",
+   "nl": "Vochtige doekjes",
+   "fr": "Lingettes",
+   "el": "Υγρά μαντηλάκια",
+   "aliases": "wipes;doekjes;μωρομάντηλα"
+  },
+  {
+   "slug": "camp-sun-cream-camp",
+   "kind": "camping",
+   "section": "camp-hygiene",
+   "icon": "sun",
+   "en": "Sun cream",
+   "nl": "Zonnecrème",
+   "fr": "Crème solaire",
+   "el": "Αντηλιακό",
+   "aliases": "sunscreen;zonnebrand;αντηλιακή κρέμα"
+  },
+  {
+   "slug": "camp-insect-repellent",
+   "kind": "camping",
+   "section": "camp-hygiene",
+   "icon": "bug",
+   "en": "Insect repellent",
+   "nl": "Muggenspray",
+   "fr": "Anti-moustique",
+   "el": "Εντομοαπωθητικό",
+   "aliases": "mosquito spray;deet;muggenmelk;répulsif;κουνουπάκι"
+  },
+  {
+   "slug": "camp-first-aid-kit",
+   "kind": "camping",
+   "section": "camp-firstaid",
+   "icon": "briefcase-medical",
+   "en": "First aid kit",
+   "nl": "EHBO-kit",
+   "fr": "Trousse de secours",
+   "el": "Φαρμακείο",
+   "aliases": "first aid;ehbo;verbandkist;κουτί πρώτων βοηθειών"
+  },
+  {
+   "slug": "camp-plasters-camp",
+   "kind": "camping",
+   "section": "camp-firstaid",
+   "icon": "bandage",
+   "en": "Plasters",
+   "nl": "Pleisters",
+   "fr": "Pansements",
+   "el": "Τσιρότα",
+   "aliases": "band-aids;pleister;pansement;τσιρότο"
+  },
+  {
+   "slug": "camp-painkillers-camp",
+   "kind": "camping",
+   "section": "camp-firstaid",
+   "icon": "pill",
+   "en": "Painkillers",
+   "nl": "Pijnstillers",
+   "fr": "Antidouleurs",
+   "el": "Παυσίπονα",
+   "aliases": "paracetamol;ibuprofen;dafalgan;doliprane;depon"
+  },
+  {
+   "slug": "camp-tick-remover",
+   "kind": "camping",
+   "section": "camp-firstaid",
+   "icon": "bug",
+   "en": "Tick remover",
+   "nl": "Tekentang",
+   "fr": "Tire-tique",
+   "el": "Τσιμπίδα για τσιμπούρια",
+   "aliases": "tekenkaart"
+  },
+  {
+   "slug": "camp-whistle",
+   "kind": "camping",
+   "section": "camp-firstaid",
+   "icon": "whistle",
+   "en": "Whistle",
+   "nl": "Fluitje",
+   "fr": "Sifflet",
+   "el": "Σφυρίχτρα"
+  },
+  {
+   "slug": "camp-drinking-water",
+   "kind": "camping",
+   "section": "camp-food",
+   "icon": "glass-water",
+   "en": "Drinking water",
+   "nl": "Drinkwater",
+   "fr": "Eau potable",
+   "el": "Νερό",
+   "aliases": "water;eau;νερά"
+  },
+  {
+   "slug": "camp-water-bottle-camp",
+   "kind": "camping",
+   "section": "camp-food",
+   "icon": "glass-water",
+   "en": "Water bottle",
+   "nl": "Drinkfles",
+   "fr": "Gourde",
+   "el": "Παγούρι",
+   "aliases": "bottle;drinkbus;bouteille;μπουκάλι"
+  },
+  {
+   "slug": "camp-snacks-camp",
+   "kind": "camping",
+   "section": "camp-food",
+   "icon": "cookie",
+   "en": "Snacks",
+   "nl": "Snacks",
+   "fr": "En-cas",
+   "el": "Σνακ",
+   "aliases": "cereal bars;nuts;mueslirepen;noten;barres;ξηροί καρποί"
+  },
+  {
+   "slug": "camp-coffee-camp",
+   "kind": "camping",
+   "section": "camp-food",
+   "icon": "coffee",
+   "en": "Coffee & tea",
+   "nl": "Koffie & thee",
+   "fr": "Café & thé",
+   "el": "Καφές & τσάι",
+   "aliases": "coffee;tea;koffie;thee;café;thé;καφές;τσάι"
+  },
+  {
+   "slug": "camp-tins-camp",
+   "kind": "camping",
+   "section": "camp-food",
+   "icon": "can",
+   "en": "Tinned food",
+   "nl": "Conserven",
+   "fr": "Conserves",
+   "el": "Κονσέρβες",
+   "aliases": "tins;cans;blikken;boîtes;κονσέρβα"
+  },
+  {
+   "slug": "camp-pasta-camp",
+   "kind": "camping",
+   "section": "camp-food",
+   "icon": "wheat",
+   "en": "Pasta & rice",
+   "nl": "Pasta & rijst",
+   "fr": "Pâtes & riz",
+   "el": "Ζυμαρικά & ρύζι",
+   "aliases": "pasta;rice;rijst;pâtes;riz;μακαρόνια;ρύζι"
+  },
+  {
+   "slug": "camp-bread-camp",
+   "kind": "camping",
+   "section": "camp-food",
+   "icon": "sandwich",
+   "en": "Bread",
+   "nl": "Brood",
+   "fr": "Pain",
+   "el": "Ψωμί",
+   "aliases": "sandwiches;broodjes"
+  },
+  {
+   "slug": "camp-marshmallows",
+   "kind": "camping",
+   "section": "camp-food",
+   "icon": "candy",
+   "en": "Marshmallows",
+   "nl": "Marshmallows",
+   "fr": "Chamallows",
+   "el": "Ζαχαρωτά",
+   "aliases": "spekjes;guimauves"
+  },
+  {
+   "slug": "trip-passport",
+   "kind": "trip",
+   "section": "trip-docs",
+   "icon": "id-card",
+   "en": "Passport",
+   "nl": "Paspoort",
+   "fr": "Passeport",
+   "el": "Διαβατήριο",
+   "aliases": "passports;paspoorten;διαβατήρια"
+  },
+  {
+   "slug": "trip-id-card",
+   "kind": "trip",
+   "section": "trip-docs",
+   "icon": "id-card",
+   "en": "ID card",
+   "nl": "Identiteitskaart",
+   "fr": "Carte d’identité",
+   "el": "Ταυτότητα",
+   "aliases": "id;identity card;eid;carte d identité;αστυνομική ταυτότητα"
+  },
+  {
+   "slug": "trip-tickets",
+   "kind": "trip",
+   "section": "trip-docs",
+   "icon": "tickets-plane",
+   "en": "Tickets",
+   "nl": "Tickets",
+   "fr": "Billets",
+   "el": "Εισιτήρια",
+   "aliases": "ticket;boarding pass;plane tickets;billet;εισιτήριο"
+  },
+  {
+   "slug": "trip-driving-licence",
+   "kind": "trip",
+   "section": "trip-docs",
+   "icon": "car",
+   "en": "Driving licence",
+   "nl": "Rijbewijs",
+   "fr": "Permis de conduire",
+   "el": "Δίπλωμα οδήγησης",
+   "aliases": "driver s license;δίπλωμα"
+  },
+  {
+   "slug": "trip-wallet",
+   "kind": "trip",
+   "section": "trip-docs",
+   "icon": "wallet",
+   "en": "Wallet & cash",
+   "nl": "Portefeuille & cash",
+   "fr": "Portefeuille & espèces",
+   "el": "Πορτοφόλι & μετρητά",
+   "aliases": "wallet;cash;money;geld;portemonnee;argent;πορτοφόλι;λεφτά;χρήματα"
+  },
+  {
+   "slug": "trip-bank-card",
+   "kind": "trip",
+   "section": "trip-docs",
+   "icon": "credit-card",
+   "en": "Bank card",
+   "nl": "Bankkaart",
+   "fr": "Carte bancaire",
+   "el": "Κάρτα",
+   "aliases": "credit card;kredietkaart;carte de crédit;πιστωτική"
+  },
+  {
+   "slug": "trip-travel-insurance",
+   "kind": "trip",
+   "section": "trip-docs",
+   "icon": "shield",
+   "en": "Travel insurance",
+   "nl": "Reisverzekering",
+   "fr": "Assurance voyage",
+   "el": "Ταξιδιωτική ασφάλεια",
+   "aliases": "insurance;verzekering;assurance;ασφάλεια"
+  },
+  {
+   "slug": "trip-keys",
+   "kind": "trip",
+   "section": "trip-docs",
+   "icon": "key",
+   "en": "Keys",
+   "nl": "Sleutels",
+   "fr": "Clés",
+   "el": "Κλειδιά",
+   "aliases": "key;sleutel;clé;κλειδί"
+  },
+  {
+   "slug": "trip-booking",
+   "kind": "trip",
+   "section": "trip-docs",
+   "icon": "hotel",
+   "en": "Booking",
+   "nl": "Reservatie",
+   "fr": "Réservation",
+   "el": "Κράτηση",
+   "aliases": "hotel;reservation;hotelreservatie;κράτηση ξενοδοχείου"
+  },
+  {
+   "slug": "trip-t-shirts",
+   "kind": "trip",
+   "section": "trip-clothes",
+   "icon": "shirt",
+   "en": "T-shirts",
+   "nl": "T-shirts",
+   "fr": "T-shirts",
+   "el": "Μπλουζάκια",
+   "aliases": "t shirt;tshirt;shirts;tops;μπλούζες;μπλούζα"
+  },
+  {
+   "slug": "trip-trousers",
+   "kind": "trip",
+   "section": "trip-clothes",
+   "icon": "trousers",
+   "en": "Trousers",
+   "nl": "Broeken",
+   "fr": "Pantalons",
+   "el": "Παντελόνια",
+   "aliases": "pants;jeans;broek;pantalon;παντελόνι;τζιν"
+  },
+  {
+   "slug": "trip-shorts",
+   "kind": "trip",
+   "section": "trip-clothes",
+   "icon": "trousers",
+   "en": "Shorts",
+   "nl": "Korte broeken",
+   "fr": "Shorts",
+   "el": "Σορτς",
+   "aliases": "korte broek;σορτσάκι;βερμούδα"
+  },
+  {
+   "slug": "trip-underwear",
+   "kind": "trip",
+   "section": "trip-clothes",
+   "icon": "shirt",
+   "en": "Underwear",
+   "nl": "Ondergoed",
+   "fr": "Sous-vêtements",
+   "el": "Εσώρουχα",
+   "aliases": "boxers;slips;onderbroeken;culottes;εσώρουχο"
+  },
+  {
+   "slug": "trip-socks-trip",
+   "kind": "trip",
+   "section": "trip-clothes",
+   "icon": "footprints",
+   "en": "Socks",
+   "nl": "Sokken",
+   "fr": "Chaussettes",
+   "el": "Κάλτσες",
+   "aliases": "sock;sok;chaussette;κάλτσα"
+  },
+  {
+   "slug": "trip-pyjamas",
+   "kind": "trip",
+   "section": "trip-clothes",
+   "icon": "moon",
+   "en": "Pyjamas",
+   "nl": "Pyjama",
+   "fr": "Pyjama",
+   "el": "Πιτζάμες",
+   "aliases": "pajamas;πιζάμες"
+  },
+  {
+   "slug": "trip-jacket",
+   "kind": "trip",
+   "section": "trip-clothes",
+   "icon": "shirt",
+   "en": "Jacket",
+   "nl": "Jas",
+   "fr": "Veste",
+   "el": "Μπουφάν",
+   "aliases": "coat;vest;manteau;παλτό;ζακέτα"
+  },
+  {
+   "slug": "trip-sweater-trip",
+   "kind": "trip",
+   "section": "trip-clothes",
+   "icon": "shirt",
+   "en": "Sweater",
+   "nl": "Trui",
+   "fr": "Pull",
+   "el": "Πουλόβερ",
+   "aliases": "jumper;hoodie;pull-over;φούτερ"
+  },
+  {
+   "slug": "trip-shoes",
+   "kind": "trip",
+   "section": "trip-clothes",
+   "icon": "sport-shoe",
+   "en": "Shoes",
+   "nl": "Schoenen",
+   "fr": "Chaussures",
+   "el": "Παπούτσια",
+   "aliases": "sneakers;trainers;sportschoenen;baskets;αθλητικά"
+  },
+  {
+   "slug": "trip-hat-trip",
+   "kind": "trip",
+   "section": "trip-clothes",
+   "icon": "hat",
+   "en": "Hat",
+   "nl": "Pet",
+   "fr": "Chapeau",
+   "el": "Καπέλο",
+   "aliases": "cap;hoed;casquette;καπελάκι"
+  },
+  {
+   "slug": "trip-toothbrush-trip",
+   "kind": "trip",
+   "section": "trip-toiletries",
+   "icon": "toothbrush",
+   "en": "Toothbrush & paste",
+   "nl": "Tandenborstel & tandpasta",
+   "fr": "Brosse à dents & dentifrice",
+   "el": "Οδοντόβουρτσα & οδοντόκρεμα",
+   "aliases": "toothbrush;toothpaste;tandenborstel;tandpasta;brosse à dents;dentifrice;οδοντόβουρτσα;οδοντόκρεμα"
+  },
+  {
+   "slug": "trip-shampoo-trip",
+   "kind": "trip",
+   "section": "trip-toiletries",
+   "icon": "tube-lotion",
+   "en": "Shampoo & shower gel",
+   "nl": "Shampoo & douchegel",
+   "fr": "Shampoing & gel douche",
+   "el": "Σαμπουάν & αφρόλουτρο",
+   "aliases": "shampoo;shower gel;douchegel;shampoing;σαμπουάν;αφρόλουτρο"
+  },
+  {
+   "slug": "trip-deodorant-trip",
+   "kind": "trip",
+   "section": "trip-toiletries",
+   "icon": "spray-can",
+   "en": "Deodorant",
+   "nl": "Deodorant",
+   "fr": "Déodorant",
+   "el": "Αποσμητικό",
+   "aliases": "deo"
+  },
+  {
+   "slug": "trip-razor-trip",
+   "kind": "trip",
+   "section": "trip-toiletries",
+   "icon": "scissors",
+   "en": "Razor",
+   "nl": "Scheermes",
+   "fr": "Rasoir",
+   "el": "Ξυριστική μηχανή",
+   "aliases": "shaver;scheerapparaat;ξυραφάκι"
+  },
+  {
+   "slug": "trip-hairbrush",
+   "kind": "trip",
+   "section": "trip-toiletries",
+   "icon": "brush",
+   "en": "Hairbrush",
+   "nl": "Haarborstel",
+   "fr": "Brosse à cheveux",
+   "el": "Βούρτσα μαλλιών",
+   "aliases": "comb;kam;peigne;χτένα;βούρτσα"
+  },
+  {
+   "slug": "trip-make-up",
+   "kind": "trip",
+   "section": "trip-toiletries",
+   "icon": "palette",
+   "en": "Make-up",
+   "nl": "Make-up",
+   "fr": "Maquillage",
+   "el": "Μακιγιάζ",
+   "aliases": "makeup;cosmetics;καλλυντικά"
+  },
+  {
+   "slug": "trip-contact-lenses",
+   "kind": "trip",
+   "section": "trip-toiletries",
+   "icon": "eye",
+   "en": "Contact lenses",
+   "nl": "Lenzen",
+   "fr": "Lentilles",
+   "el": "Φακοί επαφής",
+   "aliases": "lenses;contactlenzen;υγρό φακών"
+  },
+  {
+   "slug": "trip-toiletry-bag",
+   "kind": "trip",
+   "section": "trip-toiletries",
+   "icon": "handbag",
+   "en": "Toiletry bag",
+   "nl": "Toilettas",
+   "fr": "Trousse de toilette",
+   "el": "Νεσεσέρ",
+   "aliases": "wash bag;toilettas"
+  },
+  {
+   "slug": "trip-medicines",
+   "kind": "trip",
+   "section": "trip-health",
+   "icon": "pill-bottle",
+   "en": "Medicines",
+   "nl": "Medicijnen",
+   "fr": "Médicaments",
+   "el": "Φάρμακα",
+   "aliases": "medicine;medication;pills;medicatie;μεδικαμέντα"
+  },
+  {
+   "slug": "trip-painkillers-trip",
+   "kind": "trip",
+   "section": "trip-health",
+   "icon": "pill",
+   "en": "Painkillers",
+   "nl": "Pijnstillers",
+   "fr": "Antidouleurs",
+   "el": "Παυσίπονα",
+   "aliases": "paracetamol;ibuprofen;dafalgan;doliprane;depon"
+  },
+  {
+   "slug": "trip-plasters-trip",
+   "kind": "trip",
+   "section": "trip-health",
+   "icon": "bandage",
+   "en": "Plasters",
+   "nl": "Pleisters",
+   "fr": "Pansements",
+   "el": "Τσιρότα",
+   "aliases": "band-aids;pleister;pansement;τσιρότο"
+  },
+  {
+   "slug": "trip-travel-sickness",
+   "kind": "trip",
+   "section": "trip-health",
+   "icon": "tablets",
+   "en": "Travel sickness tablets",
+   "nl": "Reisziektepillen",
+   "fr": "Médicament mal des transports",
+   "el": "Χάπια για τη ναυτία",
+   "aliases": "motion sickness;reisziekte;ναυτία"
+  },
+  {
+   "slug": "trip-insect-repellent-trip",
+   "kind": "trip",
+   "section": "trip-health",
+   "icon": "bug",
+   "en": "Insect repellent",
+   "nl": "Muggenspray",
+   "fr": "Anti-moustique",
+   "el": "Εντομοαπωθητικό",
+   "aliases": "mosquito spray;deet;muggenmelk;répulsif;κουνουπάκι"
+  },
+  {
+   "slug": "trip-phone-charger",
+   "kind": "trip",
+   "section": "trip-tech",
+   "icon": "smartphone-charging",
+   "en": "Phone charger",
+   "nl": "Gsm-lader",
+   "fr": "Chargeur de téléphone",
+   "el": "Φορτιστής κινητού",
+   "aliases": "charger;cable;lader;oplader;chargeur;φορτιστής;καλώδιο"
+  },
+  {
+   "slug": "trip-power-bank",
+   "kind": "trip",
+   "section": "trip-tech",
+   "icon": "battery-charging",
+   "en": "Power bank",
+   "nl": "Powerbank",
+   "fr": "Batterie externe",
+   "el": "Power bank",
+   "aliases": "powerbank;φορητός φορτιστής"
+  },
+  {
+   "slug": "trip-travel-adapter",
+   "kind": "trip",
+   "section": "trip-tech",
+   "icon": "plug",
+   "en": "Travel adapter",
+   "nl": "Wereldstekker",
+   "fr": "Adaptateur de voyage",
+   "el": "Αντάπτορας πρίζας",
+   "aliases": "adapter;plug adapter;reisstekker;adaptateur;αντάπτορας"
+  },
+  {
+   "slug": "trip-headphones",
+   "kind": "trip",
+   "section": "trip-tech",
+   "icon": "headphones",
+   "en": "Headphones",
+   "nl": "Koptelefoon",
+   "fr": "Écouteurs",
+   "el": "Ακουστικά",
+   "aliases": "earphones;earbuds;oortjes;casque;ακουστικά"
+  },
+  {
+   "slug": "trip-camera",
+   "kind": "trip",
+   "section": "trip-tech",
+   "icon": "camera",
+   "en": "Camera",
+   "nl": "Fototoestel",
+   "fr": "Appareil photo",
+   "el": "Φωτογραφική μηχανή",
+   "aliases": "camera;κάμερα"
+  },
+  {
+   "slug": "trip-laptop",
+   "kind": "trip",
+   "section": "trip-tech",
+   "icon": "laptop",
+   "en": "Laptop",
+   "nl": "Laptop",
+   "fr": "Ordinateur portable",
+   "el": "Λάπτοπ",
+   "aliases": "computer;tablet;ipad;ordi;υπολογιστής"
+  },
+  {
+   "slug": "trip-book",
+   "kind": "trip",
+   "section": "trip-tech",
+   "icon": "book",
+   "en": "Book",
+   "nl": "Boek",
+   "fr": "Livre",
+   "el": "Βιβλίο",
+   "aliases": "books;e-reader;kindle;boeken;livres;βιβλία"
+  },
+  {
+   "slug": "trip-water-bottle",
+   "kind": "trip",
+   "section": "trip-food",
+   "icon": "glass-water",
+   "en": "Water bottle",
+   "nl": "Drinkfles",
+   "fr": "Gourde",
+   "el": "Παγούρι",
+   "aliases": "bottle;drinkbus;bouteille;μπουκάλι;νερό"
+  },
+  {
+   "slug": "trip-sandwiches",
+   "kind": "trip",
+   "section": "trip-food",
+   "icon": "sandwich",
+   "en": "Sandwiches",
+   "nl": "Boterhammen",
+   "fr": "Sandwichs",
+   "el": "Σάντουιτς",
+   "aliases": "sandwich;broodjes;lunch;κολατσιό"
+  },
+  {
+   "slug": "trip-snacks-trip",
+   "kind": "trip",
+   "section": "trip-food",
+   "icon": "cookie",
+   "en": "Snacks",
+   "nl": "Snacks",
+   "fr": "En-cas",
+   "el": "Σνακ",
+   "aliases": "biscuits;nuts;koekjes;noten;gâteaux;ξηροί καρποί;μπισκότα"
+  },
+  {
+   "slug": "trip-fruit-trip",
+   "kind": "trip",
+   "section": "trip-food",
+   "icon": "apple",
+   "en": "Fruit",
+   "nl": "Fruit",
+   "fr": "Fruits",
+   "el": "Φρούτα",
+   "aliases": "apple;banana;appel;fruit;φρούτο"
+  },
+  {
+   "slug": "trip-chewing-gum",
+   "kind": "trip",
+   "section": "trip-food",
+   "icon": "candy",
+   "en": "Chewing gum",
+   "nl": "Kauwgom",
+   "fr": "Chewing-gum",
+   "el": "Τσίχλες",
+   "aliases": "gum;sweets;snoep;bonbons;τσίχλα;καραμέλες"
+  },
+  {
+   "slug": "trip-thermos",
+   "kind": "trip",
+   "section": "trip-food",
+   "icon": "coffee",
+   "en": "Thermos",
+   "nl": "Thermosfles",
+   "fr": "Thermos",
+   "el": "Θερμός",
+   "aliases": "flask;coffee;koffie;café;καφές"
+  },
+  {
+   "slug": "trip-sun-cream",
+   "kind": "trip",
+   "section": "trip-beach",
+   "icon": "sun",
+   "en": "Sun cream",
+   "nl": "Zonnecrème",
+   "fr": "Crème solaire",
+   "el": "Αντηλιακό",
+   "aliases": "sunscreen;zonnebrand;αντηλιακή κρέμα"
+  },
+  {
+   "slug": "trip-sunglasses",
+   "kind": "trip",
+   "section": "trip-beach",
+   "icon": "glasses",
+   "en": "Sunglasses",
+   "nl": "Zonnebril",
+   "fr": "Lunettes de soleil",
+   "el": "Γυαλιά ηλίου",
+   "aliases": "glasses;bril;lunettes;γυαλιά"
+  },
+  {
+   "slug": "trip-swimwear",
+   "kind": "trip",
+   "section": "trip-beach",
+   "icon": "waves",
+   "en": "Swimwear",
+   "nl": "Zwemkledij",
+   "fr": "Maillot de bain",
+   "el": "Μαγιό",
+   "aliases": "swimsuit;bikini;swim shorts;zwembroek;badpak;μαγιώ"
+  },
+  {
+   "slug": "trip-beach-towel",
+   "kind": "trip",
+   "section": "trip-beach",
+   "icon": "towel-rack",
+   "en": "Beach towel",
+   "nl": "Strandlaken",
+   "fr": "Serviette de plage",
+   "el": "Πετσέτα θαλάσσης",
+   "aliases": "towel;handdoek;πετσέτα παραλίας"
+  },
+  {
+   "slug": "trip-flip-flops",
+   "kind": "trip",
+   "section": "trip-beach",
+   "icon": "footprints",
+   "en": "Flip-flops",
+   "nl": "Slippers",
+   "fr": "Tongs",
+   "el": "Σαγιονάρες",
+   "aliases": "sandals;sandalen;sandales;σανδάλια"
+  },
+  {
+   "slug": "trip-beach-umbrella",
+   "kind": "trip",
+   "section": "trip-beach",
+   "icon": "parasol",
+   "en": "Beach umbrella",
+   "nl": "Parasol",
+   "fr": "Parasol",
+   "el": "Ομπρέλα θαλάσσης",
+   "aliases": "sunshade;ομπρέλα παραλίας"
+  },
+  {
+   "slug": "trip-umbrella",
+   "kind": "trip",
+   "section": "trip-beach",
+   "icon": "umbrella",
+   "en": "Umbrella",
+   "nl": "Paraplu",
+   "fr": "Parapluie",
+   "el": "Ομπρέλα",
+   "aliases": "rain;regen;pluie"
+  },
+  {
+   "slug": "trip-snorkel",
+   "kind": "trip",
+   "section": "trip-beach",
+   "icon": "waves",
+   "en": "Snorkel & mask",
+   "nl": "Snorkel & duikbril",
+   "fr": "Masque & tuba",
+   "el": "Μάσκα & αναπνευστήρας",
+   "aliases": "snorkel;mask;duikbril;tuba;μάσκα θαλάσσης;βατραχοπέδιλα"
+  },
+  {
+   "slug": "trip-picnic-blanket",
+   "kind": "trip",
+   "section": "trip-beach",
+   "icon": "rug",
+   "en": "Picnic blanket",
+   "nl": "Picknickdeken",
+   "fr": "Couverture de pique-nique",
+   "el": "Κουβέρτα πικνίκ",
+   "aliases": "blanket;deken;plaid;κουβέρτα"
+  },
+  {
+   "slug": "trip-suitcase",
+   "kind": "trip",
+   "section": "trip-bags",
+   "icon": "luggage",
+   "en": "Suitcase",
+   "nl": "Koffer",
+   "fr": "Valise",
+   "el": "Βαλίτσα",
+   "aliases": "luggage;koffers;valises;βαλίτσες"
+  },
+  {
+   "slug": "trip-day-pack",
+   "kind": "trip",
+   "section": "trip-bags",
+   "icon": "backpack",
+   "en": "Backpack",
+   "nl": "Rugzak",
+   "fr": "Sac à dos",
+   "el": "Σακίδιο",
+   "aliases": "rucksack;rugzakken;σακίδια;τσάντα πλάτης"
+  },
+  {
+   "slug": "trip-travel-pillow",
+   "kind": "trip",
+   "section": "trip-bags",
+   "icon": "bed",
+   "en": "Travel pillow",
+   "nl": "Nekkussen",
+   "fr": "Coussin de voyage",
+   "el": "Μαξιλάρι ταξιδιού",
+   "aliases": "neck pillow;μαξιλάρι αυχένα"
+  },
+  {
+   "slug": "trip-padlock",
+   "kind": "trip",
+   "section": "trip-bags",
+   "icon": "lock",
+   "en": "Padlock",
+   "nl": "Hangslot",
+   "fr": "Cadenas",
+   "el": "Λουκέτο",
+   "aliases": "lock;slot;λουκέτα"
+  },
+  {
+   "slug": "trip-tote-bag",
+   "kind": "trip",
+   "section": "trip-bags",
+   "icon": "shopping-bag",
+   "en": "Tote bag",
+   "nl": "Draagtas",
+   "fr": "Tote bag",
+   "el": "Πάνινη τσάντα",
+   "aliases": "bag;tas;sac;τσάντα"
+  },
+  {
+   "slug": "trip-laundry-bag",
+   "kind": "trip",
+   "section": "trip-bags",
+   "icon": "shopping-basket",
+   "en": "Laundry bag",
+   "nl": "Waszak",
+   "fr": "Sac à linge",
+   "el": "Σακούλα για άπλυτα",
+   "aliases": "dirty laundry;vuile was;linge sale"
   }
  ]
 }

@@ -1,4 +1,6 @@
 import type { RecordModel } from 'pocketbase';
+import { icons } from './icons';
+import { GROCERIES, type Kind } from './kinds';
 import { itemKey, type Item } from './list';
 
 export type Lang = 'en' | 'nl' | 'fr' | 'el';
@@ -11,7 +13,11 @@ export const langs: { id: Lang; label: string }[] = [
 
 export interface Section {
   key: string;
-  emoji: string;
+  /** the kind of list it is a section of; empty for Other, which every list has */
+  kind?: Kind;
+  /** a line icon's name (lib/icons.ts) */
+  icon: string;
+  emoji?: string;
   en: string;
   nl: string;
   fr: string;
@@ -20,7 +26,11 @@ export interface Section {
 
 export interface Generic extends RecordModel {
   slug: string;
+  /** the kind of list it is for */
+  kind: Kind;
   section: string;
+  /** a line icon's name; an emoji instead for some kept before there were icons */
+  icon: string;
   emoji: string;
   name_en: string;
   name_nl: string;
@@ -37,25 +47,59 @@ export interface Choice extends RecordModel {
   key: string;
   /** empty when only the icon was picked */
   section: string;
-  /** empty when only the section was picked */
+  /** a line icon's name; empty when only the section was picked */
+  icon: string;
+  /** an emoji picked before there were icons */
   emoji: string;
 }
+
+/** The icon the household picked for a section of a kind of list. */
+export interface SectionIcon extends RecordModel {
+  /** "home:home-textiles" (sectionIconKey) */
+  key: string;
+  icon: string;
+}
+
+export const sectionIconKey = (kind: Kind, section: string) => `${kind}:${section}`;
 
 /**
  * What a choice of section and icon is kept by: the exact product or
  * catalogue item, or else the name as typed, in any case and with or without
- * accents.
+ * accents, on a kind of list: a "lamp" on a furniture list isn't the one on a
+ * grocery list.
  */
-export function choiceKey(item: Pick<Item, 'product' | 'generic' | 'name'>): string {
+export function choiceKey(
+  item: Pick<Item, 'product' | 'generic' | 'name'>,
+  kind: Kind = GROCERIES,
+): string {
   if (item.product) return `product:${item.product}`;
   if (item.generic) return `generic:${item.generic}`;
-  return itemKey(item.name).slice(0, 120);
+  const name = itemKey(item.name);
+  return (kind === GROCERIES ? name : `${kind}:${name}`).slice(0, 120);
 }
 
-/** The icons to pick from: every section's and catalogue item's, once each. */
-export function standardIcons(sections: Section[], generics: Generic[]): string[] {
-  const icons = [...sections, ...generics.filter((g) => !g.custom)].map((x) => x.emoji);
-  return [...new Set(icons.filter(Boolean))];
+/**
+ * The icons to pick from: those of the kind of list's sections and catalogue
+ * items first, then every other one.
+ */
+export function iconChoices(sections: Section[], generics: Generic[], kind: Kind): string[] {
+  const mine = [
+    ...sectionsFor(sections, kind),
+    ...generics.filter((g) => g.kind === kind && !g.custom),
+  ].map((x) => x.icon);
+  return [...new Set([...mine, ...Object.keys(icons)])].filter((i) => i in icons);
+}
+
+/** The sections a kind of list is grouped in, in their order, Other last. */
+export function sectionsFor(sections: Section[], kind: Kind): Section[] {
+  const own = sections.filter((s) => s.kind === kind);
+  const other = sections.find((s) => s.key === OTHER);
+  return other ? [...own, other] : own;
+}
+
+/** The catalogue items for a kind of list; items kept before there were kinds are groceries. */
+export function genericsFor(generics: Generic[], kind: Kind): Generic[] {
+  return generics.filter((g) => (g.kind || GROCERIES) === kind);
 }
 
 export const OTHER = 'other';
