@@ -33,6 +33,7 @@ func Register(app core.App, cfg Config) {
 	registerStaples(app)
 	registerTrips(app)
 	registerSpend(app)
+	registerShares(app)
 
 	app.OnServe().BindFunc(func(se *core.ServeEvent) error {
 		se.Router.GET("/api/app/info", info)
@@ -44,6 +45,7 @@ func Register(app core.App, cfg Config) {
 		registerGenericRoutes(se)
 		registerPinRoutes(se)
 		registerSpendRoutes(se)
+		registerShareRoutes(se)
 		push.RegisterRoutes(se)
 
 		// Serve the web app, falling back to index.html for client-side routes.

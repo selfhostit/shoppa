@@ -5,6 +5,7 @@
   import { status } from '../lib/stores/status.svelte';
   import { household } from '../lib/stores/household.svelte';
   import Glyph from './Glyph.svelte';
+  import ShareList from './ShareList.svelte';
   import Sheet from './Sheet.svelte';
 
   // Switch between the household's lists, start a new one for groceries,
@@ -120,6 +121,7 @@
         )}
         <p class="text-sm text-zinc-500 dark:text-zinc-400">{t('lists.kind.hint')}</p>
       </div>
+      <ShareList list={household.list} />
       {#if household.ordered.length > 1}
         <button class="btn-secondary text-red-600 dark:text-red-400" onclick={remove}
           >{t('lists.delete')}</button
