@@ -11,9 +11,12 @@
   let shares = $state<Share[]>([]);
   let copied = $state('');
 
+  // loaded quietly: the list sheet works without them
   $effect(() => {
     const id = list.id;
-    run(async () => (shares = await sharesOf(id)));
+    sharesOf(id)
+      .then((found) => id === list.id && (shares = found))
+      .catch(() => (shares = []));
   });
 
   async function add(canTick: boolean) {

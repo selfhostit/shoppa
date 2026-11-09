@@ -96,8 +96,11 @@ module in a PR of its own that changes no behavior.
 | Collection | Fields |
 |---|---|
 | `lists` | name, kind (groceries, home, camping, trip), emoji, sort, archived |
-| `items` | list, name, generic, product, quantity, note, checked, checked_at, checked_by, added_by |
-| `purchases` | item, list, generic, product, by, at |
+| `items` | list, name, generic, product, quantity, note, price, checked, checked_at, checked_by, added_by, claimed_by |
+| `purchases` | item, list, generic, product, price, by, at |
+| `staples` | item, every (days), next |
+| `trips` | list, by, store, ended |
+| `shares` | list, token, can_tick, by |
 | `generics` | slug, kind, name_en, name_nl, name_fr, name_el, aliases, section, icon, emoji, off_categories, custom |
 | `pins` | generic, product, uses, last_used |
 | `item_choices` | key (the item's normalized name, prefixed by the list's kind unless groceries, or its generic or product), section, icon, emoji |
@@ -182,6 +185,7 @@ Each step is one PR that leaves the app working.
 - [ ] 2.2 Mealie: add a recipe's ingredients
 - [ ] 2.3 Troye: nutrition on product cards
 - [ ] 2.4 Usual items and suggestions
+- [ ] 2.6 Paste several items, copy a list, staples, "I'm going shopping", claims, prices and spending, guest links
 - [x] 2.5 Kinds of list (furniture & home, camping, trips) with their own sections and items, line icons, picked section icons
 
 ### Decisions

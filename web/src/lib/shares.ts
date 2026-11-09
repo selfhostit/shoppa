@@ -35,9 +35,12 @@ export function sharedToken(path = location.pathname): string {
 }
 
 export function sharesOf(list: string): Promise<Share[]> {
-  return pb
-    .collection<Share>('shares')
-    .getFullList({ filter: pb.filter('list = {:list}', { list }), sort: 'created' });
+  return pb.collection<Share>('shares').getFullList({
+    filter: pb.filter('list = {:list}', { list }),
+    sort: 'created',
+    // a newer list's shares don't cancel the sheet's other requests
+    requestKey: null,
+  });
 }
 
 export function share(list: string, canTick: boolean): Promise<Share> {
