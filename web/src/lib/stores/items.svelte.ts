@@ -165,6 +165,11 @@ class Items {
     });
   }
 
+  /** Puts several typed or pasted items on the open list, in their order. */
+  async addMany(texts: string[]) {
+    for (const text of texts) await this.add(text);
+  }
+
   /** Puts a recently bought item back on the list. */
   async putBack(item: Item) {
     await this.save(item, { checked: false });

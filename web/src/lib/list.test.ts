@@ -4,6 +4,7 @@ import {
   itemKey,
   listsInOrder,
   parseEntry,
+  splitEntries,
   recentlyBought,
   toBuy,
   upsert,
@@ -48,6 +49,30 @@ describe('parseEntry', () => {
     expect(parseEntry('  7up  ')).toEqual({ name: '7up', quantity: '' });
     expect(parseEntry('Brood')).toEqual({ name: 'Brood', quantity: '' });
     expect(parseEntry('Cola 1,5 L')).toEqual({ name: 'Cola 1,5 L', quantity: '' });
+  });
+});
+
+describe('splitEntries', () => {
+  it('splits lines, commas and semicolons', () => {
+    expect(splitEntries('melk, 2 brood; eieren\nkaas')).toEqual([
+      'melk',
+      '2 brood',
+      'eieren',
+      'kaas',
+    ]);
+  });
+  it('drops bullets, numbering, checkboxes and a leading "and"', () => {
+    expect(
+      splitEntries('- melk\n* brood\n• kaas\n1. eieren\n2) boter\n[ ] thee\n[x] koffie'),
+    ).toEqual(['melk', 'brood', 'kaas', 'eieren', 'boter', 'thee', 'koffie']);
+    expect(splitEntries('milk, bread, and eggs')).toEqual(['milk', 'bread', 'eggs']);
+  });
+  it('keeps a decimal comma and a quantity in front', () => {
+    expect(splitEntries('1,5 kg tomaten, 2 melk')).toEqual(['1,5 kg tomaten', '2 melk']);
+  });
+  it('leaves one item alone, and empty lines out', () => {
+    expect(splitEntries('melk')).toEqual(['melk']);
+    expect(splitEntries('\n , melk,\n\n')).toEqual(['melk']);
   });
 });
 

@@ -3,7 +3,7 @@
   import { bySection, sectionLabel, suggest, type Generic, type Section } from '../lib/catalogue';
   import { t, tn } from '../lib/i18n';
   import { GROCERIES, kindIcon } from '../lib/kinds';
-  import { itemKey, parseEntry, recentlyBought, toBuy, type Item } from '../lib/list';
+  import { itemKey, parseEntry, recentlyBought, splitEntries, toBuy, type Item } from '../lib/list';
   import type { Product } from '../lib/products';
   import { productLine, productName } from '../lib/products';
   import { usualFor } from '../lib/pins';
@@ -37,7 +37,10 @@
   // products, barcodes and usual brands are for groceries
   const groceries = $derived(household.kind === GROCERIES);
   const recent = $derived(recentlyBought(items.items));
-  const typed = $derived(parseEntry(text));
+  // "milk, bread, eggs" or a pasted list is several items
+  const entries = $derived(splitEntries(text));
+  const many = $derived(entries.length > 1);
+  const typed = $derived(parseEntry(many ? '' : text));
   const suggestions = $derived(suggest(catalogue.kindGenerics, typed.name, catalogue.lang));
   // what is already on the list doesn't need suggesting
   const onList = $derived(new Set(open.map((i) => i.generic).filter(Boolean)));
@@ -68,7 +71,25 @@
 
   async function add(e: SubmitEvent) {
     e.preventDefault();
-    await addThis();
+    if (many) await addAll(entries);
+    else await addThis();
+  }
+
+  /** A pasted list goes on at once, one item per line; an input would join the lines. */
+  async function paste(e: ClipboardEvent) {
+    const pasted = splitEntries(e.clipboardData?.getData('text') ?? '');
+    if (pasted.length < 2) return;
+    e.preventDefault();
+    await addAll(pasted);
+  }
+
+  async function addAll(all: string[]) {
+    const was = text;
+    text = '';
+    found = [];
+    await items.addMany(all);
+    if (status.error) text = was;
+    input.focus();
   }
 
   async function addThis(generic?: Generic, product?: Product) {
@@ -113,9 +134,10 @@
     <input
       bind:this={input}
       bind:value={text}
+      onpaste={paste}
       placeholder={t('list.add')}
       aria-label={t('list.add')}
-      maxlength="120"
+      maxlength="500"
       enterkeyhint="done"
       autocomplete="off"
       disabled={!household.list}
@@ -153,7 +175,25 @@
     </button>
   </form>
 
-  {#if typed.name}
+  {#if many}
+    <ul
+      class="card absolute inset-x-0 top-full z-10 mt-2 p-0 shadow-lg"
+      aria-label={t('list.suggestions')}
+    >
+      <li>
+        <button
+          class="flex w-full items-center gap-3 px-4 py-3 text-left"
+          onclick={() => addAll(entries)}
+        >
+          <span class="w-7 text-center text-xl text-zinc-400" aria-hidden="true">+</span>
+          <span class="min-w-0 flex-1">
+            <span class="font-medium">{tn('list.addmany', entries.length)}</span>
+            <span class="block truncate text-sm text-zinc-500">{entries.join(' · ')}</span>
+          </span>
+        </button>
+      </li>
+    </ul>
+  {:else if typed.name}
     <ul
       class="card absolute inset-x-0 top-full z-10 mt-2 max-h-[70dvh] divide-y divide-zinc-100 overflow-y-auto p-0 shadow-lg dark:divide-zinc-800"
       aria-label={t('list.suggestions')}

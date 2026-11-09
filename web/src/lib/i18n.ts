@@ -23,6 +23,8 @@ export const en = {
   'list.suggestions': 'Suggestions',
   'list.onlist': 'On the list',
   'list.addtyped': 'Add “{name}”',
+  'list.addmany_one': 'Add {n} item',
+  'list.addmany_other': 'Add {n} items',
   'list.other': 'Other',
   'list.products': 'Products',
 
