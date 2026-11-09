@@ -3,13 +3,23 @@
   import { bySection, sectionLabel, suggest, type Generic, type Section } from '../lib/catalogue';
   import { t, tn } from '../lib/i18n';
   import { GROCERIES, kindIcon } from '../lib/kinds';
-  import { itemKey, parseEntry, recentlyBought, toBuy, type Item } from '../lib/list';
+  import { itemKey, parseEntry, recentlyBought, splitEntries, toBuy, type Item } from '../lib/list';
   import type { Product } from '../lib/products';
   import { productLine, productName } from '../lib/products';
   import { usualFor } from '../lib/pins';
   import { shop } from '../lib/shop.svelte';
+  import { status } from '../lib/stores/status.svelte';
+  import { household } from '../lib/stores/household.svelte';
+  import { catalogue } from '../lib/stores/catalogue.svelte';
+  import { choices } from '../lib/stores/choices.svelte';
+  import { items } from '../lib/stores/items.svelte';
+  import { pins } from '../lib/stores/pins.svelte';
+  import { trips } from '../lib/stores/trips.svelte';
+  import { searchProducts } from '../lib/stores/search';
   import Glyph from './Glyph.svelte';
+  import ItemRow from './ItemRow.svelte';
   import ItemSheet from './ItemSheet.svelte';
+  import TripBar from './TripBar.svelte';
   import SectionSheet from './SectionSheet.svelte';
   import Thumb from './Thumb.svelte';
   import ListPicker from './ListPicker.svelte';
@@ -25,17 +35,21 @@
   let iconFor = $state<{ section: Section | undefined } | null>(null);
   let input: HTMLInputElement;
 
-  const open = $derived(toBuy(shop.items));
-  const groups = $derived(bySection(open, shop.kindSections, (i) => shop.sectionOf(i)));
+  const open = $derived(toBuy(items.items));
+  const trip = $derived(trips.current);
+  const groups = $derived(bySection(open, catalogue.kindSections, (i) => choices.sectionOf(i)));
   // products, barcodes and usual brands are for groceries
-  const groceries = $derived(shop.kind === GROCERIES);
-  const recent = $derived(recentlyBought(shop.items));
-  const typed = $derived(parseEntry(text));
-  const suggestions = $derived(suggest(shop.kindGenerics, typed.name, shop.lang));
+  const groceries = $derived(household.kind === GROCERIES);
+  const recent = $derived(recentlyBought(items.items));
+  // "milk, bread, eggs" or a pasted list is several items
+  const entries = $derived(splitEntries(text));
+  const many = $derived(entries.length > 1);
+  const typed = $derived(parseEntry(many ? '' : text));
+  const suggestions = $derived(suggest(catalogue.kindGenerics, typed.name, catalogue.lang));
   // what is already on the list doesn't need suggesting
   const onList = $derived(new Set(open.map((i) => i.generic).filter(Boolean)));
   const typedIsGeneric = $derived(
-    suggestions.some((g) => itemKey(shop.nameOfGeneric(g)) === itemKey(typed.name)),
+    suggestions.some((g) => itemKey(catalogue.nameOfGeneric(g)) === itemKey(typed.name)),
   );
 
   // products for what is typed, fetched a moment after typing stops
@@ -46,12 +60,12 @@
       found = [];
       return;
     }
-    const timer = setTimeout(async () => (found = await shop.searchProducts(q)), 250);
+    const timer = setTimeout(async () => (found = await searchProducts(q)), 250);
     return () => clearTimeout(timer);
   });
   const onListProducts = $derived(new Set(open.map((i) => i.product).filter(Boolean)));
   // the household's own choices for what is suggested come first
-  const usual = $derived(usualFor(shop.pins, suggestions));
+  const usual = $derived(usualFor(pins.pins, suggestions));
   const others = $derived(found.filter((p) => !usual.some((u) => u.id === p.id)));
 
   onMount(() => {
@@ -61,15 +75,33 @@
 
   async function add(e: SubmitEvent) {
     e.preventDefault();
-    await addThis();
+    if (many) await addAll(entries);
+    else await addThis();
+  }
+
+  /** A pasted list goes on at once, one item per line; an input would join the lines. */
+  async function paste(e: ClipboardEvent) {
+    const pasted = splitEntries(e.clipboardData?.getData('text') ?? '');
+    if (pasted.length < 2) return;
+    e.preventDefault();
+    await addAll(pasted);
+  }
+
+  async function addAll(all: string[]) {
+    const was = text;
+    text = '';
+    found = [];
+    await items.addMany(all);
+    if (status.error) text = was;
+    input.focus();
   }
 
   async function addThis(generic?: Generic, product?: Product) {
     const was = text;
     text = '';
     found = [];
-    await shop.add(was, generic, product);
-    if (shop.error) text = was;
+    await items.add(was, generic, product);
+    if (status.error) text = was;
     input.focus();
   }
 </script>
@@ -82,9 +114,9 @@
   >
     <span
       class="grid size-9 shrink-0 place-items-center rounded-xl bg-brand-600 text-white"
-      aria-hidden="true"><Glyph icon={kindIcon(shop.kind)} class="size-5" /></span
+      aria-hidden="true"><Glyph icon={kindIcon(household.kind)} class="size-5" /></span
     >
-    <span class="truncate text-2xl font-bold tracking-tight">{shop.list?.name ?? ''}</span>
+    <span class="truncate text-2xl font-bold tracking-tight">{household.list?.name ?? ''}</span>
     <svg
       viewBox="0 0 24 24"
       class="size-5 shrink-0 text-zinc-400"
@@ -94,7 +126,7 @@
       ><path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round" /></svg
     >
   </button>
-  {#if shop.list}
+  {#if household.list}
     <span class="shrink-0 text-sm text-zinc-500 dark:text-zinc-400"
       >{tn('list.items', open.length)}</span
     >
@@ -106,19 +138,20 @@
     <input
       bind:this={input}
       bind:value={text}
+      onpaste={paste}
       placeholder={t('list.add')}
       aria-label={t('list.add')}
-      maxlength="120"
+      maxlength="500"
       enterkeyhint="done"
       autocomplete="off"
-      disabled={!shop.list}
+      disabled={!household.list}
     />
     {#if !text.trim() && groceries}
       <button
         type="button"
         class="btn-secondary shrink-0 px-3.5"
         onclick={() => (scanning = true)}
-        disabled={!shop.list}
+        disabled={!household.list}
         aria-label={t('scan.open')}
       >
         <svg
@@ -146,7 +179,25 @@
     </button>
   </form>
 
-  {#if typed.name}
+  {#if many}
+    <ul
+      class="card absolute inset-x-0 top-full z-10 mt-2 p-0 shadow-lg"
+      aria-label={t('list.suggestions')}
+    >
+      <li>
+        <button
+          class="flex w-full items-center gap-3 px-4 py-3 text-left"
+          onclick={() => addAll(entries)}
+        >
+          <span class="w-7 text-center text-xl text-zinc-400" aria-hidden="true">+</span>
+          <span class="min-w-0 flex-1">
+            <span class="font-medium">{tn('list.addmany', entries.length)}</span>
+            <span class="block truncate text-sm text-zinc-500">{entries.join(' · ')}</span>
+          </span>
+        </button>
+      </li>
+    </ul>
+  {:else if typed.name}
     <ul
       class="card absolute inset-x-0 top-full z-10 mt-2 max-h-[70dvh] divide-y divide-zinc-100 overflow-y-auto p-0 shadow-lg dark:divide-zinc-800"
       aria-label={t('list.suggestions')}
@@ -164,7 +215,7 @@
               ><Glyph icon={g.icon || g.emoji} class="size-6" /></span
             >
             <span class="flex-1">
-              <span class="font-medium">{shop.nameOfGeneric(g)}</span>
+              <span class="font-medium">{catalogue.nameOfGeneric(g)}</span>
               {#if typed.quantity}<span class="text-sm text-zinc-500">
                   · {typed.quantity}</span
                 >{/if}
@@ -174,8 +225,8 @@
             {:else}
               <span class="text-xs text-zinc-400"
                 >{sectionLabel(
-                  shop.kindSections.find((s) => s.key === g.section),
-                  shop.lang,
+                  catalogue.kindSections.find((s) => s.key === g.section),
+                  catalogue.lang,
                 )}</span
               >
             {/if}
@@ -207,20 +258,23 @@
   {/if}
 </div>
 
-{#if shop.offline}
+<!-- going shopping is news only for a household of more than one -->
+{#if household.list && household.people.length > 1}<TripBar />{/if}
+
+{#if status.offline}
   <p
     class="rounded-xl bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:bg-amber-950/60 dark:text-amber-200"
     role="status"
   >
-    {shop.outbox.length ? tn('offline.waiting', shop.outbox.length) : t('offline.title')}
+    {items.outbox.length ? tn('offline.waiting', items.outbox.length) : t('offline.title')}
   </p>
 {/if}
-{#if shop.error}
-  <p class="text-sm text-red-600 dark:text-red-400" role="alert">{shop.error}</p>
+{#if status.error}
+  <p class="text-sm text-red-600 dark:text-red-400" role="alert">{status.error}</p>
 {/if}
 
 {#each groups as group (group.section?.key ?? 'other')}
-  {@const label = sectionLabel(group.section, shop.lang) || t('list.other')}
+  {@const label = sectionLabel(group.section, catalogue.lang) || t('list.other')}
   <section>
     <h2 class="mb-1.5 px-1">
       <!-- a tap picks another icon for the section -->
@@ -229,83 +283,20 @@
         onclick={() => (iconFor = { section: group.section })}
         aria-label={t('section.change', { name: label })}
       >
-        <Glyph icon={shop.sectionIcon(group.section)} class="size-4 text-sm" />
+        <Glyph icon={choices.sectionIcon(group.section)} class="size-4 text-sm" />
         <!-- in its own language, so Greek capitals lose their accents -->
-        <span lang={group.section ? shop.lang : 'en'}>{label}</span>
+        <span lang={group.section ? catalogue.lang : 'en'}>{label}</span>
       </button>
     </h2>
     <ul class="card divide-y divide-zinc-100 p-0 dark:divide-zinc-800">
       {#each group.items as item (item.id)}
-        {@const name = shop.nameOf(item)}
-        <li class="flex items-center gap-1 pr-3">
-          <button
-            class="group grid size-14 shrink-0 place-items-center"
-            onclick={() => shop.tick(item)}
-            aria-label={t('list.tick', { name })}
-          >
-            <span
-              class="grid size-7 place-items-center rounded-full border-2 border-zinc-300 text-transparent transition group-hover:border-brand-500 group-active:bg-brand-500 group-active:text-white dark:border-zinc-600"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                class="size-4"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                ><path
-                  d="M5 12.5l4.5 4.5L19 7.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                /></svg
-              >
-            </span>
-          </button>
-          {#if shop.productOf(item)}
-            <!-- outside the button that opens the item, so a tap on the photo shows it larger -->
-            <span class="mr-2 flex shrink-0">
-              <Thumb product={shop.productOf(item)} icon={shop.iconOf(item)} zoom={name} />
-            </span>
-          {/if}
-          <button
-            class="flex min-w-0 flex-1 items-center gap-3 py-3 text-left"
-            onclick={() => (editing = item)}
-            aria-label={t('list.edit', { name })}
-          >
-            {#if !shop.productOf(item)}<Thumb icon={shop.iconOf(item)} />{/if}
-            <span class="flex min-w-0 flex-col">
-              <span class="flex w-full items-baseline gap-2">
-                <span class="truncate text-[1.05rem] font-medium">{name}</span>
-                {#if item.quantity}
-                  <span
-                    class="shrink-0 rounded-full bg-brand-500/15 px-2 py-0.5 text-xs font-semibold text-brand-700 dark:text-brand-400"
-                    >{item.quantity}</span
-                  >
-                {/if}
-              </span>
-              {#if shop.lineOf(item)}
-                <span class="truncate text-sm text-zinc-500 dark:text-zinc-400"
-                  >{shop.lineOf(item)}</span
-                >
-              {/if}
-              {#if item.note}
-                <span class="truncate text-sm text-zinc-500 dark:text-zinc-400">{item.note}</span>
-              {/if}
-            </span>
-          </button>
-          {#if item.added_by && shop.people.length > 1}
-            <span
-              class="shrink-0 text-xs text-zinc-400"
-              title={t('list.by', { name: shop.personName(item.added_by) })}
-              >{shop.personName(item.added_by)}</span
-            >
-          {/if}
-        </li>
+        <ItemRow {item} onedit={() => (editing = item)} {trip} />
       {/each}
     </ul>
   </section>
 {/each}
 
-{#if !open.length && !shop.loading && shop.list}
+{#if !open.length && !status.loading && household.list}
   <section class="flex flex-col items-center gap-1 px-6 py-6 text-center">
     <img
       src={recent.length ? '/brand/carty-cheer.svg' : '/brand/carty.svg'}
@@ -328,9 +319,9 @@
     <ul class="flex flex-wrap gap-2">
       {#each recent as item (item.id)}
         <li>
-          <button class="chip" onclick={() => shop.putBack(item)}>
-            <Glyph icon={shop.iconOf(item)} class="size-4 text-brand-700 dark:text-brand-400" />
-            {shop.nameOf(item)}</button
+          <button class="chip" onclick={() => items.putBack(item)}>
+            <Glyph icon={choices.iconOf(item)} class="size-4 text-brand-700 dark:text-brand-400" />
+            {catalogue.nameOf(item)}</button
           >
         </li>
       {/each}
@@ -359,7 +350,7 @@
     >
       <Thumb product={p} />
       <span class="flex min-w-0 flex-1 flex-col">
-        <span class="truncate font-medium">{productName(p, shop.lang)}</span>
+        <span class="truncate font-medium">{productName(p, catalogue.lang)}</span>
         <span class="truncate text-sm text-zinc-500 dark:text-zinc-400">{productLine(p)}</span>
       </span>
       {#if mine || onListProducts.has(p.id)}

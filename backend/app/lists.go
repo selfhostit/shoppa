@@ -55,6 +55,7 @@ func registerLists(app core.App) {
 		} else if was && !is {
 			e.Record.Set("checked_by", "")
 		}
+		claim(e.Record, personID(e.Auth))
 		if err := e.Next(); err != nil {
 			return err
 		}
@@ -94,6 +95,17 @@ func registerLists(app core.App) {
 	})
 }
 
+// claim keeps an item's claim honest: you claim an item for yourself, anyone
+// can let a claim go, and bought or put back, it is nobody's.
+func claim(item *core.Record, person string) {
+	if item.GetBool("checked") || item.Original().GetBool("checked") {
+		item.Set("claimed_by", "")
+	} else if item.GetString("claimed_by") != item.Original().GetString("claimed_by") &&
+		item.GetString("claimed_by") != "" {
+		item.Set("claimed_by", person)
+	}
+}
+
 // offlineTicks is how long a tick can wait on a phone with no signal and still
 // keep the time it was made.
 const offlineTicks = 7 * 24 * time.Hour
@@ -114,6 +126,7 @@ func tickedAt(item *core.Record) types.DateTime {
 
 func registerListRoutes(se *core.ServeEvent) {
 	se.Router.POST("/api/app/items", addItem).Bind(apis.RequireAuth())
+	se.Router.POST("/api/app/lists/{id}/copy", copyList).Bind(apis.RequireAuth())
 }
 
 // newItem is what a phone sends to put something on a list. ID is set when
@@ -281,6 +294,7 @@ func addPurchase(app core.App, item *core.Record, by string) error {
 	p.Set("product", item.GetString("product"))
 	p.Set("name", item.GetString("name"))
 	p.Set("key", item.GetString("key"))
+	p.Set("price", item.GetFloat("price"))
 	p.Set("by", by)
 	return app.Save(p)
 }

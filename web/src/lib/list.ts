@@ -23,6 +23,10 @@ export interface Item extends RecordModel {
   checked_at: string;
   checked_by: string;
   added_by: string;
+  /** who said they'd get it, if anyone */
+  claimed_by?: string;
+  /** what was paid for it, in euro; 0 when nobody said */
+  price?: number;
   created: string;
 }
 
@@ -40,6 +44,23 @@ export function parseEntry(text: string): { name: string; quantity: string } {
   const after = s.match(/^(.+?)\s+(?:[x×*]\s*(\d{1,3})|(\d{1,3})\s*[x×*])$/i);
   if (after) return { name: after[1].trim(), quantity: `${after[2] ?? after[3]}×` };
   return { name: s, quantity: '' };
+}
+
+/**
+ * Splits what was pasted or typed into separate items: one per line, or
+ * between commas and semicolons. Bullets, numbering and checkboxes in front
+ * go, and a decimal comma ("1,5 kg") stays.
+ */
+export function splitEntries(text: string): string[] {
+  return text
+    .split(/\r?\n|;|,(?!\d)|(?<!\d),/)
+    .map((s) =>
+      s
+        .replace(/^\s*(?:[-*•·–]|\d{1,3}[.)]|\[[ xX]?\])\s+/, '')
+        .replace(/^\s*(?:and|en|et|και)\s+/i, '')
+        .trim(),
+    )
+    .filter(Boolean);
 }
 
 /** What makes two items the same thing, as the server sees it: "Mélk" is "melk". */

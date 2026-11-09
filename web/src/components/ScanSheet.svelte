@@ -2,7 +2,10 @@
   import { t } from '../lib/i18n';
   import { errorMessage } from '../lib/pb';
   import { productLine, productName, type Product } from '../lib/products';
-  import { shop } from '../lib/shop.svelte';
+  import { status } from '../lib/stores/status.svelte';
+  import { catalogue } from '../lib/stores/catalogue.svelte';
+  import { items } from '../lib/stores/items.svelte';
+  import { lookup } from '../lib/stores/search';
   import BarcodeScanner from './BarcodeScanner.svelte';
   import Sheet from './Sheet.svelte';
   import Thumb from './Thumb.svelte';
@@ -25,14 +28,14 @@
   async function found(code: string) {
     step = { kind: 'looking', code };
     try {
-      const product = await shop.lookup(code);
+      const product = await lookup(code);
       if (!product) {
         name = '';
         step = { kind: 'unknown', code };
         return;
       }
-      await shop.add('', undefined, product);
-      step = shop.error ? { kind: 'error', message: shop.error } : { kind: 'added', product };
+      await items.add('', undefined, product);
+      step = status.error ? { kind: 'error', message: status.error } : { kind: 'added', product };
     } catch (err) {
       step = { kind: 'error', message: errorMessage(err) };
     }
@@ -40,8 +43,8 @@
 
   async function addTyped(e: SubmitEvent) {
     e.preventDefault();
-    await shop.add(name);
-    if (!shop.error) again();
+    await items.add(name);
+    if (!status.error) again();
   }
 
   function again() {
@@ -62,9 +65,13 @@
     </div>
   {:else if step.kind === 'added'}
     <div class="card flex items-center gap-4" role="status">
-      <Thumb product={step.product} size="size-16" zoom={productName(step.product, shop.lang)} />
+      <Thumb
+        product={step.product}
+        size="size-16"
+        zoom={productName(step.product, catalogue.lang)}
+      />
       <div class="min-w-0 flex-1">
-        <p class="line-clamp-2 font-semibold">{productName(step.product, shop.lang)}</p>
+        <p class="line-clamp-2 font-semibold">{productName(step.product, catalogue.lang)}</p>
         <p class="truncate text-sm text-zinc-500 dark:text-zinc-400">
           {productLine(step.product)}
         </p>
