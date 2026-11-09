@@ -38,3 +38,6 @@ func CatchPush(t testing.TB) func() []Sent {
 
 // FlushNotices sends the waiting notifications now.
 func FlushNotices(a core.App) { notices.flush(a) }
+
+// BringBackStaples runs the morning staples job now.
+var BringBackStaples = bringBackStaples

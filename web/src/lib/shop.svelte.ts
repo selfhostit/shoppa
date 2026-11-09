@@ -11,6 +11,7 @@ import { choices } from './stores/choices.svelte';
 import { household } from './stores/household.svelte';
 import { items } from './stores/items.svelte';
 import { pins } from './stores/pins.svelte';
+import { staples, type Staple } from './stores/staples.svelte';
 import { run, status } from './stores/status.svelte';
 
 /** How often to try the server again while it can't be reached. */
@@ -83,15 +84,18 @@ class Shop {
 
   private async load() {
     try {
-      const [lists, people, generics, sections, pinned, picked, sectionIcons] = await Promise.all([
-        pb.collection<List>('lists').getFullList(),
-        pb.collection<User>('users').getFullList({ sort: 'name' }),
-        pb.collection<Generic>('generics').getFullList({ batch: 1000 }),
-        pb.send<Section[]>('/api/app/sections', {}),
-        pb.collection<Pin>('pins').getFullList({ expand: 'product' }),
-        pb.collection<Choice>('item_choices').getFullList({ batch: 1000 }),
-        pb.collection<SectionIcon>('section_icons').getFullList(),
-      ]);
+      const [lists, people, generics, sections, pinned, picked, sectionIcons, repeats] =
+        await Promise.all([
+          pb.collection<List>('lists').getFullList(),
+          pb.collection<User>('users').getFullList({ sort: 'name' }),
+          pb.collection<Generic>('generics').getFullList({ batch: 1000 }),
+          pb.send<Section[]>('/api/app/sections', {}),
+          pb.collection<Pin>('pins').getFullList({ expand: 'product' }),
+          pb.collection<Choice>('item_choices').getFullList({ batch: 1000 }),
+          pb.collection<SectionIcon>('section_icons').getFullList(),
+          pb.collection<Staple>('staples').getFullList(),
+        ]);
+      staples.staples = repeats;
       pins.pins = pinned;
       choices.choices = picked;
       choices.sectionIcons = sectionIcons;
@@ -142,6 +146,9 @@ class Shop {
         .subscribe('*', ({ action, record }) =>
           catalogue.applyGeneric(record, action === 'delete'),
         ),
+      await pb
+        .collection<Staple>('staples')
+        .subscribe('*', ({ action, record }) => staples.apply(record, action === 'delete')),
       await pb
         .collection<Item>('items')
         .subscribe('*', ({ action, record }) => items.apply(record, action === 'delete'), {

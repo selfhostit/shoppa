@@ -1,6 +1,6 @@
 <script lang="ts">
   import { sectionLabel } from '../lib/catalogue';
-  import { t } from '../lib/i18n';
+  import { t, tn } from '../lib/i18n';
   import { GROCERIES } from '../lib/kinds';
   import type { Item } from '../lib/list';
   import { status } from '../lib/stores/status.svelte';
@@ -8,6 +8,7 @@
   import { catalogue } from '../lib/stores/catalogue.svelte';
   import { choices } from '../lib/stores/choices.svelte';
   import { items } from '../lib/stores/items.svelte';
+  import { STAPLE_DAYS, staples } from '../lib/stores/staples.svelte';
   import Glyph from './Glyph.svelte';
   import IconPicker from './IconPicker.svelte';
   import PickProduct from './PickProduct.svelte';
@@ -126,6 +127,23 @@
         onpick={pickIcon}
       />
     {/if}
+  </section>
+
+  <section class="card mt-6 flex flex-col gap-3" aria-labelledby="item-repeat">
+    <div>
+      <h3 id="item-repeat" class="font-semibold">{t('staple.title')}</h3>
+      <p class="text-sm text-zinc-500 dark:text-zinc-400">{t('staple.hint', { name: shown })}</p>
+    </div>
+    <select
+      value={staples.of(item)?.every ?? 0}
+      onchange={(e) => staples.set(item, Number(e.currentTarget.value))}
+      aria-label={t('staple.title')}
+    >
+      <option value={0}>{t('staple.never')}</option>
+      {#each STAPLE_DAYS as days (days)}
+        <option value={days}>{tn('staple.weeks', days / 7)}</option>
+      {/each}
+    </select>
   </section>
 
   {#if !item.generic}
