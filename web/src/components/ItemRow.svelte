@@ -6,6 +6,7 @@
   import { choices } from '../lib/stores/choices.svelte';
   import { household } from '../lib/stores/household.svelte';
   import { items } from '../lib/stores/items.svelte';
+  import Glyph from './Glyph.svelte';
   import Thumb from './Thumb.svelte';
 
   // One thing still to buy: tick it off, or tap it to change it.
@@ -66,7 +67,13 @@
       {/if}
     </span>
   </button>
-  {#if item.added_by && household.people.length > 1}
+  {#if item.claimed_by}
+    <span
+      class="flex shrink-0 items-center gap-1 rounded-full bg-sky-500/15 px-2 py-0.5 text-xs font-semibold text-sky-800 dark:text-sky-300"
+      title={t('claim.by', { name: household.personName(item.claimed_by) })}
+      ><Glyph icon="hand" class="size-3.5" />{household.personName(item.claimed_by)}</span
+    >
+  {:else if item.added_by && household.people.length > 1}
     <span
       class="shrink-0 text-xs text-zinc-400"
       title={t('list.by', { name: household.personName(item.added_by) })}

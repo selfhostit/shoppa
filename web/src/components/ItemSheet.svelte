@@ -8,6 +8,7 @@
   import { catalogue } from '../lib/stores/catalogue.svelte';
   import { choices } from '../lib/stores/choices.svelte';
   import { items } from '../lib/stores/items.svelte';
+  import { session } from '../lib/session.svelte';
   import { STAPLE_DAYS, staples } from '../lib/stores/staples.svelte';
   import Glyph from './Glyph.svelte';
   import IconPicker from './IconPicker.svelte';
@@ -51,6 +52,11 @@
     if (!status.error) onclose();
   }
 
+  async function claim() {
+    await items.claim(item);
+    if (!status.error) onclose();
+  }
+
   async function remove() {
     await items.remove(item);
     if (!status.error) onclose();
@@ -83,6 +89,15 @@
       <p class="text-sm text-red-600 dark:text-red-400" role="alert">{status.error}</p>
     {/if}
     <button class="btn-primary">{t('item.save')}</button>
+    {#if !item.checked && household.people.length > 1}
+      <button type="button" class="btn-secondary" onclick={claim}
+        >{item.claimed_by === session.user?.id
+          ? t('claim.drop')
+          : item.claimed_by
+            ? t('claim.take', { name: household.personName(item.claimed_by) })
+            : t('claim.mine')}</button
+      >
+    {/if}
     {#if item.checked}
       <button type="button" class="btn-secondary" onclick={putBack}>{t('item.back')}</button>
     {/if}

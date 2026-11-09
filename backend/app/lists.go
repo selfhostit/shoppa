@@ -55,6 +55,7 @@ func registerLists(app core.App) {
 		} else if was && !is {
 			e.Record.Set("checked_by", "")
 		}
+		claim(e.Record, personID(e.Auth))
 		if err := e.Next(); err != nil {
 			return err
 		}
@@ -92,6 +93,17 @@ func registerLists(app core.App) {
 		}
 		return e.Next()
 	})
+}
+
+// claim keeps an item's claim honest: you claim an item for yourself, anyone
+// can let a claim go, and bought or put back, it is nobody's.
+func claim(item *core.Record, person string) {
+	if item.GetBool("checked") || item.Original().GetBool("checked") {
+		item.Set("claimed_by", "")
+	} else if item.GetString("claimed_by") != item.Original().GetString("claimed_by") &&
+		item.GetString("claimed_by") != "" {
+		item.Set("claimed_by", person)
+	}
 }
 
 // offlineTicks is how long a tick can wait on a phone with no signal and still

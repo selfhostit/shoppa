@@ -180,6 +180,12 @@ class Items {
     await this.save(item, { checked: true, checked_at: pbNow() });
   }
 
+  /** "I'll get this one": or, when it's yours already, lets it go. */
+  async claim(item: Item) {
+    const me = session.user?.id ?? '';
+    await this.save(item, { claimed_by: item.claimed_by === me ? '' : me });
+  }
+
   /** Changes an item: shown at once, sent when the server can be reached. */
   async save(item: Item, change: Partial<Item>) {
     await this.change({ kind: 'update', id: item.id, list: item.list, change, at: pbNow() });

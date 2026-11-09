@@ -23,6 +23,8 @@ export interface Item extends RecordModel {
   checked_at: string;
   checked_by: string;
   added_by: string;
+  /** who said they'd get it, if anyone */
+  claimed_by?: string;
   created: string;
 }
 
