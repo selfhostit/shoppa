@@ -1,7 +1,8 @@
 <script lang="ts">
   import { iconChoices } from '../lib/catalogue';
   import { t } from '../lib/i18n';
-  import { shop } from '../lib/shop.svelte';
+  import { household } from '../lib/stores/household.svelte';
+  import { catalogue } from '../lib/stores/catalogue.svelte';
   import Glyph from './Glyph.svelte';
 
   // A grid of line icons to pick from, the open list's own first. With a
@@ -13,7 +14,7 @@
     onpick,
   }: { current: string; reset?: string; tall?: boolean; onpick: (icon: string) => void } = $props();
 
-  const choices = $derived(iconChoices(shop.sections, shop.generics, shop.kind));
+  const icons = $derived(iconChoices(catalogue.sections, catalogue.generics, household.kind));
 </script>
 
 <div class="flex flex-col gap-2">
@@ -25,7 +26,7 @@
     role="listbox"
     aria-label={t('item.icon')}
   >
-    {#each choices as icon (icon)}
+    {#each icons as icon (icon)}
       <button
         type="button"
         role="option"

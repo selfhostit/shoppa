@@ -3,7 +3,10 @@
   import { t } from '../lib/i18n';
   import type { Item } from '../lib/list';
   import { productLine, productName, type Product } from '../lib/products';
-  import { shop } from '../lib/shop.svelte';
+  import { status } from '../lib/stores/status.svelte';
+  import { catalogue } from '../lib/stores/catalogue.svelte';
+  import { pins } from '../lib/stores/pins.svelte';
+  import { searchProducts } from '../lib/stores/search';
   import Thumb from './Thumb.svelte';
 
   // "Melk": which one? The products pinned for this generic item first, then
@@ -14,16 +17,16 @@
   // svelte-ignore state_referenced_locally
   const generic = item.generic;
   // svelte-ignore state_referenced_locally
-  const name = shop.nameOf(item);
+  const name = catalogue.nameOf(item);
   let query = $state('');
   let found = $state<Product[]>([]);
   let searched = $state(false);
 
-  const pinned = $derived(shop.pinnedFor(generic));
+  const pinned = $derived(pins.pinnedFor(generic));
   const others = $derived(found.filter((p) => !pinned.some((q) => q.id === p.id)));
 
   async function search(q: string) {
-    found = await shop.searchProducts(q || name);
+    found = await searchProducts(q || name);
     searched = true;
   }
 
@@ -39,8 +42,8 @@
   });
 
   async function pick(p: Product) {
-    await shop.pin(item, p);
-    if (!shop.error) onpicked();
+    await pins.pin(item, p);
+    if (!status.error) onpicked();
   }
 </script>
 
@@ -56,8 +59,8 @@
         {@render row(p, true)}
         <button
           class="grid size-10 shrink-0 place-items-center rounded-full text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-          onclick={() => shop.unpin(generic, p)}
-          aria-label={t('pin.forget', { name: productName(p, shop.lang) })}
+          onclick={() => pins.unpin(generic, p)}
+          aria-label={t('pin.forget', { name: productName(p, catalogue.lang) })}
         >
           <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2"
             ><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" /></svg
@@ -95,7 +98,7 @@
   >
     <Thumb product={p} />
     <span class="flex min-w-0 flex-1 flex-col">
-      <span class="truncate font-medium">{productName(p, shop.lang)}</span>
+      <span class="truncate font-medium">{productName(p, catalogue.lang)}</span>
       <span class="truncate text-sm text-zinc-500 dark:text-zinc-400">{productLine(p)}</span>
     </span>
     {#if mine}

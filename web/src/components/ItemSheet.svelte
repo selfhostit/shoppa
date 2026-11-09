@@ -3,7 +3,11 @@
   import { t } from '../lib/i18n';
   import { GROCERIES } from '../lib/kinds';
   import type { Item } from '../lib/list';
-  import { shop } from '../lib/shop.svelte';
+  import { status } from '../lib/stores/status.svelte';
+  import { household } from '../lib/stores/household.svelte';
+  import { catalogue } from '../lib/stores/catalogue.svelte';
+  import { choices } from '../lib/stores/choices.svelte';
+  import { items } from '../lib/stores/items.svelte';
   import Glyph from './Glyph.svelte';
   import IconPicker from './IconPicker.svelte';
   import PickProduct from './PickProduct.svelte';
@@ -15,7 +19,7 @@
   let { item, onclose }: { item: Item; onclose: () => void } = $props();
 
   // svelte-ignore state_referenced_locally
-  const shown = shop.nameOf(item);
+  const shown = catalogue.nameOf(item);
   // svelte-ignore state_referenced_locally
   let name = $state(shown);
   // svelte-ignore state_referenced_locally
@@ -24,11 +28,11 @@
   let note = $state(item.note);
 
   let pickingIcon = $state(false);
-  const choice = $derived(shop.choiceOf(item));
+  const choice = $derived(choices.choiceOf(item));
 
   async function pickIcon(icon: string) {
     pickingIcon = false;
-    await shop.pick(item, { icon });
+    await choices.pick(item, { icon });
   }
 
   async function save(e: SubmitEvent) {
@@ -36,29 +40,29 @@
     const change: Partial<Item> = { quantity: quantity.trim(), note: note.trim() };
     // a new name makes it something else than the generic it was
     if (name.trim() !== shown) Object.assign(change, { name: name.trim(), generic: '' });
-    await shop.save(item, change);
-    if (!shop.error) onclose();
+    await items.save(item, change);
+    if (!status.error) onclose();
   }
 
   async function remember(e: SubmitEvent) {
     e.preventDefault();
-    await shop.remember(item, shop.iconOf(item), shop.sectionOf(item));
-    if (!shop.error) onclose();
+    await items.remember(item, choices.iconOf(item), choices.sectionOf(item));
+    if (!status.error) onclose();
   }
 
   async function remove() {
-    await shop.remove(item);
-    if (!shop.error) onclose();
+    await items.remove(item);
+    if (!status.error) onclose();
   }
 
   async function putBack() {
-    await shop.putBack(item);
-    if (!shop.error) onclose();
+    await items.putBack(item);
+    if (!status.error) onclose();
   }
 </script>
 
 <Sheet title={t('item.title')} {onclose}>
-  {#if item.generic && !item.checked && shop.kind === GROCERIES}
+  {#if item.generic && !item.checked && household.kind === GROCERIES}
     <div class="mb-6"><PickProduct {item} onpicked={onclose} /></div>
   {/if}
   <form class="flex flex-col gap-4" onsubmit={save}>
@@ -74,8 +78,8 @@
       <span class="text-sm font-medium">{t('item.note')}</span>
       <input bind:value={note} maxlength="200" placeholder={t('item.note.placeholder')} />
     </label>
-    {#if shop.error}
-      <p class="text-sm text-red-600 dark:text-red-400" role="alert">{shop.error}</p>
+    {#if status.error}
+      <p class="text-sm text-red-600 dark:text-red-400" role="alert">{status.error}</p>
     {/if}
     <button class="btn-primary">{t('item.save')}</button>
     {#if item.checked}
@@ -100,24 +104,24 @@
           aria-label={t('item.icon.change')}
           aria-expanded={pickingIcon}
           onclick={() => (pickingIcon = !pickingIcon)}
-          ><Glyph icon={shop.iconOf(item)} class="size-7" /></button
+          ><Glyph icon={choices.iconOf(item)} class="size-7" /></button
         >
       </div>
       <label class="flex flex-1 flex-col gap-1.5">
         <span class="text-sm font-medium">{t('item.section')}</span>
         <select
-          value={shop.sectionOf(item)}
-          onchange={(e) => shop.pick(item, { section: e.currentTarget.value })}
+          value={choices.sectionOf(item)}
+          onchange={(e) => choices.pick(item, { section: e.currentTarget.value })}
         >
-          {#each shop.kindSections as s (s.key)}
-            <option value={s.key}>{sectionLabel(s, shop.lang)}</option>
+          {#each catalogue.kindSections as s (s.key)}
+            <option value={s.key}>{sectionLabel(s, catalogue.lang)}</option>
           {/each}
         </select>
       </label>
     </div>
     {#if pickingIcon}
       <IconPicker
-        current={shop.iconOf(item)}
+        current={choices.iconOf(item)}
         reset={choice?.icon || choice?.emoji ? t('item.icon.auto') : ''}
         onpick={pickIcon}
       />

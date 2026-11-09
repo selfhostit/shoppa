@@ -2,7 +2,7 @@
   import { t } from '../lib/i18n';
   import { langs, type Lang } from '../lib/catalogue';
   import { install } from '../lib/install.svelte';
-  import { shop } from '../lib/shop.svelte';
+  import { catalogue } from '../lib/stores/catalogue.svelte';
   import { pb } from '../lib/pb';
   import { session } from '../lib/session.svelte';
   import { theme, type Theme } from '../lib/theme.svelte';
@@ -43,10 +43,10 @@
   <div class="flex flex-wrap gap-2" role="radiogroup" aria-label={t('me.lang')}>
     {#each langs as l (l.id)}
       <button
-        class="chip {shop.lang === l.id ? 'chosen' : ''}"
+        class="chip {catalogue.lang === l.id ? 'chosen' : ''}"
         role="radio"
-        aria-checked={shop.lang === l.id}
-        onclick={() => shop.setLang(l.id as Lang)}>{l.label}</button
+        aria-checked={catalogue.lang === l.id}
+        onclick={() => catalogue.setLang(l.id as Lang)}>{l.label}</button
       >
     {/each}
   </div>
