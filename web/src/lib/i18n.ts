@@ -28,6 +28,15 @@ export const en = {
   'list.other': 'Other',
   'list.products': 'Products',
 
+  'trip.start': 'I’m going shopping',
+  'trip.store': 'Which shop? (optional)',
+  'trip.go': 'Go',
+  'trip.at': ' at {store}',
+  'trip.mine': 'You’re shopping{where}. What the others add now is marked new.',
+  'trip.other': '{name} is shopping{where}. Add what you need now.',
+  'trip.end': 'Done',
+  'trip.new': 'New',
+
   'offline.title': 'Offline. You can still tick things off; they sync when the server is back.',
   'offline.waiting_one':
     'Offline. {n} change waits on this phone and syncs when the server is back.',

@@ -1,4 +1,4 @@
-import type { UnsubscribeFunc } from 'pocketbase';
+import type { RecordModel, UnsubscribeFunc } from 'pocketbase';
 import type { Choice, Generic, Section, SectionIcon } from './catalogue';
 import type { Kind } from './kinds';
 import type { Item, List } from './list';
@@ -12,7 +12,65 @@ import { household } from './stores/household.svelte';
 import { items } from './stores/items.svelte';
 import { pins } from './stores/pins.svelte';
 import { staples, type Staple } from './stores/staples.svelte';
+import { trips } from './stores/trips.svelte';
+import type { Trip } from './trips';
 import { run, status } from './stores/status.svelte';
+
+/**
+ * The household's collections each kept whole in a store: loaded on every
+ * connect, then kept live record by record.
+ */
+type Synced = {
+  name: string;
+  options: () => { filter?: string; expand?: string };
+  set: (records: RecordModel[]) => void;
+  apply: (record: RecordModel, deleted: boolean) => void;
+};
+
+const synced: Synced[] = [
+  {
+    name: 'lists',
+    options: () => ({}),
+    set: (r) => (household.lists = r as List[]),
+    apply: (r, d) => household.apply(r as List, d),
+  },
+  {
+    name: 'generics',
+    options: () => ({}),
+    set: (r) => (catalogue.generics = r as Generic[]),
+    apply: (r, d) => catalogue.applyGeneric(r as Generic, d),
+  },
+  {
+    name: 'pins',
+    options: () => ({ expand: 'product' }),
+    set: (r) => (pins.pins = r as Pin[]),
+    apply: (r, d) => pins.apply(r as Pin, d),
+  },
+  {
+    name: 'item_choices',
+    options: () => ({}),
+    set: (r) => (choices.choices = r as Choice[]),
+    apply: (r, d) => choices.applyChoice(r as Choice, d),
+  },
+  {
+    name: 'section_icons',
+    options: () => ({}),
+    set: (r) => (choices.sectionIcons = r as SectionIcon[]),
+    apply: (r, d) => choices.applySectionIcon(r as SectionIcon, d),
+  },
+  {
+    name: 'staples',
+    options: () => ({}),
+    set: (r) => (staples.staples = r as Staple[]),
+    apply: (r, d) => staples.apply(r as Staple, d),
+  },
+  {
+    name: 'trips',
+    options: () => ({ filter: trips.filter }),
+    set: (r) => (trips.trips = r as Trip[]),
+    apply: (r, d) => trips.apply(r as Trip, d),
+  },
+];
 
 /** How often to try the server again while it can't be reached. */
 const RETRY_MS = 30_000;
@@ -84,25 +142,15 @@ class Shop {
 
   private async load() {
     try {
-      const [lists, people, generics, sections, pinned, picked, sectionIcons, repeats] =
-        await Promise.all([
-          pb.collection<List>('lists').getFullList(),
-          pb.collection<User>('users').getFullList({ sort: 'name' }),
-          pb.collection<Generic>('generics').getFullList({ batch: 1000 }),
-          pb.send<Section[]>('/api/app/sections', {}),
-          pb.collection<Pin>('pins').getFullList({ expand: 'product' }),
-          pb.collection<Choice>('item_choices').getFullList({ batch: 1000 }),
-          pb.collection<SectionIcon>('section_icons').getFullList(),
-          pb.collection<Staple>('staples').getFullList(),
-        ]);
-      staples.staples = repeats;
-      pins.pins = pinned;
-      choices.choices = picked;
-      choices.sectionIcons = sectionIcons;
-      household.lists = lists;
-      household.people = people;
-      catalogue.generics = generics;
-      catalogue.sections = sections;
+      const [people, sections] = await Promise.all([
+        pb.collection<User>('users').getFullList({ sort: 'name' }),
+        pb.send<Section[]>('/api/app/sections', {}),
+        ...synced.map(async (c) =>
+          c.set(await pb.collection(c.name).getFullList({ batch: 1000, ...c.options() })),
+        ),
+      ]);
+      household.people = people as User[];
+      catalogue.sections = sections as Section[];
       await this.loadItems();
       if (!this.stops.length) await this.listen();
       status.offline = false;
@@ -124,31 +172,18 @@ class Shop {
         if (first) first = false;
         else this.connect();
       }),
+      ...(await Promise.all(
+        synced.map((c) =>
+          pb
+            .collection(c.name)
+            .subscribe('*', ({ action, record }) => c.apply(record, action === 'delete'), {
+              expand: c.options().expand,
+            }),
+        ),
+      )),
       await pb.collection<List>('lists').subscribe('*', ({ action, record }) => {
-        household.apply(record, action === 'delete');
         if (action === 'delete' && record.id === household.list?.id) this.loadItems();
       }),
-      await pb
-        .collection<Pin>('pins')
-        .subscribe('*', ({ action, record }) => pins.apply(record, action === 'delete'), {
-          expand: 'product',
-        }),
-      await pb
-        .collection<Choice>('item_choices')
-        .subscribe('*', ({ action, record }) => choices.applyChoice(record, action === 'delete')),
-      await pb
-        .collection<SectionIcon>('section_icons')
-        .subscribe('*', ({ action, record }) =>
-          choices.applySectionIcon(record, action === 'delete'),
-        ),
-      await pb
-        .collection<Generic>('generics')
-        .subscribe('*', ({ action, record }) =>
-          catalogue.applyGeneric(record, action === 'delete'),
-        ),
-      await pb
-        .collection<Staple>('staples')
-        .subscribe('*', ({ action, record }) => staples.apply(record, action === 'delete')),
       await pb
         .collection<Item>('items')
         .subscribe('*', ({ action, record }) => items.apply(record, action === 'delete'), {

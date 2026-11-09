@@ -31,6 +31,7 @@ func Register(app core.App, cfg Config) {
 	registerGenerics(app)
 	registerProducts(app)
 	registerStaples(app)
+	registerTrips(app)
 
 	app.OnServe().BindFunc(func(se *core.ServeEvent) error {
 		se.Router.GET("/api/app/info", info)
