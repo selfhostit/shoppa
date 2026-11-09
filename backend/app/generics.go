@@ -3,6 +3,7 @@ package app
 import (
 	"net/http"
 	"strings"
+	"sync"
 
 	"github.com/pocketbase/dbx"
 	"github.com/pocketbase/pocketbase/core"
@@ -75,9 +76,13 @@ func sections(e *core.RequestEvent) error {
 
 // validSection tells whether a section is one of a kind of list.
 func validSection(key, kind string) bool {
-	c, err := catalogue.Load()
+	c, err := bundled()
 	return err == nil && c.SectionFits(key, kind)
 }
+
+// bundled is the bundled catalogue, read once: every generic saved checks
+// its section against it.
+var bundled = sync.OnceValues(catalogue.Load)
 
 // listKind is the kind of a list: groceries, home, camping or trip.
 func listKind(app core.App, id string) string {

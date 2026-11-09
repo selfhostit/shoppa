@@ -14,15 +14,43 @@ import (
 	_ "github.com/selfhostit/shoppa/migrations"
 )
 
-// TestMain keeps the tests from starting the first product download.
+// migrated is a data directory with every migration applied, which each
+// test's app starts from as a copy: migrating once, instead of in every
+// test, keeps the race-detector run in CI well inside its time limit.
+var migrated string
+
+// TestMain keeps the tests from starting the first product download, and
+// migrates the data directory the tests start from.
 func TestMain(m *testing.M) {
 	app.AutoImport = false
-	os.Exit(m.Run())
+	dir, err := os.MkdirTemp("", "shoppa-test-")
+	if err != nil {
+		panic(err)
+	}
+	if err := migrate(dir); err != nil {
+		panic(err)
+	}
+	migrated = dir
+	code := m.Run()
+	_ = os.RemoveAll(dir)
+	os.Exit(code)
+}
+
+// migrate applies every migration to a data directory, and closes it.
+func migrate(dir string) error {
+	base := core.NewBaseApp(core.BaseAppConfig{DataDir: dir})
+	if err := base.Bootstrap(); err != nil {
+		return err
+	}
+	if err := base.RunAllMigrations(); err != nil {
+		return err
+	}
+	return base.ResetBootstrapState()
 }
 
 // newApp starts an empty app with the shoppa migrations and routes.
 func newApp(t testing.TB) *tests.TestApp {
-	testApp, err := tests.NewTestAppWithConfig(core.BaseAppConfig{DataDir: t.TempDir()})
+	testApp, err := tests.NewTestAppWithConfig(core.BaseAppConfig{DataDir: migrated})
 	if err != nil {
 		t.Fatal(err)
 	}
