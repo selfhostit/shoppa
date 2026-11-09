@@ -13,6 +13,9 @@
 
   let newName = $state('');
   let newKind = $state<Kind>(GROCERIES);
+  // the list a new one starts from, with all its items; empty for none
+  let fromId = $state('');
+  const from = $derived(household.ordered.find((l) => l.id === fromId));
   // svelte-ignore state_referenced_locally
   let rename = $state(household.list?.name ?? '');
 
@@ -23,7 +26,7 @@
 
   async function create(e: SubmitEvent) {
     e.preventDefault();
-    await shop.createList(newName, newKind);
+    await shop.createList(newName, newKind, from);
     if (!status.error) onclose();
   }
 
@@ -75,7 +78,15 @@
 
     <form class="flex flex-col gap-1.5" onsubmit={create}>
       <label for="new-list" class="text-sm font-medium">{t('lists.new')}</label>
-      {@render kindChips(newKind, (k) => (newKind = k), t('lists.kind'))}
+      <select bind:value={fromId} aria-label={t('lists.from')}>
+        <option value="">{t('lists.from.empty')}</option>
+        {#each household.ordered as list (list.id)}
+          <option value={list.id}>{t('lists.from.list', { name: list.name })}</option>
+        {/each}
+      </select>
+      {#if !from}
+        {@render kindChips(newKind, (k) => (newKind = k), t('lists.kind'))}
+      {/if}
       <div class="flex gap-2">
         <input
           id="new-list"

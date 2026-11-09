@@ -64,6 +64,16 @@ class Household {
     return list;
   }
 
+  /** Starts a new list from an old one: its kind and every item, all still to buy. */
+  async copy(from: List, name: string): Promise<List> {
+    const list = await pb.send<List>(`/api/app/lists/${from.id}/copy`, {
+      method: 'POST',
+      body: { name: name.trim() },
+    });
+    this.apply(list);
+    return list;
+  }
+
   async rename(list: List, name: string) {
     await run(async () =>
       this.apply(await pb.collection<List>('lists').update(list.id, { name: name.trim() })),

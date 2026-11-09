@@ -202,9 +202,10 @@ class Shop {
     await run(() => this.loadItems());
   }
 
-  async createList(name: string, kind: Kind) {
+  /** Makes a new list, empty or with an old one's items, and opens it. */
+  async createList(name: string, kind: Kind, from?: List) {
     await run(async () => {
-      const list = await household.create(name, kind);
+      const list = from ? await household.copy(from, name) : await household.create(name, kind);
       await this.open(list.id);
     });
   }

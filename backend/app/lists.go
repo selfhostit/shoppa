@@ -114,6 +114,7 @@ func tickedAt(item *core.Record) types.DateTime {
 
 func registerListRoutes(se *core.ServeEvent) {
 	se.Router.POST("/api/app/items", addItem).Bind(apis.RequireAuth())
+	se.Router.POST("/api/app/lists/{id}/copy", copyList).Bind(apis.RequireAuth())
 }
 
 // newItem is what a phone sends to put something on a list. ID is set when
