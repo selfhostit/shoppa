@@ -8,6 +8,7 @@
   import { theme, type Theme } from '../lib/theme.svelte';
   import Notifications from './Notifications.svelte';
   import ProductData from './ProductData.svelte';
+  import Spending from './Spending.svelte';
 
   // Your account, installing the app, the look and notifications.
   const user = $derived(session.user!);
@@ -34,6 +35,8 @@
 {:else if install.needsIosSteps}
   <section class="card"><p>{t('me.install.ios')}</p></section>
 {/if}
+
+<Spending />
 
 <section class="card flex flex-col gap-3">
   <div>

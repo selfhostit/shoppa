@@ -294,6 +294,7 @@ func addPurchase(app core.App, item *core.Record, by string) error {
 	p.Set("product", item.GetString("product"))
 	p.Set("name", item.GetString("name"))
 	p.Set("key", item.GetString("key"))
+	p.Set("price", item.GetFloat("price"))
 	p.Set("by", by)
 	return app.Save(p)
 }

@@ -3,6 +3,7 @@
   import { t, tn } from '../lib/i18n';
   import { GROCERIES } from '../lib/kinds';
   import type { Item } from '../lib/list';
+  import { parsePrice } from '../lib/spend';
   import { status } from '../lib/stores/status.svelte';
   import { household } from '../lib/stores/household.svelte';
   import { catalogue } from '../lib/stores/catalogue.svelte';
@@ -28,6 +29,8 @@
   let quantity = $state(item.quantity);
   // svelte-ignore state_referenced_locally
   let note = $state(item.note);
+  // svelte-ignore state_referenced_locally
+  let price = $state(item.price ? String(item.price) : '');
 
   let pickingIcon = $state(false);
   const choice = $derived(choices.choiceOf(item));
@@ -39,7 +42,11 @@
 
   async function save(e: SubmitEvent) {
     e.preventDefault();
-    const change: Partial<Item> = { quantity: quantity.trim(), note: note.trim() };
+    const change: Partial<Item> = {
+      quantity: quantity.trim(),
+      note: note.trim(),
+      price: parsePrice(price),
+    };
     // a new name makes it something else than the generic it was
     if (name.trim() !== shown) Object.assign(change, { name: name.trim(), generic: '' });
     await items.save(item, change);
@@ -84,6 +91,11 @@
     <label class="flex flex-col gap-1.5">
       <span class="text-sm font-medium">{t('item.note')}</span>
       <input bind:value={note} maxlength="200" placeholder={t('item.note.placeholder')} />
+    </label>
+    <label class="flex flex-col gap-1.5">
+      <span class="text-sm font-medium">{t('item.price')}</span>
+      <input bind:value={price} inputmode="decimal" maxlength="10" placeholder="€" />
+      <span class="text-xs text-zinc-500 dark:text-zinc-400">{t('item.price.hint')}</span>
     </label>
     {#if status.error}
       <p class="text-sm text-red-600 dark:text-red-400" role="alert">{status.error}</p>

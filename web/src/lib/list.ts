@@ -25,6 +25,8 @@ export interface Item extends RecordModel {
   added_by: string;
   /** who said they'd get it, if anyone */
   claimed_by?: string;
+  /** what was paid for it, in euro; 0 when nobody said */
+  price?: number;
   created: string;
 }
 
