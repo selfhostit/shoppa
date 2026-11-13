@@ -9,6 +9,8 @@ export interface Trip extends RecordModel {
   store: string;
   /** set when the shopper is done */
   ended: string;
+  /** who got a notification about it: everyone else with notifications on */
+  notified: string[];
   created: string;
 }
 
@@ -33,4 +35,11 @@ export function currentTrip(trips: Trip[], list: string, now = Date.now()): Trip
 /** Whether someone else put an item on the list while the shopper was out. */
 export function addedDuring(item: Item, trip: Trip | undefined): boolean {
   return !!trip && item.added_by !== trip.by && item.created >= trip.created;
+}
+
+const names = new Intl.ListFormat('en', { type: 'conjunction' });
+
+/** "Ben and Cleo": who a trip told, or "" when nobody got a notification. */
+export function told(trip: Trip, name: (person: string) => string): string {
+  return names.format(trip.notified.map(name).filter(Boolean));
 }

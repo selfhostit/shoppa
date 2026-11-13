@@ -116,6 +116,33 @@ func ToEveryone(app core.App, exceptUserID string, msg Message) {
 	send(app, dbx.Not(dbx.HashExp{"user": exceptUserID}), msg)
 }
 
+// Reachable returns which of these users have at least one device with
+// notifications on, in the order given.
+func Reachable(app core.App, userIDs []string) ([]string, error) {
+	if len(userIDs) == 0 {
+		return nil, nil
+	}
+	ids := make([]any, len(userIDs))
+	for i, id := range userIDs {
+		ids[i] = id
+	}
+	subs, err := app.FindAllRecords(Collection, dbx.In("user", ids...))
+	if err != nil {
+		return nil, err
+	}
+	has := map[string]bool{}
+	for _, s := range subs {
+		has[s.GetString("user")] = true
+	}
+	var reachable []string
+	for _, id := range userIDs {
+		if has[id] {
+			reachable = append(reachable, id)
+		}
+	}
+	return reachable, nil
+}
+
 func send(app core.App, where dbx.Expression, msg Message) {
 	subs, err := app.FindAllRecords(Collection, where)
 	if err != nil || len(subs) == 0 {
