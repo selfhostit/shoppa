@@ -35,6 +35,9 @@ export const en = {
   'trip.mine': 'You’re shopping{where}. What the others add now is marked new.',
   'trip.other': '{name} is shopping{where}. Add what you need now.',
   'trip.end': 'Done',
+  'trip.told': '{names} got a notification.',
+  'trip.toldNobody': 'Nobody else has notifications on, so let them know yourself.',
+  'trip.done': 'Done shopping.',
   'trip.new': 'New',
 
   'offline.title': 'Offline. You can still tick things off; they sync when the server is back.',

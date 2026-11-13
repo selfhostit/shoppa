@@ -40,12 +40,17 @@ class Trips {
     );
   }
 
-  async end() {
+  /** Ends your trip for the open list; returns it, ended, unless that failed. */
+  async end(): Promise<Trip | undefined> {
     const trip = this.current;
     if (!trip) return;
-    await run(async () =>
-      this.apply(await pb.collection<Trip>('trips').update(trip.id, { ended: pbNow(new Date()) })),
-    );
+    let ended: Trip | undefined;
+    await run(async () => {
+      const done = await pb.collection<Trip>('trips').update(trip.id, { ended: pbNow(new Date()) });
+      this.apply(done);
+      ended = done;
+    });
+    return ended;
   }
 }
 

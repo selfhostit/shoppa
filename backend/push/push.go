@@ -11,9 +11,11 @@ package push
 import (
 	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 	"time"
 
@@ -86,14 +88,17 @@ func loadKeys(app core.App) (*keyPair, error) {
 }
 
 // contact goes in every message so push services know whom to reach about
-// problems: SHOPPA_PUSH_CONTACT if set, otherwise the owner's email.
+// problems: SHOPPA_PUSH_CONTACT if set, otherwise the owner's email. It is an
+// email address or an https URL, as webpush-go wants it: the library adds
+// "mailto:" to an email itself, and Apple's push service refuses a message
+// whose contact reads "mailto:mailto:…", so iPhones would get nothing.
 func contact(app core.App) string {
-	if c := os.Getenv("SHOPPA_PUSH_CONTACT"); c != "" {
-		return c
+	if c := strings.TrimSpace(os.Getenv("SHOPPA_PUSH_CONTACT")); c != "" {
+		return strings.TrimPrefix(c, "mailto:")
 	}
 	owner, err := app.FindFirstRecordByFilter("users", "role = 'owner'")
 	if err == nil && owner.Email() != "" {
-		return "mailto:" + owner.Email()
+		return owner.Email()
 	}
 	return "https://github.com/selfhostit/shoppa"
 }
@@ -109,6 +114,33 @@ func ToUser(app core.App, userID string, msg Message) {
 // (usually whoever caused it); pass "" to include everyone.
 func ToEveryone(app core.App, exceptUserID string, msg Message) {
 	send(app, dbx.Not(dbx.HashExp{"user": exceptUserID}), msg)
+}
+
+// Reachable returns which of these users have at least one device with
+// notifications on, in the order given.
+func Reachable(app core.App, userIDs []string) ([]string, error) {
+	if len(userIDs) == 0 {
+		return nil, nil
+	}
+	ids := make([]any, len(userIDs))
+	for i, id := range userIDs {
+		ids[i] = id
+	}
+	subs, err := app.FindAllRecords(Collection, dbx.In("user", ids...))
+	if err != nil {
+		return nil, err
+	}
+	has := map[string]bool{}
+	for _, s := range subs {
+		has[s.GetString("user")] = true
+	}
+	var reachable []string
+	for _, id := range userIDs {
+		if has[id] {
+			reachable = append(reachable, id)
+		}
+	}
+	return reachable, nil
 }
 
 func send(app core.App, where dbx.Expression, msg Message) {
@@ -149,6 +181,8 @@ func deliver(app core.App, subs []*core.Record, msg Message) {
 			app.Logger().Warn("Push failed", "error", err)
 			continue
 		}
+		// push services say why they refused, as in {"reason":"BadJwtToken"}
+		reason, _ := io.ReadAll(io.LimitReader(res.Body, 512))
 		res.Body.Close()
 		switch {
 		case res.StatusCode == http.StatusNotFound || res.StatusCode == http.StatusGone:
@@ -156,7 +190,7 @@ func deliver(app core.App, subs []*core.Record, msg Message) {
 				app.Logger().Warn("Could not forget a push subscription", "error", err)
 			}
 		case res.StatusCode >= 400:
-			app.Logger().Warn("Push rejected", "status", res.StatusCode)
+			app.Logger().Warn("Push rejected", "status", res.StatusCode, "reason", strings.TrimSpace(string(reason)))
 		}
 	}
 }
