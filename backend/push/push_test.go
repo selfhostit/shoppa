@@ -4,6 +4,7 @@ import (
 	"crypto/ecdh"
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -222,5 +223,59 @@ func TestRoutes(t *testing.T) {
 			return a
 		}
 		s.Test(t)
+	}
+}
+
+// The contact in each message must read "mailto:owner@example.com" or an https
+// URL: Apple's push service refuses anything else, so iPhones get nothing.
+func TestContact(t *testing.T) {
+	a := newApp(t)
+	defer a.Cleanup()
+	owner, _ := addUser(t, a, "owner@example.com")
+	owner.Set("role", "owner")
+	if err := a.Save(owner); err != nil {
+		t.Fatal(err)
+	}
+
+	hits := make(chan *http.Request, 1)
+	service := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		hits <- r
+		w.WriteHeader(http.StatusCreated)
+	}))
+	defer service.Close()
+	subscribe(t, a, owner, service.URL+"/owner")
+
+	// the "sub" claim of the VAPID token: Authorization: vapid t=<jwt>, k=<key>
+	sub := func() string {
+		push.ToUser(a, owner.Id, push.Message{Title: "Hi"})
+		var r *http.Request
+		select {
+		case r = <-hits:
+		case <-time.After(5 * time.Second):
+			t.Fatal("no push was sent")
+		}
+		token, _, _ := strings.Cut(strings.TrimPrefix(r.Header.Get("Authorization"), "vapid t="), ",")
+		parts := strings.Split(token, ".")
+		if len(parts) != 3 {
+			t.Fatalf("Authorization %q", r.Header.Get("Authorization"))
+		}
+		claims, _ := base64.RawURLEncoding.DecodeString(parts[1])
+		var c struct{ Sub string }
+		if err := json.Unmarshal(claims, &c); err != nil {
+			t.Fatal(err)
+		}
+		return c.Sub
+	}
+
+	for _, tc := range []struct{ env, want string }{
+		{"", "mailto:owner@example.com"},
+		{"mailto:ops@example.com", "mailto:ops@example.com"},
+		{"ops@example.com", "mailto:ops@example.com"},
+		{"https://example.com/contact", "https://example.com/contact"},
+	} {
+		t.Setenv("SHOPPA_PUSH_CONTACT", tc.env)
+		if got := sub(); got != tc.want {
+			t.Errorf("SHOPPA_PUSH_CONTACT=%q: sub %q, want %q", tc.env, got, tc.want)
+		}
 	}
 }

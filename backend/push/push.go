@@ -11,9 +11,11 @@ package push
 import (
 	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 	"time"
 
@@ -86,14 +88,17 @@ func loadKeys(app core.App) (*keyPair, error) {
 }
 
 // contact goes in every message so push services know whom to reach about
-// problems: SHOPPA_PUSH_CONTACT if set, otherwise the owner's email.
+// problems: SHOPPA_PUSH_CONTACT if set, otherwise the owner's email. It is an
+// email address or an https URL, as webpush-go wants it: the library adds
+// "mailto:" to an email itself, and Apple's push service refuses a message
+// whose contact reads "mailto:mailto:…", so iPhones would get nothing.
 func contact(app core.App) string {
-	if c := os.Getenv("SHOPPA_PUSH_CONTACT"); c != "" {
-		return c
+	if c := strings.TrimSpace(os.Getenv("SHOPPA_PUSH_CONTACT")); c != "" {
+		return strings.TrimPrefix(c, "mailto:")
 	}
 	owner, err := app.FindFirstRecordByFilter("users", "role = 'owner'")
 	if err == nil && owner.Email() != "" {
-		return "mailto:" + owner.Email()
+		return owner.Email()
 	}
 	return "https://github.com/selfhostit/shoppa"
 }
@@ -149,6 +154,8 @@ func deliver(app core.App, subs []*core.Record, msg Message) {
 			app.Logger().Warn("Push failed", "error", err)
 			continue
 		}
+		// push services say why they refused, as in {"reason":"BadJwtToken"}
+		reason, _ := io.ReadAll(io.LimitReader(res.Body, 512))
 		res.Body.Close()
 		switch {
 		case res.StatusCode == http.StatusNotFound || res.StatusCode == http.StatusGone:
@@ -156,7 +163,7 @@ func deliver(app core.App, subs []*core.Record, msg Message) {
 				app.Logger().Warn("Could not forget a push subscription", "error", err)
 			}
 		case res.StatusCode >= 400:
-			app.Logger().Warn("Push rejected", "status", res.StatusCode)
+			app.Logger().Warn("Push rejected", "status", res.StatusCode, "reason", strings.TrimSpace(string(reason)))
 		}
 	}
 }
