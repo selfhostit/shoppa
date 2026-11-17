@@ -68,9 +68,10 @@ Push notifications and installing the app on a phone need this HTTPS address.
 1. On the setup page, create your own account. The first account is the owner, and
    the same email and password open the admin page at `/_/`. Use a strong password,
    since the admin page is reachable from the internet too.
-2. Add the other person: open `https://shoppa.<name>.synology.me/_/`, go to
-   Collections > **users** > New record, and fill in their email, name and a starting
-   password (twice), with **role** set to `member`. Save.
+2. Add the other person: in Shoppa, open **Me**, tap **People**, and fill in their
+   name and email. Shoppa makes a password for them and shows a message with the
+   address, their email and the password. Send it to them; they can change the
+   password under **Me** after they sign in.
 3. Nobody else can create an account: after the owner, only the owner can add people.
 
 Everyone signed in shares the same lists. A **Groceries** list is there to start with.
