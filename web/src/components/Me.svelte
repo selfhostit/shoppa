@@ -6,6 +6,7 @@
   import { pb } from '../lib/pb';
   import { session } from '../lib/session.svelte';
   import { theme, type Theme } from '../lib/theme.svelte';
+  import Account from './Account.svelte';
   import Notifications from './Notifications.svelte';
   import ProductData from './ProductData.svelte';
   import Spending from './Spending.svelte';
@@ -76,12 +77,7 @@
 
 <ProductData />
 
-<section class="card text-sm text-zinc-600 dark:text-zinc-400">
-  {t('me.signedin', { email: user.email })}{session.isOwner ? ` ${t('me.owner')}` : ''}.
-  {#if session.isOwner}
-    <a class="text-brand-600 underline dark:text-brand-400" href="/_/">{t('me.admin')}</a>
-  {/if}
-</section>
+<Account />
 
 <div class="mt-auto flex flex-col gap-1 text-center text-xs text-zinc-400">
   {#await version then v}
