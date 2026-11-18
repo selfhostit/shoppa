@@ -6,6 +6,11 @@
 
 **A shared shopping list for your household, on your own hardware.**
 
+[![CI](https://github.com/selfhostit/shoppa/actions/workflows/ci.yml/badge.svg)](https://github.com/selfhostit/shoppa/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/selfhostit/shoppa)](https://github.com/selfhostit/shoppa/releases/latest)
+[![License: MIT](https://img.shields.io/github/license/selfhostit/shoppa)](LICENSE)
+[![Image](https://img.shields.io/badge/image-ghcr.io%2Fselfhostit%2Fshoppa-2496ED?logo=docker&logoColor=white)](https://github.com/orgs/selfhostit/packages/container/package/shoppa)
+
 </div>
 
 Shoppa is a self-hosted shopping list, like Bring!, made for Belgium. Add "melk" and
