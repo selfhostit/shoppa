@@ -95,6 +95,8 @@ jobs:
           tags: shoppa:smoke
           build-args: VERSION=${{ env.VERSION }}
           cache-from: type=gha,scope=app
+          # Run the runtime stage fresh, so each release takes Alpine's latest security fixes.
+          no-cache-filters: runtime
           cache-to: ${{ github.event_name == 'pull_request' && 'type=gha,mode=max,scope=app' || '' }}
       - name: Build the worker for the smoke test
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7
@@ -103,6 +105,8 @@ jobs:
           load: true
           tags: shoppa-worker:smoke
           cache-from: type=gha,scope=worker
+          # Run the runtime stage fresh, so each release takes Debian's latest security fixes.
+          no-cache-filters: runtime
           cache-to: ${{ github.event_name == 'pull_request' && 'type=gha,mode=max,scope=worker' || '' }}
       - name: Smoke test
         run: |
