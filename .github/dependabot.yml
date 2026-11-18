@@ -17,6 +17,8 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: monthly }
+    groups:
+      actions: { patterns: ['*'] }
   - package-ecosystem: docker
     directories: [/, /workers]
     schedule: { interval: monthly }
