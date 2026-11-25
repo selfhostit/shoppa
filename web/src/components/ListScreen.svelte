@@ -20,6 +20,7 @@
   import ItemRow from './ItemRow.svelte';
   import ItemSheet from './ItemSheet.svelte';
   import TripBar from './TripBar.svelte';
+  import SectionHeading from './SectionHeading.svelte';
   import SectionSheet from './SectionSheet.svelte';
   import Thumb from './Thumb.svelte';
   import ListPicker from './ListPicker.svelte';
@@ -34,13 +35,18 @@
   // the section whose icon is being picked; null for Other
   let iconFor = $state<{ section: Section | undefined } | null>(null);
   let input: HTMLInputElement;
+  const pickIcon = (section: Section | undefined) => (iconFor = { section });
 
   const open = $derived(toBuy(items.items));
   const trip = $derived(trips.current);
-  const groups = $derived(bySection(open, catalogue.kindSections, (i) => choices.sectionOf(i)));
+  // both the list and what was bought are grouped by section, in aisle order
+  const inSections = (list: Item[]) =>
+    bySection(list, catalogue.kindSections, (i) => choices.sectionOf(i));
+  const groups = $derived(inSections(open));
   // products, barcodes and usual brands are for groceries
   const groceries = $derived(household.kind === GROCERIES);
   const recent = $derived(recentlyBought(items.items));
+  const recentGroups = $derived(inSections(recent));
   // "milk, bread, eggs" or a pasted list is several items
   const entries = $derived(splitEntries(text));
   const many = $derived(entries.length > 1);
@@ -274,20 +280,8 @@
 {/if}
 
 {#each groups as group (group.section?.key ?? 'other')}
-  {@const label = sectionLabel(group.section, catalogue.lang) || t('list.other')}
   <section>
-    <h2 class="mb-1.5 px-1">
-      <!-- a tap picks another icon for the section -->
-      <button
-        class="-mx-1 flex items-center gap-1.5 rounded-lg px-1 py-0.5 text-xs font-semibold tracking-wide text-zinc-500 uppercase hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-900"
-        onclick={() => (iconFor = { section: group.section })}
-        aria-label={t('section.change', { name: label })}
-      >
-        <Glyph icon={choices.sectionIcon(group.section)} class="size-4 text-sm" />
-        <!-- in its own language, so Greek capitals lose their accents -->
-        <span lang={group.section ? catalogue.lang : 'en'}>{label}</span>
-      </button>
-    </h2>
+    <SectionHeading section={group.section} onpick={pickIcon} />
     <ul class="card divide-y divide-zinc-100 p-0 dark:divide-zinc-800">
       {#each group.items as item (item.id)}
         <ItemRow {item} onedit={() => (editing = item)} {trip} />
@@ -316,16 +310,26 @@
   <section class="mt-2">
     <h2 class="font-semibold">{t('list.recent')}</h2>
     <p class="mb-3 text-sm text-zinc-500 dark:text-zinc-400">{t('list.recent.hint')}</p>
-    <ul class="flex flex-wrap gap-2">
-      {#each recent as item (item.id)}
-        <li>
-          <button class="chip" onclick={() => items.putBack(item)}>
-            <Glyph icon={choices.iconOf(item)} class="size-4 text-brand-700 dark:text-brand-400" />
-            {catalogue.nameOf(item)}</button
-          >
-        </li>
+    <div class="flex flex-col gap-3">
+      {#each recentGroups as group (group.section?.key ?? 'other')}
+        <div>
+          <SectionHeading section={group.section} onpick={pickIcon} />
+          <ul class="flex flex-wrap gap-2">
+            {#each group.items as item (item.id)}
+              <li>
+                <button class="chip" onclick={() => items.putBack(item)}>
+                  <Glyph
+                    icon={choices.iconOf(item)}
+                    class="size-4 text-brand-700 dark:text-brand-400"
+                  />
+                  {catalogue.nameOf(item)}</button
+                >
+              </li>
+            {/each}
+          </ul>
+        </div>
       {/each}
-    </ul>
+    </div>
   </section>
 {/if}
 
